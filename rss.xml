@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://iosbb.com/"/>
-  <updated>2020-07-23T13:15:59.479Z</updated>
+  <updated>2020-07-23T14:09:36.340Z</updated>
   <id>https://iosbb.com/</id>
   
   <author>
@@ -15,6 +15,129 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>北京联通EPON光模块及ROS-PPPoE拨号上网配置</title>
+    <link href="https://iosbb.com/2019/10/29/ros-peking-epon-pppoe-stick/"/>
+    <id>https://iosbb.com/2019/10/29/ros-peking-epon-pppoe-stick/</id>
+    <published>2019-10-29T13:55:36.000Z</published>
+    <updated>2020-07-23T14:09:36.340Z</updated>
+    
+    <content type="html"><![CDATA[<p>作者使用北京联通宽带，感觉这光猫用起来很是不爽，不知道有没有方法把光猫和路由器集成到一起，替换怎么看都不顺眼的光猫。直到后来再群里发现PON自适应模块，现在网已调通，下面记录环境和操作过程。</p><h2 id="下面是设备及环境信息："><a href="#下面是设备及环境信息：" class="headerlink" title="下面是设备及环境信息："></a>下面是设备及环境信息：</h2><p>1，光缆是SC接口入户。<br>2，宽带是EPON模式，且使用MAC认证。<br>3，光猫是烽火HG2201U。<br>4，路由器是RB962，有一个SFP接口。<br>5，没有电视和电话，文档中不含SIP和IPTV配置。<br>6，需要一台电脑，并用网线连接到RB962的空闲接口（ether-3）。</p><h2 id="具体操作如下："><a href="#具体操作如下：" class="headerlink" title="具体操作如下："></a>具体操作如下：</h2><p>1，登陆光猫，查看配置信息，并记录。这里只要能登陆光猫看到具体VLAN配置即可，无需超级管理员帐号。普通用户密码见光猫底部。<br>设备信息中需记录SN和MAC。<br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS1.png" alt="102919_0816_EPONROS1.png"><br>网络侧信息需记录WAN连接信息中的VLAN-ID。下列信息只需记录ppp0.2子接口的信息，VLAN-ID是3961。<br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS2.png" alt="102919_0816_EPONROS2.png"><br>2，将模块插入RB962。<br>3，创建bridge，名称sfp-stick，并将ether-3和spf1接口加入到该桥。<br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS3.png" alt="102919_0816_EPONROS3.png"><br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS4.png" alt="102919_0816_EPONROS4.png"><br>4，配置电脑网卡的地址为192.168.1.22/24，并手动更改模块的IP地址。（可选）<br>默认用户名admin，密码system<br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS5.png" alt="102919_0816_EPONROS5.png"><br>点击应用后，模块会自动重启，稍等片刻后使用新IP配置。<br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS6.png" alt="102919_0816_EPONROS6.png"><br>5，插入光缆，模块识别到是EPON模式便会自动重启，识别到EPON模式后才可进入下一步配置。<br>6，重启后，再系统管理-&gt;EPON设定里设置LOID为上文记录到的MAC，LOID密码000000，并在下面LLID MAC mapping Table的所有MAC也设为上文记录到的MAC。<br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS7.png" alt="102919_0816_EPONROS7.png"><br>7，回到PON状态中查看，EPON LLID Status中是否index0的状态为1，是说明认证通过，可以进行下一步配置。<br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS8.png" alt="102919_0816_EPONROS8.png"><br>8，删除第3步配置的网桥sfp-stick，并删除已经加入该桥的接口，二者都要删除，否则无法拨号。<br>9，在spf1接口上创建VLAN，ID3961。<br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS9.png" alt="102919_0816_EPONROS9.png"><br>添加完后如下图<br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS10.png" alt="102919_0816_EPONROS10.png"><br>10，创建pppoe连接，注意接口要选择sfp接口下的3961 VLAN，并勾选Add Default Route。<br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS11.png" alt="102919_0816_EPONROS11.png"><br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS12.png" alt="102919_0816_EPONROS12.png"><br>11，添加后PPPoE Scan观察是否可以扫描到联通设备，如果能说明配置正确。<br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS13.png" alt="102919_0816_EPONROS13.png"><br>12，日志中出现connected，连接成功，配置完成。<br><img src="/2019/10/29/ros-peking-epon-pppoe-stick/102919_0816_EPONROS14.png" alt="102919_0816_EPONROS14.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;作者使用北京联通宽带，感觉这光猫用起来很是不爽，不知道有没有方法把光猫和路由器集成到一起，替换怎么看都不顺眼的光猫。直到后来再群里发现PON自适应模块，现在网已调通，下面记录环境和操作过程。&lt;/p&gt;
+&lt;h2 id=&quot;下面是设备及环境信息：&quot;&gt;&lt;a href=&quot;#下面是设备及
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ChinaUnicom" scheme="https://iosbb.com/categories/Network/ChinaUnicom/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
+    
+      <category term="ChinaUnicom" scheme="https://iosbb.com/tags/ChinaUnicom/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS 6.45无线配置</title>
+    <link href="https://iosbb.com/2019/10/21/ros-6-45-wireless/"/>
+    <id>https://iosbb.com/2019/10/21/ros-6-45-wireless/</id>
+    <published>2019-10-21T13:39:27.000Z</published>
+    <updated>2020-07-23T13:54:53.302Z</updated>
+    
+    <content type="html"><![CDATA[<p>新买了一台RB962，从网上并没找到适合该版本的无线配置资料，经自行研究及咨询代理商售后得此文。<br>RB962共有千兆电口5个，SFP口一个，USB接口一个，详细规划如下，如无说明掩码均是/24：<br>eth1口IP10.0.1.1<br>eth2口IP10.0.2.1<br>eth3口空闲<br>eth4口空闲<br>eth5口通过DHCP自动获取地址<br>SFP口空闲<br>具体操作方式如下：<br>1，登录RB962，并给eth1口配置IP10.0.1.1。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS6451.png" alt="102119_1218_ROS6451.png"><br>2，eth2口配置IP10.0.2.1，不再重复截图。配置完成后如下图：<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS6452.png" alt="102119_1218_ROS6452.png"><br>3，配置eth5口通过DHCP获取地址。注意，Interface选择eth5，并选择Add Default Route为yes，添加默认路由。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS6453.png" alt="102119_1218_ROS6453.png"><br>4，配置NAT。这里配置Src Address作为地址转换的源地址。分别增加10.0.1.0和10.0.2.0两条地址转换规则。Action选择masquerade。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS6454.png" alt="102119_1218_ROS6454.png"><br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS6455.png" alt="102119_1218_ROS6455.png"><br>5，配置DHCP，每个网段中分配出2-254的地址，1保留。先创建地址池。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS6456.png" alt="102119_1218_ROS6456.png"><br>再配置DHCP。这里选择Interface为eth1，稍后做桥接时会修改。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS6457.png" alt="102119_1218_ROS6457.png"><br>配置完成后如下图，因eth1口没插网线，显示为红色。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS6458.png" alt="102119_1218_ROS6458.png"><br>配置DHCP其它选项。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS6459.png" alt="102119_1218_ROS6459.png"><br>6，开启DNS查询。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS64510.png" alt="102119_1218_ROS64510.png"><br>到此为止，接口地址和地址转换已经配置完成，下面开始进行无线配置。<br>7，启用无线网卡。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS64511.png" alt="102119_1218_ROS64511.png"><br>8，创建安全配置文件，此文件用预设值无线密码。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS64512.png" alt="102119_1218_ROS64512.png"><br>9，修改无线模式为ap bridge，配置SSID，并引用安全配置文件。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS64513.png" alt="102119_1218_ROS64513.png"><br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS64514.png" alt="102119_1218_ROS64514.png"><br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS64515.png" alt="102119_1218_ROS64515.png"><br>修改完后即可看到这个SSID。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS64516.png" alt="102119_1218_ROS64516.png"><br>到此为止，无线网已经配置完毕，下面配置桥接。<br>10，创建桥接，并加入eth1和两个无线口。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS64517.png" alt="102119_1218_ROS64517.png"><br>下图是添加接口到网桥。注意这里要先增加eth1口。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS64518.png" alt="102119_1218_ROS64518.png"><br>11，修改dhcp配置，将指向eth1口的dhcp-server改为该网桥。此时可看到提示，dhcp服务不能运行在slave接口。此时网络会中断数秒。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS64519.png" alt="102119_1218_ROS64519.png"><br>12，连接无线，检查是否获取到10.0.1.0网段的IP，能否上网。<br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS64520.png" alt="102119_1218_ROS64520.png"><br><img src="/2019/10/21/ros-6-45-wireless/102119_1218_ROS64521.png" alt="102119_1218_ROS64521.png"><br>到此全部配置结束。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;新买了一台RB962，从网上并没找到适合该版本的无线配置资料，经自行研究及咨询代理商售后得此文。&lt;br&gt;RB962共有千兆电口5个，SFP口一个，USB接口一个，详细规划如下，如无说明掩码均是/24：&lt;br&gt;eth1口IP10.0.1.1&lt;br&gt;eth2口IP10.0.2.
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/categories/Network/ROS/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>windows下更换清华大学pip源</title>
+    <link href="https://iosbb.com/2019/10/17/windows-tsinghua-pip/"/>
+    <id>https://iosbb.com/2019/10/17/windows-tsinghua-pip/</id>
+    <published>2019-10-17T13:33:46.000Z</published>
+    <updated>2020-07-23T13:35:48.553Z</updated>
+    
+    <content type="html"><![CDATA[<p>开发环境是win10，使用python默认源，速度在每秒十几K，更换pip源到清华大学源。<br>1，打开资源管理器，进入<code>%appdata%</code>。<br>2，创建pip目录，并在目录中创建pip.ini文件<br>3，将下列pip源配置输入pip.ini，并保存。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">timeout &#x3D; 6000</span><br><span class="line">index-url &#x3D; https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple</span><br><span class="line">trusted-host &#x3D; pypi.tuna.tsinghua.edu.cn</span><br></pre></td></tr></table></figure><p>4，重新进行pip install。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;开发环境是win10，使用python默认源，速度在每秒十几K，更换pip源到清华大学源。&lt;br&gt;1，打开资源管理器，进入&lt;code&gt;%appdata%&lt;/code&gt;。&lt;br&gt;2，创建pip目录，并在目录中创建pip.ini文件&lt;br&gt;3，将下列pip源配置输入pip.in
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="Python" scheme="https://iosbb.com/categories/Server/Python/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="Python" scheme="https://iosbb.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS 出口多IP</title>
+    <link href="https://iosbb.com/2019/10/16/ros-ip-src-nat/"/>
+    <id>https://iosbb.com/2019/10/16/ros-ip-src-nat/</id>
+    <published>2019-10-16T13:25:20.000Z</published>
+    <updated>2020-07-23T13:31:33.033Z</updated>
+    
+    <content type="html"><![CDATA[<p>文档适合有多个出口ip的环境使用。<br>环境介绍：<br>出口设备是RB450G，系统版本6.45.2，ether5是上联口，DHCP方式自动获取IP，另有10.13.1.252可用。内网是10.0.1.0/24。<br>内网中有CentOS服务器，IP是10.0.1.253。<br>现需要将10.13.1.252做nat到10.0.1.253。<br>1，ip-&gt;address中给ether5接口增加10.13.1.252/24<br><img src="/2019/10/16/ros-ip-src-nat/101619_0230_ROSIP1.png" alt="101619_0230_ROSIP1.png"><br><img src="/2019/10/16/ros-ip-src-nat/101619_0230_ROSIP2.png" alt="101619_0230_ROSIP2.png"><br>2，建立NAT规则，ip-firewall-nat，General选项卡里应选择ds-nat，Dst.Address设为10.13.1.252，此地址是要被访问的外网地址。<br><img src="/2019/10/16/ros-ip-src-nat/101619_0230_ROSIP3.png" alt="101619_0230_ROSIP3.png"><br>Action标签中Action选择dst-nat，To address是内网的地址，10.0.1.253。<br><img src="/2019/10/16/ros-ip-src-nat/101619_0230_ROSIP4.png" alt="101619_0230_ROSIP4.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;文档适合有多个出口ip的环境使用。&lt;br&gt;环境介绍：&lt;br&gt;出口设备是RB450G，系统版本6.45.2，ether5是上联口，DHCP方式自动获取IP，另有10.13.1.252可用。内网是10.0.1.0/24。&lt;br&gt;内网中有CentOS服务器，IP是10.0.1.2
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/categories/Network/ROS/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
+    
+  </entry>
   
   <entry>
     <title>MySQL配置SSL连接</title>
