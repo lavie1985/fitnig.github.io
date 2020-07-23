@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://iosbb.com/"/>
-  <updated>2020-07-23T05:17:26.770Z</updated>
+  <updated>2020-07-23T13:15:59.479Z</updated>
   <id>https://iosbb.com/</id>
   
   <author>
@@ -15,6 +15,220 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MySQL配置SSL连接</title>
+    <link href="https://iosbb.com/2019/10/10/mysql-ssl/"/>
+    <id>https://iosbb.com/2019/10/10/mysql-ssl/</id>
+    <published>2019-10-10T13:11:39.000Z</published>
+    <updated>2020-07-23T13:15:59.479Z</updated>
+    
+    <content type="html"><![CDATA[<p>1，服务器上安装了MySQL但并未初始化，需切换到安装目录下执行下面的程序来生成ssl-key，数据目录中的pem文件即各种证书。如下图：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;mysql_ssl_rsa_setup</span><br></pre></td></tr></table></figure><p>2，服务器上的MySQL服务器已经初始化并在运行中，需先关闭mysql服务，再执行mysql_ssl_rsa_setup来生成证书。不能在运行时生成证书，配置完成后再重启服务，那样会导致ssl配置不生效。<br><img src="/2019/10/10/mysql-ssl/101019_0833_MySQLSSL1.png" alt="101019_0833_MySQLSSL1.png"><br>3，修改MySQL配置文件my.cnf，在[mysqld]段增加下列内容来指定服务器端证书。这里被文献误导，如不在此配置，只生成证书的话，MySQL并不会使用这些证书。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssl-ca&#x3D;&#x2F;data&#x2F;mysql&#x2F;ca.pem</span><br><span class="line">ssl-cert&#x3D;&#x2F;data&#x2F;mysql&#x2F;server-cert.pem</span><br><span class="line">ssl-key&#x3D;&#x2F;data&#x2F;mysql&#x2F;server-key.pem</span><br></pre></td></tr></table></figure><p>4，启动MySQL。并查看SSL连接状态。<code>show variables like ‘%ssl%’;</code><br><img src="/2019/10/10/mysql-ssl/101019_0833_MySQLSSL2.png" alt="101019_0833_MySQLSSL2.png"><br>5，客户端连接时使用<code>ca.pem/client-cert.pem/client-key.pem</code>作为自己的客户端证书。<br>6，配置某用户必须使用ssl连接，修改后如不使用ssl则连接失败。<br>6.1，新用户<code>grant select on *.* to ‘root’@’%’ identified by ‘password’ REQUIRE SSL;</code><br>6.2，修改已有用户<code>ALTER USER ‘root’@’%’ REQUIRE SSL;</code></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;1，服务器上安装了MySQL但并未初始化，需切换到安装目录下执行下面的程序来生成ssl-key，数据目录中的pem文件即各种证书。如下图：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="MySQL" scheme="https://iosbb.com/categories/Server/MySQL/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="MySQL" scheme="https://iosbb.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS配置OSPF及静态路由重分布实验</title>
+    <link href="https://iosbb.com/2019/07/14/ros-ospf-static-redistribute/"/>
+    <id>https://iosbb.com/2019/07/14/ros-ospf-static-redistribute/</id>
+    <published>2019-07-14T12:55:05.000Z</published>
+    <updated>2020-07-23T13:10:35.160Z</updated>
+    
+    <content type="html"><![CDATA[<p>实验目的：<br>1，两台ROS之间启用OSPF协议，宣告自身网段。<br>2，重分布静态路由到OSPF中。<br>下面是拓扑图：<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF1.jpg" alt="071419_0526_ROSOSPF1.jpg"><br>如图所见，有ROS1和ROS2两台路由器，均使用ether1接口互联，ROS1的IP地址是10.0.0.1，ROS2的地址是10.0.0.2。<br>均使用ether2连接PC，ROS1的地址是10.1.1.1，ROS2的地址是10.2.2.1。<br>连接ROS1的PC的IP是10.1.1.2，连接ROS2的PC的IP是10.2.2.2。<br>出口在ROS1的ether3接口，该接口IP是172.16.1.100，下一跳是172.16.1.1。<br>上述各网段均使用24位掩码。<br>两台路由器均使用vif1作为loopback，ROS1的loopback地址是192.168.1.1，ROS2的loopback地址是192.168.1.2。<br>上述loopback地址作为管理地址和router-id使用，掩码都是32位。<br>1，给ROS接口配置地址。当前只给物理接口配置了IP，虚接口还未创建。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF2.png" alt="071419_0526_ROSOSPF2.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF3.png" alt="071419_0526_ROSOSPF3.png"><br>2，在ROS1上创建vif1接口。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF4.png" alt="071419_0526_ROSOSPF4.png"><br>选择interface-&gt;virtual ethernet选项。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF5.png" alt="071419_0526_ROSOSPF5.png"><br>设置name为vif1，点击OK。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF6.png" alt="071419_0526_ROSOSPF6.png"><br>虚接口配置完成。<br>3，给ROS1的vif1接口配置IP192.168.1.1/32<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF7.png" alt="071419_0526_ROSOSPF7.png"><br>选择ip–&gt;addresses选项<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF8.png" alt="071419_0526_ROSOSPF8.png"><br>点击+，在Address中设置ip，interface选择虚接口vif1，点击OK。<br>4，ROS2照此配置。<br>5，在ROS1上配置OSPF实例。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF9.png" alt="071419_0526_ROSOSPF9.png"><br>选择routing-&gt;ospf<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF10.png" alt="071419_0526_ROSOSPF10.png"></p><p><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF11.png" alt="071419_0526_ROSOSPF11.png"><br>instances标签中，配置默认存在的default实例，router-id设为192.168.1.1。默认area-id是0，不做配置。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF12.png" alt="071419_0526_ROSOSPF12.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF13.png" alt="071419_0526_ROSOSPF13.png"><br>networks标签中，点击加号增加路由器上有所拥有的网段进行宣告。注意这里不要增加172.16.1.0/24，这个网段是静态路由重分布网段，不参与OSPF路由。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF14.png" alt="071419_0526_ROSOSPF14.png"><br>回到interfaces标签，即可看到已进行OSPF宣告的网段所在的接口。如果没有，请检查接口IP和OSPF宣告是否正确。<br>6，在ROS2上配置OSPF实例。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF15.png" alt="071419_0526_ROSOSPF15.png"><br>选择routing-&gt;ospf<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF16.png" alt="071419_0526_ROSOSPF16.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF17.png" alt="071419_0526_ROSOSPF17.png"><br>instances标签中，配置默认存在的default实例，router-id设为192.168.1.2。默认area-id是0，不做配置。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF18.png" alt="071419_0526_ROSOSPF18.png"><br>networks标签中，点击加号增加路由器上有所拥有的网段进行宣告。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF19.png" alt="071419_0526_ROSOSPF19.png"><br>回到interfaces标签，即可看到已进行OSPF宣告的网段所在的接口。如果没有，请检查接口IP和OSPF宣告是否正确。<br>7，宣告网段后即可在neighbors标签中看到邻居。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF20.png" alt="071419_0526_ROSOSPF20.png"><br>8，配置两台PC，并接入到对应ROS的ether2接口。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF21.png" alt="071419_0526_ROSOSPF21.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF22.png" alt="071419_0526_ROSOSPF22.png"><br>9，此时互ping是通的，但到公网不通。提示目标网络不可达，因为上面配置ospf时只进行了网络宣告，并未配置路由重分布。看路由表只有已宣告网段，没有默认路由或去往其它网段的信息。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF23.png" alt="071419_0526_ROSOSPF23.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF24.png" alt="071419_0526_ROSOSPF24.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF25.png" alt="071419_0526_ROSOSPF25.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF26.png" alt="071419_0526_ROSOSPF26.png"><br>10，在ROS1增加默认路由。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF27.png" alt="071419_0526_ROSOSPF27.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF28.png" alt="071419_0526_ROSOSPF28.png"><br>11，ROS1的OSPF实例配置，将重分布默认路由，重分布静态路由，重分布其它OSPF路由选项设置为as type1。再看ROS2的路由表，已经出现默认路由，下一跳是10.0.0.1。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF29.png" alt="071419_0526_ROSOSPF29.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF30.png" alt="071419_0526_ROSOSPF30.png"><br>12，PC2已经能访问公网，traceroute看到数据包经过了ROS1。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF31.png" alt="071419_0526_ROSOSPF31.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;实验目的：&lt;br&gt;1，两台ROS之间启用OSPF协议，宣告自身网段。&lt;br&gt;2，重分布静态路由到OSPF中。&lt;br&gt;下面是拓扑图：&lt;br&gt;&lt;img src=&quot;/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOS
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/categories/Network/ROS/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS下rabbitmq安装及cluster集群配置</title>
+    <link href="https://iosbb.com/2019/06/04/centos-rabbitmq-install-cluster/"/>
+    <id>https://iosbb.com/2019/06/04/centos-rabbitmq-install-cluster/</id>
+    <published>2019-06-04T06:47:28.000Z</published>
+    <updated>2020-07-23T07:05:54.563Z</updated>
+    
+    <content type="html"><![CDATA[<p>rabbitmq依赖erlang，本文rabbitmq3.7.15，依赖erlang20.3以上版本。由于这两个软件彼此对版本要求较高，提供这两个包的下载。<br>1，安装erlang和socat，这两个都是依赖。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh erlang-21.2.2-1.el6.x86_64.rpm</span><br><span class="line">yum install socat -y</span><br></pre></td></tr></table></figure><p>2，安装rabbitmq。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh rabbitmq-server-3.7.15-1.el6.noarch.rpm</span><br></pre></td></tr></table></figure><p>3，初始化rabbitmq。下面两条命令分别是启用web管理插件和stomp插件。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line">rabbitmq-plugins enable rabbitmq_stomp</span><br></pre></td></tr></table></figure><p>4，启动rabbitmq及创建用户。后面两条命令分别是创建用户root，并给与administrator权限。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-server -detached</span><br><span class="line">rabbitmqctl add_user root 123456</span><br><span class="line">rabbitmqctl set_user_tags root administrator</span><br></pre></td></tr></table></figure><p>至此，rabbitmq安装结束，当输入IP:15672并登录能看到下面页面说明安装配置没有问题。接下来即可配置cluster。集群中有AB两台服务器，A主B从。<br><img src="/2019/06/04/centos-rabbitmq-install-cluster/060419_1349_CentOSrabbi1.png" alt="060419_1349_CentOSrabbi1.png"><br>5，在A上查看cluster name。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl cluster_status</span><br></pre></td></tr></table></figure><p><img src="/2019/06/04/centos-rabbitmq-install-cluster/060419_1349_CentOSrabbi2.png" alt="060419_1349_CentOSrabbi2.png"><br>6，在B上加入cluster</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl stop_app</span><br><span class="line">rabbitmqctl join_cluster rabbit@app-18-101</span><br><span class="line">rabbitmqctl start_app</span><br></pre></td></tr></table></figure><p>7，此时如果在A上看到nodes中看到B的机器名，则集群启动完毕。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl cluster_status</span><br></pre></td></tr></table></figure><p><img src="/2019/06/04/centos-rabbitmq-install-cluster/060419_1349_CentOSrabbi3.png" alt="060419_1349_CentOSrabbi3.png"><br>在web管理页面中也能看到节点信息。<br><img src="/2019/06/04/centos-rabbitmq-install-cluster/060419_1349_CentOSrabbi4.png" alt="060419_1349_CentOSrabbi4.png"></p><p>附，下载地址：<br><a href="/downloads/erlang-21.2.2-1.el6_.x86_64.zip">erlang-21.2.2-1.el6_.x86_64.zip</a><br><a href="/downloads/erlang-21.2.2-1.el7_.centos.x86_64.zip">erlang-21.2.2-1.el7_.centos.x86_64.zip</a><br><a href="/downloads/rabbitmq-server-3.7.15-1.el6_.noarch.zip">rabbitmq-server-3.7.15-1.el6_.noarch.zip</a><br><a href="/downloads/rabbitmq-server-3.7.15-1.el7_.noarch.zip">rabbitmq-server-3.7.15-1.el7_.noarch.zip</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;rabbitmq依赖erlang，本文rabbitmq3.7.15，依赖erlang20.3以上版本。由于这两个软件彼此对版本要求较高，提供这两个包的下载。&lt;br&gt;1，安装erlang和socat，这两个都是依赖。&lt;/p&gt;
+&lt;figure class=&quot;highlight 
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="MQ" scheme="https://iosbb.com/categories/Server/MQ/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="MQ" scheme="https://iosbb.com/tags/MQ/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>apache2.4.6升级到2.4.38</title>
+    <link href="https://iosbb.com/2019/04/12/apache2-4-6-update-2-4-38/"/>
+    <id>https://iosbb.com/2019/04/12/apache2-4-6-update-2-4-38/</id>
+    <published>2019-04-12T06:23:44.000Z</published>
+    <updated>2020-07-23T06:34:53.385Z</updated>
+    
+    <content type="html"><![CDATA[<p>文档是全新安装的手册，目前已安装apache2.4.6，可从第5步开始。<br>操作准备：<br>1，查看编译参数：<br>查看build目录中的config.nice文件，这个文件中保存有最近一次的编译参数。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat build&#x2F;config.nice</span><br></pre></td></tr></table></figure><p><img src="/2019/04/12/apache2-4-6-update-2-4-38/041119_1633_apache24621.png" alt="041119_1633_apache24621.png"><br>安装依赖：<br>2，安装apr。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd apr-1.6.2</span><br><span class="line">.&#x2F;configure –prefix&#x3D;&#x2F;TRS&#x2F;apr</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure><p>3，安装apr-util。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install expat-devel -y</span><br><span class="line">cd apr-util-1.6.0</span><br><span class="line">.&#x2F;configure –prefix&#x3D;&#x2F;TRS&#x2F;apr-util –with-apr&#x3D;&#x2F;TRS&#x2F;apr&#x2F;</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure><p>4，安装pcre。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;configure –prefix&#x3D;&#x2F;TRS&#x2F;pcre</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure><p>5，将解压后的apr和apr-util放入解压后的apache目录中的srclib目录。<br><img src="/2019/04/12/apache2-4-6-update-2-4-38/041119_1633_apache24622.png" alt="041119_1633_apache24622.png"><br>6，编译apache。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd httpd-2.4.38</span><br><span class="line">.&#x2F;configure –prefix&#x3D;&#x2F;TRS&#x2F;apache2.4.38 –with-pcre&#x3D;&#x2F;TRS&#x2F;pcre –with-included-apr</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure><p>7，更换/etc/httpd和/TRS/apache2.4.38/conf配置文件，附件configurefiles.tar.gz<br>8，替换配置文件中的路径。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i ‘s&#x2F;2.4.6&#x2F;2.4.38&#x2F;g’ httpd.conf</span><br></pre></td></tr></table></figure><p>9，启动。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;apache2.4.38&#x2F;bin&#x2F;httpd -k restart</span><br></pre></td></tr></table></figure><p><img src="/2019/04/12/apache2-4-6-update-2-4-38/041119_1633_apache24623.png" alt="041119_1633_apache24623.png"></p><p>附：下载地址<br><a href="/downloads/apr-1.6.2.tar.gz">apr-1.6.2.tar.gz</a><br><a href="/downloads/apr-util-1.6.0.tar.gz">apr-util-1.6.0.tar.gz</a><br><a href="/downloads/pcre-8.42.tar.gz">pcre-8.42.tar.gz</a><br><a href="/downloads/httpd-2.4.38.tar.gz">httpd-2.4.38.tar.gz</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;文档是全新安装的手册，目前已安装apache2.4.6，可从第5步开始。&lt;br&gt;操作准备：&lt;br&gt;1，查看编译参数：&lt;br&gt;查看build目录中的config.nice文件，这个文件中保存有最近一次的编译参数。&lt;/p&gt;
+&lt;figure class=&quot;highlight pl
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="Apache" scheme="https://iosbb.com/categories/Server/Apache/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="Apache" scheme="https://iosbb.com/tags/Apache/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ASUS RT-AC55U多链路故障转移配置续华为E160E USB Modem</title>
+    <link href="https://iosbb.com/2019/03/17/asus-rt-ac55u-e160-dual-wan/"/>
+    <id>https://iosbb.com/2019/03/17/asus-rt-ac55u-e160-dual-wan/</id>
+    <published>2019-03-17T06:13:31.000Z</published>
+    <updated>2020-07-23T06:22:14.444Z</updated>
+    
+    <content type="html"><![CDATA[<p>这闹心的鹏博士又坏了，继续用手机做第二WAN接入，转念一想上次用手机做第二WAN的时候发热非常严重，Mates到了烫手的程度，这次还是用华为E160USB网卡吧。它的原理与上次用手机类似，网卡通过USB接口作为路由器的虚接口，在WCDMA网络承载数据流量，因没有Mobile Parenter接口，只能进行数据传输，不能使用网卡的电话短信功能，最终目的还是防止手机过热爆炸。<br>这款网卡已经停产多年，大概记的这些参数：O2订制，支持HSDPA/UMTS/GSM，最大下载速率3.6M，上传速率384K，频率范围850/900/1800/1900/2100MHz。支持外接天线和MicroSD，这两项功能今天用不到，便不再赘述。<br>写了这么多，下面开始写具体操作过程：<br>1，把手机卡放进网卡里，并把网卡连接到路由器的USB2.0接口上。USB3.0接口不知是不是兼容性问题，连接网卡后只能看到供电，路由器识别不到USB Modem。<br>三切卡真方便，nano SIM装上套件就变成了Mini SIM的尺寸。<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U1.jpg" alt="031719_1558_ASUSRTAC55U1.jpg"><br>2，登录到路由器，打开外部网络。<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U2.png" alt="031719_1558_ASUSRTAC55U2.png"><br>3，双线路中选择第二WAN为USB。<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U3.png" alt="031719_1558_ASUSRTAC55U3.png"><br>4，回到互联网连接中，将USB设备修改为USB Modem，APN设置用自动即可，如不能识别则需联系运营商取得这些参数。<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U4.png" alt="031719_1558_ASUSRTAC55U4.png"><br>5，应用，等路由器重启后，E160E会重新搜索网络，当蓝色指示灯常亮后，网络即接通。<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U5.jpg" alt="031719_1558_ASUSRTAC55U5.jpg"><br>到了这里发现个奇怪的问题，用E160E来接入网络，ping qq.com时延迟从200ms-700ms之间抖动，而MateS的延迟始终在20-45之间抖动，即是关闭MateS的4G开关，使其强制工作在WCDMA模式下，抖动也不过29-87之间。<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U6.png" alt="031719_1558_ASUSRTAC55U6.png"><br>MateS 4G下的延迟情况<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U7.png" alt="031719_1558_ASUSRTAC55U7.png"><br>MateS 3G下的延迟情况<br>说来也奇怪，为什么故障总是在晚上或周末发生？</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这闹心的鹏博士又坏了，继续用手机做第二WAN接入，转念一想上次用手机做第二WAN的时候发热非常严重，Mates到了烫手的程度，这次还是用华为E160USB网卡吧。它的原理与上次用手机类似，网卡通过USB接口作为路由器的虚接口，在WCDMA网络承载数据流量，因没有Mobile
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="Asus" scheme="https://iosbb.com/categories/Network/Asus/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="Asus" scheme="https://iosbb.com/tags/Asus/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>比太钱包使用方法及冷钱包存储方案-2</title>
+    <link href="https://iosbb.com/2019/02/21/bither-wallet-2/"/>
+    <id>https://iosbb.com/2019/02/21/bither-wallet-2/</id>
+    <published>2019-02-21T06:00:28.000Z</published>
+    <updated>2020-07-23T06:13:20.795Z</updated>
+    
+    <content type="html"><![CDATA[<p>拖更一个月的我又开始更新了。过完年，恰逢数字货币开始上涨，正好是聊聊钱包的好时候。上文说到比太钱包的冷热模式，这次接上文写冷钱包模式下的发币及公钥监控操作。<br>先从冷钱包模式下发币说起吧：</p><h2 id="冷钱包发币："><a href="#冷钱包发币：" class="headerlink" title="冷钱包发币："></a>冷钱包发币：</h2><p>1，打开钱包，点击发送按钮。<br><img src="/2019/02/21/bither-wallet-2/022119_1611_1.jpg" alt="022119_1611_1.jpg"><br>2，输入收款地址和金额，并点击发送。这里无论是输入比特币金额还是法币金额，钱包会自动换算出另一种货币金额。<br><img src="/2019/02/21/bither-wallet-2/022119_1611_2.jpg" alt="022119_1611_2.jpg"><br>3，输入钱包密码，准备冷钱包签名。<br><img src="/2019/02/21/bither-wallet-2/022119_1611_3.jpg" alt="022119_1611_3.jpg"><br>4，生成未签名的交易信息二维码，需使用装有对应私钥的冷钱包扫描。<br><img src="/2019/02/21/bither-wallet-2/022119_1611_4.jpg" alt="022119_1611_4.jpg"><br>5，打开冷钱包，点击右上角齿轮图标，在后续菜单中选择签名交易选项。<br><img src="/2019/02/21/bither-wallet-2/022119_1611_5.jpg" alt="022119_1611_5.jpg"><br><img src="/2019/02/21/bither-wallet-2/022119_1611_6.jpg" alt="022119_1611_6.jpg"><br><img src="/2019/02/21/bither-wallet-2/022119_1611_7.jpg" alt="022119_1611_7.jpg"><br>6，使用冷钱包扫描第4步生成的二维码，并输入密码，签名交易。<br><img src="/2019/02/21/bither-wallet-2/022119_1611_8.jpg" alt="022119_1611_8.jpg"><br><img src="/2019/02/21/bither-wallet-2/022119_1611_9.jpg" alt="022119_1611_9.jpg"><br>7，输入密码生成签名后的交易信息，用热钱包扫描此二维码广播交易。稍后片刻即可在区块链中看到交易信息。<br><img src="/2019/02/21/bither-wallet-2/022119_1611_10.jpg" alt="022119_1611_10.jpg"><br><img src="/2019/02/21/bither-wallet-2/022119_1611_11.jpg" alt="022119_1611_11.jpg"><br><img src="/2019/02/21/bither-wallet-2/022119_1611_12.png" alt="022119_1611_12.png"><br>至此，发币流程结束。<br>下面以Electrum讲述如何使用公钥监控冷钱包。</p><h2 id="公钥监控冷钱包："><a href="#公钥监控冷钱包：" class="headerlink" title="公钥监控冷钱包："></a>公钥监控冷钱包：</h2><p>1，打开比太钱包，找到账户监控二维码，记录下方的公钥信息。获取监控二维码参考上篇文章<br><img src="/2019/02/21/bither-wallet-2/022119_1611_13.png" alt="022119_1611_13.png"><br>2，在Electrum中创建钱包，选择<code>创建标准钱包-&gt;使用主键</code>。<br><img src="/2019/02/21/bither-wallet-2/022119_1611_14.png" alt="022119_1611_14.png"><br><img src="/2019/02/21/bither-wallet-2/022119_1611_15.png" alt="022119_1611_15.png"><br><img src="/2019/02/21/bither-wallet-2/022119_1611_16.png" alt="022119_1611_16.png"><br>2，输入上文获取到的公钥，并设置密码即可进入钱包。<br><img src="/2019/02/21/bither-wallet-2/022119_1611_17.jpg" alt="022119_1611_17.jpg"><br><img src="/2019/02/21/bither-wallet-2/022119_1611_18.png" alt="022119_1611_18.png"><br>3，注意，只有公钥的钱包只能查看，不能操作，请在转入操作前确认有对应的私钥，否则比特币将会丢失，无法找回。稍后片刻，待同步完毕后即可看到全部交易信息。<br><img src="/2019/02/21/bither-wallet-2/022119_1611_19.png" alt="022119_1611_19.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;拖更一个月的我又开始更新了。过完年，恰逢数字货币开始上涨，正好是聊聊钱包的好时候。上文说到比太钱包的冷热模式，这次接上文写冷钱包模式下的发币及公钥监控操作。&lt;br&gt;先从冷钱包模式下发币说起吧：&lt;/p&gt;
+&lt;h2 id=&quot;冷钱包发币：&quot;&gt;&lt;a href=&quot;#冷钱包发币：&quot; cl
+      
+    
+    </summary>
+    
+    
+      <category term="区块链" scheme="https://iosbb.com/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+      <category term="BTC" scheme="https://iosbb.com/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/BTC/"/>
+    
+    
+      <category term="区块链" scheme="https://iosbb.com/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+      <category term="BTC" scheme="https://iosbb.com/tags/BTC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>比太钱包使用方法及冷钱包存储方案-1</title>
+    <link href="https://iosbb.com/2018/12/26/bither-wallet-1/"/>
+    <id>https://iosbb.com/2018/12/26/bither-wallet-1/</id>
+    <published>2018-12-26T05:18:41.000Z</published>
+    <updated>2020-07-23T05:37:37.139Z</updated>
+    
+    <content type="html"><![CDATA[<p>近期数字货币很是火爆，于是想聊一聊如何安全存储数字货币。就拿BTC来说，拥有私钥就拥有了一切，丢失了私钥也就丢失了一切，那么要如何才能保存自己的私钥安全？今天奇怪的老司机讲述比太钱包的冷热钱包使用方法。<br>首先说数字货币的存储方式：1，存储在交易所；2，在线钱包；3，软件钱包；4，冷钱包；5，硬件钱包。<br>这五种方式安全性依次增加，为什么本文要讲冷钱包呢？因为冷钱包的安全性并不比硬件钱包差多少，而且只需一部不常用的安卓手机即可，拥有成本几乎为零。考虑到苹果手机受苹果公司影响，可能有无法打开钱包的情况发生，建议不要使用苹果手机存储数字资产。<br>那么，现在就开始吧，本文使用模拟器演示比太钱包的使用方法，切记实际用于数字货币存储时请选择安全的手机。<br>注意：本文中生成的种子仅用于测试，作者也不会向其中转入任何资产，各位读者不要拿去使用，如自行拿去使用，一切后果自负。</p><h2 id="热钱包初始化方法："><a href="#热钱包初始化方法：" class="headerlink" title="热钱包初始化方法："></a>热钱包初始化方法：</h2><p>1，连接网络打开比太钱包，会自动进入热钱包模式，不可选择冷钱包模式。点击左下角+生成HD种子。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_1.png" alt="122618_1154_1.png"><br><img src="/2018/12/26/bither-wallet-1/122618_1154_2.png" alt="122618_1154_2.png"><br>2，设置HD钱包密码，这个密码用于保护钱包未授权的使用。建议是十位以上混合油大小写字母数字和特殊符号的密码，本文演示密码是123456。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_3.png" alt="122618_1154_3.png"><br>3，生成种子时请随意晃动手机，触摸屏幕，目的是产生随机数，用于计算密钥。生成结束会显示下面的画面，红框内是当前生成的种子，记录种子之后，点击我已经保管好了HD种子按钮即可进入钱包中。HD账户中看到当前种子生成的地址。<br>种子请使用纸笔抄写，不要使用任何电子设备保存。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_4.png" alt="122618_1154_4.png"><br><img src="/2018/12/26/bither-wallet-1/122618_1154_5.png" alt="122618_1154_5.png"></p><h3 id="热钱包收币方法："><a href="#热钱包收币方法：" class="headerlink" title="热钱包收币方法："></a>热钱包收币方法：</h3><p>1，点击HD账户，查看收款地址或二维码，即可向此地之内发币。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_6.png" alt="122618_1154_6.png"><br><img src="/2018/12/26/bither-wallet-1/122618_1154_7.png" alt="122618_1154_7.png"><br>2，如果地址已被使用或者对当前地址不满意，可在右上角功能菜单中选择生成新地址。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_8.png" alt="122618_1154_8.png"></p><h3 id="热钱包发币方法："><a href="#热钱包发币方法：" class="headerlink" title="热钱包发币方法："></a>热钱包发币方法：</h3><p>1，点击HD账户，选择发送。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_9.png" alt="122618_1154_9.png"><br><img src="/2018/12/26/bither-wallet-1/122618_1154_10.png" alt="122618_1154_10.png"><br>2，在新窗口中填写收币地址和金额，输入密码，点击发送按钮即可发币。这里的密码是上文初始化钱包时设置的密码123456。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_11.png" alt="122618_1154_11.png"></p><h3 id="热钱包恢复方法："><a href="#热钱包恢复方法：" class="headerlink" title="热钱包恢复方法："></a>热钱包恢复方法：</h3><p>假设手机故障或不慎遗失，只需另外准备一部安卓手机，安装比太钱包，便可使用种子恢复HD钱包。当前使用清除存储功能模拟新装软件。<br>1，打开比太钱包，进入高级选项。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_12.png" alt="122618_1154_12.png"><br>2，在导入私钥选项中选择来自HD密语。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_13.png" alt="122618_1154_13.png"><br>3，按正确顺序输入每个单词，每输入一个单词点击确认，直到12个单词全部输入完毕后点击右上角的绿色勾按钮。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_14.png" alt="122618_1154_14.png"><br>4，设置钱包密码，这里的钱包密码功能与初始化设置的钱包密码相同，这里也设置为123456。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_15.png" alt="122618_1154_15.png"><br>5，稍等片刻即可看到恢复的钱包。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_16.png" alt="122618_1154_16.png"></p><h2 id="冷钱包使用方法："><a href="#冷钱包使用方法：" class="headerlink" title="冷钱包使用方法："></a>冷钱包使用方法：</h2><p>使用冷钱包需要至少两部手机，其中一部手机工作在冷钱包模式下用于存储私钥，不插卡关闭wifi和蓝牙，保证私钥不会触网；另一部手机工作在热钱包模式下对冷钱包进行监控。<br>整个发币流程是：热钱包发起交易，生成待签名的交易二维码，冷钱包扫描二维码并输入密码签名交易生成签名后的交易二维码，热钱包扫描此二维码并向网络中广播交易信息。<br>先从创建冷钱包说起，如果软件不是新装，请自行备份私钥后清除数据，否则不能切换为冷钱包模式。</p><h3 id="创建冷钱包及热钱包监控："><a href="#创建冷钱包及热钱包监控：" class="headerlink" title="创建冷钱包及热钱包监控："></a>创建冷钱包及热钱包监控：</h3><p>1，手机打开飞行模式，断开一切无线连接，然后启动软件，选择切换到冷钱包选项，点击确认。一旦被配置为冷钱包模式便不能再切换回热钱包模式，切换需删除数据，请自行备份私钥。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_17.png" alt="122618_1154_17.png"><br>2，操作步骤与热钱包相似，点击左下角加号，选择冷HD账户，点击生成。生成时设置密码，本文演示密码123456。<br>生成种子时请随意晃动手机，触摸屏幕，目的是产生随机数，用于计算密钥。生成结束会显示下面的画面，红框内是当前生成的种子，记录种子之后，点击我已经保管好了HD种子按钮即可进入钱包中。HD账户中看到当前种子生成的地址。<br>种子请使用纸笔抄写，不要使用任何电子设备保存。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_18.png" alt="122618_1154_18.png"><br><img src="/2018/12/26/bither-wallet-1/122618_1154_19.png" alt="122618_1154_19.png"><br><img src="/2018/12/26/bither-wallet-1/122618_1154_20.png" alt="122618_1154_20.png"><br><img src="/2018/12/26/bither-wallet-1/122618_1154_21.png" alt="122618_1154_21.png"><br>3，进入冷钱包后，点击二维码图标，选择HD账户监控二维码，输入密码后即可得到公钥，用于冷钱包监控。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_22.png" alt="122618_1154_22.png"><br><img src="/2018/12/26/bither-wallet-1/122618_1154_23.png" alt="122618_1154_23.png"><br>4，使用热钱包手机在设置中选择监控冷HD账户，并扫描上面二维码。此时会显示冷钱包中的第一个地址，如果一致，点击确认即可在钱包中看到冷HD账户。<br><img src="/2018/12/26/bither-wallet-1/122618_1154_24.png" alt="122618_1154_24.png"><br><img src="/2018/12/26/bither-wallet-1/122618_1154_25.png" alt="122618_1154_25.png"><br>限于篇幅，如何使用比太钱包就先告一段落了，下篇文章将演示如何使用冷钱包进行收发币的操作。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;近期数字货币很是火爆，于是想聊一聊如何安全存储数字货币。就拿BTC来说，拥有私钥就拥有了一切，丢失了私钥也就丢失了一切，那么要如何才能保存自己的私钥安全？今天奇怪的老司机讲述比太钱包的冷热钱包使用方法。&lt;br&gt;首先说数字货币的存储方式：1，存储在交易所；2，在线钱包；3，软
+      
+    
+    </summary>
+    
+    
+      <category term="区块链" scheme="https://iosbb.com/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+      <category term="BTC" scheme="https://iosbb.com/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/BTC/"/>
+    
+    
+      <category term="区块链" scheme="https://iosbb.com/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+      <category term="BTC" scheme="https://iosbb.com/tags/BTC/"/>
+    
+  </entry>
   
   <entry>
     <title>Nexus OSS配置hosted类型yum仓库</title>
