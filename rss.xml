@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>垃圾网管的笔记</title>
+  
+  
+  <link href="/rss.xml" rel="self"/>
+  
+  <link href="https://iosbb.com/"/>
+  <updated>2020-07-22T15:11:53.253Z</updated>
+  <id>https://iosbb.com/</id>
+  
+  <author>
+    <name>垃圾网管</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>wordpress更换域名</title>
+    <link href="https://iosbb.com/2018/04/27/wordpress-domain-change/"/>
+    <id>https://iosbb.com/2018/04/27/wordpress-domain-change/</id>
+    <published>2018-04-27T15:05:10.000Z</published>
+    <updated>2020-07-22T15:11:53.253Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近搬出墙外，现在记录下整个更换域名的过程。<br>1，申请新域名的ssl证书并上传到服务器。<br>2，修改nginx配置文件，并重启nginx。<br><img src="/2018/04/27/wordpress-domain-change/042718_1447_wordpress1.png" alt="042718_1447_wordpress1.png"><br>3，修改wordpress。<br><img src="/2018/04/27/wordpress-domain-change/042718_1447_wordpress2.png" alt="042718_1447_wordpress2.png"><br>4，替换数据库中的域名，其中表名需根据自己的前缀修改。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">UPDATE wp_options SET option_value &#x3D; replace( option_value, &#39;https:&#x2F;&#x2F;lsjzx.net&#39;, &#39;https:&#x2F;&#x2F;qgdlsj.com&#39; ) WHERE option_name &#x3D; &#39;home&#39; OR option_name &#x3D; &#39;siteurl&#39;;</span><br><span class="line">UPDATE wp_posts SET post_content &#x3D; replace( post_content, &#39;https:&#x2F;&#x2F;lsjzx.net&#39;, &#39;https:&#x2F;&#x2F;qgdlsj.com&#39; ) ;</span><br><span class="line">UPDATE wp_posts SET guid &#x3D; replace( guid, &#39;https:&#x2F;&#x2F;lsjzx.net&#39;, &#39;https:&#x2F;&#x2F;qgdlsj.com&#39; ) ;</span><br><span class="line">UPDATE wp_comments SET comment_content &#x3D; replace(comment_content, &#39; https:&#x2F;&#x2F;lsjzx.net&#39;, &#39; https:&#x2F;&#x2F;qgdlsj.com&#39;) ;</span><br><span class="line">UPDATE wp_comments SET comment_author_url &#x3D; replace(comment_author_url, &#39;https:&#x2F;&#x2F;lsjzx.net&#39;, &#39; https:&#x2F;&#x2F;qgdlsj.com&#39;) ;</span><br></pre></td></tr></table></figure><p>到此为止，wordpress更换域名的工作就完成了，还有邮箱之类尚未修改完成。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近搬出墙外，现在记录下整个更换域名的过程。&lt;br&gt;1，申请新域名的ssl证书并上传到服务器。&lt;br&gt;2，修改nginx配置文件，并重启nginx。&lt;br&gt;&lt;img src=&quot;/2018/04/27/wordpress-domain-change/042718_1447_w
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="PHP" scheme="https://iosbb.com/categories/Server/PHP/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="PHP" scheme="https://iosbb.com/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Yaesu FT1XDR写频</title>
+    <link href="https://iosbb.com/2018/03/02/ft1xdr-programming/"/>
+    <id>https://iosbb.com/2018/03/02/ft1xdr-programming/</id>
+    <published>2018-03-02T14:48:21.000Z</published>
+    <updated>2020-07-22T15:04:37.550Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文记录了Yaesu FT-1XDR手台的写频方法，需要电脑一台，FT1XDR手台一台，SCU-19连接器，SCU-19连接器使用PL-2303驱动，驱动安装过程不再赘述。<br>1，使用SCU-19连接器连接电脑的USB接口和手台DATA口。<br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR1.jpg" alt="022718_1433_FT1XDR1.jpg"><br>2，按住手台的F键开机，此时手台显示CLONE。<br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR2" alt="022718_1433_FT1XDR2"><br>3，设备管理器中查看com口号，并在ADMS中选择。<br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR3.png" alt="022718_1433_FT1XDR3.png"><br>4，ADMS中选择Communications–&gt;COM port Settings选项，选择刚才看到的端口号COM3，点击Determine确定。<br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR4.png" alt="022718_1433_FT1XDR4.png"><br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR5.png" alt="022718_1433_FT1XDR5.png"><br>5，点击Get，从手台获取数据。<br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR6.png" alt="022718_1433_FT1XDR6.png"><br>6，弹出提示，点击OK继续。这里是连接说明，刚才已经做过了。<br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR7.png" alt="022718_1433_FT1XDR7.png"><br>手台上按BAND键继续。注意，这一步必须在一分钟内完成，否则会超时。<br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR8.png" alt="022718_1433_FT1XDR8.png"><br>开始获取数据，同时，手台上也显示正在传输。<br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR9.png" alt="022718_1433_FT1XDR9.png"><br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR10.jpg" alt="022718_1433_FT1XDR10.jpg"><br>7，传输完毕后，即可在ADMS中看到频率信息。这里以北京市无线电协会中继台BR1BJ为例，常用的是下面几项：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Receive Frequency 接收频率</span><br><span class="line">Transmit Frequency 发射频率</span><br><span class="line">Offset Frequency 频差</span><br><span class="line">Offset Direction 频差方向</span><br><span class="line">Operation Mode 操作模式</span><br><span class="line">Name 名称</span><br><span class="line">Tone Mode 模拟亚音模式</span><br><span class="line">CTCSS Frequency 模拟亚音频率</span><br><span class="line">Offset Direction中-RPT是下差，+RPT是上差。</span><br><span class="line">Name中只能使用英文或日文，使用中文将会被自动转换成该汉字的日文写法，如果日文中没有这个字，将会显示为一排0。</span><br><span class="line">Tone Mode中，OFF是关闭亚音，TONE是发射亚音，TONE SQL是收发亚音。</span><br></pre></td></tr></table></figure><p><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR11.png" alt="022718_1433_FT1XDR11.png"><br>8，编辑完毕后，点击Send键，写入手台。<br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR12.png" alt="022718_1433_FT1XDR12.png"><br>9，照例，是提示。写入时要在显示CLONE的时候按Dx键进行接收。写入时不能断开连接，否则会造成数据丢失。<br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR13.png" alt="022718_1433_FT1XDR13.png"><br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR14.png" alt="022718_1433_FT1XDR14.png"><br><img src="/2018/03/02/ft1xdr-programming/022718_1433_FT1XDR15.jpg" alt="022718_1433_FT1XDR15.jpg"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本文记录了Yaesu FT-1XDR手台的写频方法，需要电脑一台，FT1XDR手台一台，SCU-19连接器，SCU-19连接器使用PL-2303驱动，驱动安装过程不再赘述。&lt;br&gt;1，使用SCU-19连接器连接电脑的USB接口和手台DATA口。&lt;br&gt;&lt;img src=&quot;/
+      
+    
+    </summary>
+    
+    
+      <category term="无线电" scheme="https://iosbb.com/categories/%E6%97%A0%E7%BA%BF%E7%94%B5/"/>
+    
+    
+      <category term="无线电" scheme="https://iosbb.com/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://iosbb.com/1900/01/01/hello-world/"/>
+    <id>https://iosbb.com/1900/01/01/hello-world/</id>
+    <published>1899-12-31T15:55:00.000Z</published>
+    <updated>2020-07-22T15:30:51.482Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+      <category term="未归档" scheme="https://iosbb.com/categories/%E6%9C%AA%E5%BD%92%E6%A1%A3/"/>
+    
+    
+      <category term="未归档" scheme="https://iosbb.com/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/"/>
+    
+  </entry>
+  
+</feed>
