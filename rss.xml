@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://iosbb.com/"/>
-  <updated>2020-07-23T14:09:36.340Z</updated>
+  <updated>2020-07-23T14:23:01.726Z</updated>
   <id>https://iosbb.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ROS配置ipv6方法</title>
+    <link href="https://iosbb.com/2019/11/04/ros-ipv6-configure/"/>
+    <id>https://iosbb.com/2019/11/04/ros-ipv6-configure/</id>
+    <published>2019-11-04T14:14:02.000Z</published>
+    <updated>2020-07-23T14:23:01.726Z</updated>
+    
+    <content type="html"><![CDATA[<p>前段时间做通了ROS使用EPON模块进行PPPoE连接，观察几天连接状态和温度状态都很是满意，开始折腾ipv6环境。更换模块时查看光猫，ppp0.2接口给的前缀长度是64，需要记录备用。根据观察，一般给的前缀长度是64/60/56等几种。不知道联通用的ND/PD/SLAAC的哪种方式分配ipv6地址。<br>下面记录操作过程：<br>1，在ipv6选项中增加一个dhcpv6 client，Interface选择pppoe虚接口。Request选择prefix。Pool name中随便输入地址池名。勾选<code>Add Default Route</code>选项，加入默认路由。<br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv61.jpg" alt="103119_1158_ROSipv61.jpg"><br>2，添加后，看能否获取到Prefix，并且Status变更为bound。如果是，说明ROS已经在局端获取到了前缀。<br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv62.jpg" alt="103119_1158_ROSipv62.jpg"><br>3，配置内网自动配置IP地址。在ipv6–&gt;addresses中新增一IPv6地址，From Pool选择刚才创建的ipv6地址池名称，Interfaces选择内网接口，点击OK。<br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv63.png" alt="103119_1158_ROSipv63.png"><br>4，查看终端是否获取到了ipv6地址，并可以与公网通信，有地址且可通信，说明ipv6配置完成不要问我为什么ping度娘，腾讯云没有ipv6地址（摊手）。<br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv64.jpg" alt="103119_1158_ROSipv64.jpg"><br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv65.jpg" alt="103119_1158_ROSipv65.jpg"><br>这种方法似乎有bug，当连接断开ROS获取到新的ipv6前缀时，windows上获取新地址后并不会删除旧地址，不知道是我配置的问题还是系统本身就有这个bug。不知哪位大佬有解决方案？先行谢过。<br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv66.png" alt="103119_1158_ROSipv66.png"><br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv67.png" alt="103119_1158_ROSipv67.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;前段时间做通了ROS使用EPON模块进行PPPoE连接，观察几天连接状态和温度状态都很是满意，开始折腾ipv6环境。更换模块时查看光猫，ppp0.2接口给的前缀长度是64，需要记录备用。根据观察，一般给的前缀长度是64/60/56等几种。不知道联通用的ND/PD/SLAAC
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/categories/Network/ROS/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
+    
+  </entry>
   
   <entry>
     <title>北京联通EPON光模块及ROS-PPPoE拨号上网配置</title>

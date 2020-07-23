@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ROS配置ipv6方法 | 垃圾网管的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前段时间做通了ROS使用EPON模块进行PPPoE连接，观察几天连接状态和温度状态都很是满意，开始折腾ipv6环境。更换模块时查看光猫，ppp0.2接口给的前缀长度是64，需要记录备用。根据观察，一般给的前缀长度是64&#x2F;60&#x2F;56等几种。不知道联通用的ND&#x2F;PD&#x2F;SLAAC的哪种方式分配ipv6地址。下面记录操作过程：1，在ipv6选项中增加一个dhcpv6 client，Interface选择p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS配置ipv6方法">
+<meta property="og:url" content="https://iosbb.com/2019/11/04/ros-ipv6-configure/index.html">
+<meta property="og:site_name" content="垃圾网管的笔记">
+<meta property="og:description" content="前段时间做通了ROS使用EPON模块进行PPPoE连接，观察几天连接状态和温度状态都很是满意，开始折腾ipv6环境。更换模块时查看光猫，ppp0.2接口给的前缀长度是64，需要记录备用。根据观察，一般给的前缀长度是64&#x2F;60&#x2F;56等几种。不知道联通用的ND&#x2F;PD&#x2F;SLAAC的哪种方式分配ipv6地址。下面记录操作过程：1，在ipv6选项中增加一个dhcpv6 client，Interface选择p">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://iosbb.com/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv61.jpg">
+<meta property="og:image" content="https://iosbb.com/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv62.jpg">
+<meta property="og:image" content="https://iosbb.com/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv63.png">
+<meta property="og:image" content="https://iosbb.com/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv64.jpg">
+<meta property="og:image" content="https://iosbb.com/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv65.jpg">
+<meta property="og:image" content="https://iosbb.com/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv66.png">
+<meta property="og:image" content="https://iosbb.com/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv67.png">
+<meta property="article:published_time" content="2019-11-04T14:14:02.000Z">
+<meta property="article:modified_time" content="2020-07-23T14:23:01.726Z">
+<meta property="article:author" content="垃圾网管">
+<meta property="article:tag" content="Network">
+<meta property="article:tag" content="ROS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://iosbb.com/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv61.jpg">
+  
+    <link rel="alternate" href="/rss.xml" title="垃圾网管的笔记" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">垃圾网管的笔记</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/rss.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://iosbb.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ros-ipv6-configure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/04/ros-ipv6-configure/" class="article-date">
+  <time datetime="2019-11-04T14:14:02.000Z" itemprop="datePublished">2019-11-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/ROS/">ROS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ROS配置ipv6方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前段时间做通了ROS使用EPON模块进行PPPoE连接，观察几天连接状态和温度状态都很是满意，开始折腾ipv6环境。更换模块时查看光猫，ppp0.2接口给的前缀长度是64，需要记录备用。根据观察，一般给的前缀长度是64/60/56等几种。不知道联通用的ND/PD/SLAAC的哪种方式分配ipv6地址。<br>下面记录操作过程：<br>1，在ipv6选项中增加一个dhcpv6 client，Interface选择pppoe虚接口。Request选择prefix。Pool name中随便输入地址池名。勾选<code>Add Default Route</code>选项，加入默认路由。<br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv61.jpg" alt="103119_1158_ROSipv61.jpg"><br>2，添加后，看能否获取到Prefix，并且Status变更为bound。如果是，说明ROS已经在局端获取到了前缀。<br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv62.jpg" alt="103119_1158_ROSipv62.jpg"><br>3，配置内网自动配置IP地址。在ipv6–&gt;addresses中新增一IPv6地址，From Pool选择刚才创建的ipv6地址池名称，Interfaces选择内网接口，点击OK。<br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv63.png" alt="103119_1158_ROSipv63.png"><br>4，查看终端是否获取到了ipv6地址，并可以与公网通信，有地址且可通信，说明ipv6配置完成不要问我为什么ping度娘，腾讯云没有ipv6地址（摊手）。<br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv64.jpg" alt="103119_1158_ROSipv64.jpg"><br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv65.jpg" alt="103119_1158_ROSipv65.jpg"><br>这种方法似乎有bug，当连接断开ROS获取到新的ipv6前缀时，windows上获取新地址后并不会删除旧地址，不知道是我配置的问题还是系统本身就有这个bug。不知哪位大佬有解决方案？先行谢过。<br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv66.png" alt="103119_1158_ROSipv66.png"><br><img src="/2019/11/04/ros-ipv6-configure/103119_1158_ROSipv67.png" alt="103119_1158_ROSipv67.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2019/11/04/ros-ipv6-configure/" data-id="ckcyvzwzs0019nrkudxwk2eqd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/" rel="tag">ROS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/10/29/ros-peking-epon-pppoe-stick/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">北京联通EPON光模块及ROS-PPPoE拨号上网配置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Network/Asus/">Asus</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/ChinaUnicom/">ChinaUnicom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/Cisco/">Cisco</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/ROS/">ROS</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/">Server</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Apache/">Apache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/MQ/">MQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Nexus/">Nexus</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/docker/">docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/firewalld/">firewalld</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/BTC/">BTC</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E7%BA%BF%E7%94%B5/">无线电</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%BD%92%E6%A1%A3/">未归档</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/" rel="tag">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Asus/" rel="tag">Asus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BTC/" rel="tag">BTC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ChinaUnicom/" rel="tag">ChinaUnicom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cisco/" rel="tag">Cisco</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/" rel="tag">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nexus/" rel="tag">Nexus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/" rel="tag">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewalld/" rel="tag">firewalld</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" rel="tag">无线电</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" rel="tag">未归档</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apache/" style="font-size: 10px;">Apache</a> <a href="/tags/Asus/" style="font-size: 12.5px;">Asus</a> <a href="/tags/BTC/" style="font-size: 12.5px;">BTC</a> <a href="/tags/ChinaUnicom/" style="font-size: 10px;">ChinaUnicom</a> <a href="/tags/Cisco/" style="font-size: 10px;">Cisco</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MySQL/" style="font-size: 12.5px;">MySQL</a> <a href="/tags/Network/" style="font-size: 17.5px;">Network</a> <a href="/tags/Nexus/" style="font-size: 12.5px;">Nexus</a> <a href="/tags/PHP/" style="font-size: 12.5px;">PHP</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/ROS/" style="font-size: 15px;">ROS</a> <a href="/tags/Server/" style="font-size: 20px;">Server</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewalld/" style="font-size: 10px;">firewalld</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 12.5px;">区块链</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" style="font-size: 10px;">无线电</a> <a href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" style="font-size: 10px;">未归档</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/1900/01/">January 1900</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/04/ros-ipv6-configure/">ROS配置ipv6方法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/29/ros-peking-epon-pppoe-stick/">北京联通EPON光模块及ROS-PPPoE拨号上网配置</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/21/ros-6-45-wireless/">ROS 6.45无线配置</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/17/windows-tsinghua-pip/">windows下更换清华大学pip源</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/16/ros-ip-src-nat/">ROS 出口多IP</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 垃圾网管<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

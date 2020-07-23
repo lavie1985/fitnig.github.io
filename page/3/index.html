@@ -64,6 +64,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-centos7-docker-install" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/16/centos7-docker-install/" class="article-date">
+  <time datetime="2018-06-16T00:53:08.000Z" itemprop="datePublished">2018-06-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/docker/">docker</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/16/centos7-docker-install/">CentOS7下docker安装及镜像位置修改方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近把FreeBSD的服务器换装成CentOS7系统，准备将网站实现全面的容器化。首先是docker安装。<br>1，查看系统内核版本是否大于等于3.10，低于此版本不可安装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/06/16/centos7-docker-install/061618_1543_CentOS7dock1.png" alt="061618_1543_CentOS7dock1.png"><br>2，安装依赖包，并增加docker的源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install yum-utils device-mapper-persistent-data lvm2 -y</span><br><span class="line">yum-config-manager –add-repo https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br></pre></td></tr></table></figure>
+<p>3，安装docker</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install docker-ce -y</span><br></pre></td></tr></table></figure>
+<p>4，安装docker后不要启动，这里修改docker的运行路径，默认位置是/var/lib/docker<br>在目标位置创建目录/data/docker，并将其链接到默认路径下。似乎只能使用这种方法，其它各种修改配置文件的方法均无效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s &#x2F;data&#x2F;docker&#x2F; &#x2F;var&#x2F;lib&#x2F;docker</span><br></pre></td></tr></table></figure>
+<p>5，启动docker并设置开机启动项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker.service</span><br><span class="line">systemctl enable docker</span><br></pre></td></tr></table></figure>
+<p>6，docker version查看版本信息<br><img src="/2018/06/16/centos7-docker-install/061618_1543_CentOS7dock2.png" alt="061618_1543_CentOS7dock2.png"><br>7，查看docker进程信息，安装完毕。<br><img src="/2018/06/16/centos7-docker-install/061618_1543_CentOS7dock3.png" alt="061618_1543_CentOS7dock3.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2018/06/16/centos7-docker-install/" data-id="ckcyvzwxj000fnrku8qf0dfkb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-wordpress-domain-change" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/04/27/wordpress-domain-change/" class="article-date">
@@ -97,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2018/04/27/wordpress-domain-change/" data-id="ckcyvh82s001llakufb7bbcf0" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2018/04/27/wordpress-domain-change/" data-id="ckcyvzx0u001nnrku18gsb8ck" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li></ul>
@@ -142,7 +195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2018/03/02/ft1xdr-programming/" data-id="ckcyvh813000plakuhj1j6abk" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2018/03/02/ft1xdr-programming/" data-id="ckcyvzwyl000pnrkudbsga6ai" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" rel="tag">无线电</a></li></ul>
@@ -197,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/1900/01/01/hello-world/" data-id="ckcyvh818000rlaku7xq89xmu" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/1900/01/01/hello-world/" data-id="ckcyvzwyq000rnrkufsv2502z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" rel="tag">未归档</a></li></ul>
@@ -253,7 +306,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/1900/01/">January 1900</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/1900/01/">January 1900</a></li></ul>
     </div>
   </div>
 
@@ -264,6 +317,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/11/04/ros-ipv6-configure/">ROS配置ipv6方法</a>
+          </li>
         
           <li>
             <a href="/2019/10/29/ros-peking-epon-pppoe-stick/">北京联通EPON光模块及ROS-PPPoE拨号上网配置</a>
@@ -279,10 +336,6 @@
         
           <li>
             <a href="/2019/10/16/ros-ip-src-nat/">ROS 出口多IP</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/10/mysql-ssl/">MySQL配置SSL连接</a>
           </li>
         
       </ul>
