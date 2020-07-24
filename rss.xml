@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://iosbb.com/"/>
-  <updated>2020-07-23T14:23:01.726Z</updated>
+  <updated>2020-07-24T14:22:34.085Z</updated>
   <id>https://iosbb.com/</id>
   
   <author>
@@ -15,6 +15,552 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ROS通过安卓手机配置LTE第二链路实现故障自动切换</title>
+    <link href="https://iosbb.com/2020/01/07/ros-android-lte-switch/"/>
+    <id>https://iosbb.com/2020/01/07/ros-android-lte-switch/</id>
+    <published>2020-01-07T14:13:57.000Z</published>
+    <updated>2020-07-24T14:22:34.085Z</updated>
+    
+    <content type="html"><![CDATA[<p>继上篇文章用牢厂5577移动路由器做LTE备用线路之后，有群友问能否用用手机做第二链路。<br>具体原理请参考 ROS配置LTE第二链路实现故障自动切换<br>这是配置和测试文档：<br>1，查看当前IP，是北京联通。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE1.png" alt="010320_1451_ROSLTE1.png"><br>2，安卓手机连接到RB962的USB接口，然后打开USB网络共享功能，手机型号是1+ 5（没有T）。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE2.jpg" alt="010320_1451_ROSLTE2.jpg"><br>3，查看接口状况，ROS中出lte1接口，状态是R。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE3.png" alt="010320_1451_ROSLTE3.png"><br>4，查看路由状况，出现一条distance=2的默认路由。此路由在pppoe接口正常时不起作用。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE4.png" alt="010320_1451_ROSLTE4.png"><br>5，禁用pppoe线路故障。此时看到路由表中pppoe的默认路由已经消失，只剩下此lte路由条目。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE5.png" alt="010320_1451_ROSLTE5.png"><br>6，查看ping值从个位数增加到30左右。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE6.png" alt="010320_1451_ROSLTE6.png"><br>7，查看IP，现在是北京移动。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE7.png" alt="010320_1451_ROSLTE7.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;继上篇文章用牢厂5577移动路由器做LTE备用线路之后，有群友问能否用用手机做第二链路。&lt;br&gt;具体原理请参考 ROS配置LTE第二链路实现故障自动切换&lt;br&gt;这是配置和测试文档：&lt;br&gt;1，查看当前IP，是北京联通。&lt;br&gt;&lt;img src=&quot;/2020/01/07/ro
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/categories/Network/ROS/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Oracle 统计行数</title>
+    <link href="https://iosbb.com/2020/01/05/oracle-rows-count/"/>
+    <id>https://iosbb.com/2020/01/05/oracle-rows-count/</id>
+    <published>2020-01-05T14:11:25.000Z</published>
+    <updated>2020-07-24T14:12:23.730Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*) FROM tablename;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span cla
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="Oracle" scheme="https://iosbb.com/categories/Server/Oracle/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="Oracle" scheme="https://iosbb.com/tags/Oracle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS DHCP配置</title>
+    <link href="https://iosbb.com/2020/01/04/ros-dhcp-configure/"/>
+    <id>https://iosbb.com/2020/01/04/ros-dhcp-configure/</id>
+    <published>2020-01-04T14:05:04.000Z</published>
+    <updated>2020-07-24T14:09:46.280Z</updated>
+    
+    <content type="html"><![CDATA[<p>1，指定接口IP。<br><img src="/2020/01/04/ros-dhcp-configure/1578135190745.png" alt="1578135190745.png"><br>2，IP-&gt;Pool创建地址池。Name随便写。Address是地址范围，与接口要在同一网段，但不能包括接口IP。<br><img src="/2020/01/04/ros-dhcp-configure/1578135190754.png" alt="1578135190754.png"><br>3，IP-&gt;DHCP Servert-&gt;DHCP添加DHCP服务。Interface选择要分配地址的接口，如果是网桥，需选择对应桥接口。Address Pool选择要使用的地址池。Lease Time配置租期。<br><img src="/2020/01/04/ros-dhcp-configure/1578135190765.png" alt="1578135190765.png"><br>4，完成后到Networks标签，添加Options。Address填网络地址和掩码，要与接口一致，如我填写的是10.0.1.0/24。Gateway是网关地址，一般来说是接口地址，我这填写的是10.0.1.1。DNS Servers是DNS地址，可根据需要多写几个。<br><img src="/2020/01/04/ros-dhcp-configure/1578135190775.png" alt="1578135190775.png"><br>至此，DHCP配置完成，连接设备后ROS即可对其分配地址。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;1，指定接口IP。&lt;br&gt;&lt;img src=&quot;/2020/01/04/ros-dhcp-configure/1578135190745.png&quot; alt=&quot;1578135190745.png&quot;&gt;&lt;br&gt;2，IP-&amp;gt;Pool创建地址池。Name随便写。Address是地
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/categories/Network/ROS/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 5.7.19编译安装及简单配置方法</title>
+    <link href="https://iosbb.com/2020/01/01/mysql-5-7-19-compile-install-config/"/>
+    <id>https://iosbb.com/2020/01/01/mysql-5-7-19-compile-install-config/</id>
+    <published>2020-01-01T13:43:51.000Z</published>
+    <updated>2020-07-24T14:01:36.599Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文档讲述如何通过编译的方式安装MySQL5.7.19，并进行简单配置。需要服务器配置不低于2CPU，2G内存，20G硬盘，否则不一定能顺利安装。安装前需要cmake和boost两个组件，可在附件中下载。<br>mysql安装路径/usr/local，数据路径/mysql，root密码123456<br>下面进行依赖安装：<br>1，安装cmake</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -xf cmake-3.5.2.tar.gz</span><br><span class="line">cd cmake-3.5.2</span><br><span class="line">.&#x2F;bootstrap</span><br></pre></td></tr></table></figure><p><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57191.png" alt="122919_1608_MySQL57191.png"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmake</span><br></pre></td></tr></table></figure><p>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57192.png" alt="122919_1608_MySQL57192.png"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmake install</span><br></pre></td></tr></table></figure><p>至此，cmake安装完成。<br>2，boost，安装时需指定路径（–prefix），默认路径能安装，但找不到。./b2 install安装时间很长。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -xf boost_1_59_0.tar.gz</span><br><span class="line">cd boost_1_59_0</span><br><span class="line">.&#x2F;bootstrap.sh --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;</span><br></pre></td></tr></table></figure><p>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57193.png" alt="122919_1608_MySQL57193.png"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;b2 install</span><br></pre></td></tr></table></figure><p>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57194.png" alt="122919_1608_MySQL57194.png"><br>3，安装依赖ncurses-devel，这里就用yum进行了。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ncurses-devel -y</span><br></pre></td></tr></table></figure><p>至此，依赖安装完成，下面开始mysql编译。<br>4，编译MySQL，但这里的编译是通过CMake而非configure进行的，指定boost的源码路径，这里很奇怪，必须先安装boost这里也要指定源码路径，否则失败。<br>参数说明：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-DCMAKE_INSTALL_PREFIX&#x3D;安装路径</span><br><span class="line">-DMYSQL_DATADIR&#x3D;默认数据路径</span><br><span class="line">-DSYSCONFDIR&#x3D;配置文件路径</span><br><span class="line">-DMYSQL_TCP_PORT&#x3D;默认端口</span><br><span class="line">-DMYSQL_UNIX_ADDR&#x3D;socket路径</span><br><span class="line">-DWITH_BOOST&#x3D;boost源码路径</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -xf mysql-boost-5.7.19.tar.gz</span><br><span class="line">cd mysql-5.7.19</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;bin&#x2F;cmake . -DCMAKE_INSTALL_PREFIX&#x3D;&#x2F;usr&#x2F;mysql -DMYSQL_DATADIR&#x3D;&#x2F;mysql -DSYSCONFDIR&#x3D;&#x2F;etc -DWITH_INNOBASE_STORAGE_ENGINE&#x3D;1 -DWITH_ARCHIVE_STORAGE_ENGINE&#x3D;1 -DWITH_BLACKHOLE_STORAGE_ENGINE&#x3D;1 -DWITH_FEDERATED_STORAGE_ENGINE&#x3D;1 -DMYSQL_TCP_PORT&#x3D;3306 -DMYSQL_UNIX_ADDR&#x3D;&#x2F;mysql&#x2F;mysql.sock -DENABLED_LOCAL_INFILE&#x3D;1 -DEXTRA_CHARSETS&#x3D;all -DDEFAULT_CHARSET&#x3D;utf8 -DDEFAULT_COLLATION&#x3D;utf8_general_ci -DWITH_DEBUG&#x3D;0 -DENABLE_PROFILING&#x3D;1 -DWITH_BOOST&#x3D;&#x2F;root&#x2F;lnmp&#x2F;mysql&#x2F;boost_1_59_0</span><br></pre></td></tr></table></figure><p>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57195.png" alt="122919_1608_MySQL57195.png"><br>下面开始编译，编译过程较长。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure><p>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57196.png" alt="122919_1608_MySQL57196.png"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure><p>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57197.png" alt="122919_1608_MySQL57197.png"><br>5，修改数据目录权限和复制启动脚本</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">useradd mysql</span><br><span class="line">mkdir &#x2F;mysql</span><br><span class="line">chown -R mysql.mysql &#x2F;mysql &amp;&amp; chown -R mysql.mysql &#x2F;usr&#x2F;mysql</span><br><span class="line">cp -a &#x2F;usr&#x2F;mysql&#x2F;support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line">chmod +x &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line">ln -s &#x2F;usr&#x2F;mysql&#x2F;bin&#x2F;mysql &#x2F;usr&#x2F;bin&#x2F;mysql</span><br><span class="line">chmod +x &#x2F;usr&#x2F;bin&#x2F;mysql</span><br></pre></td></tr></table></figure><p>6，初始化数据库，5.5版本后会自动生成过期的root密码，需配置跳过密码并修改为不过期。顺序：1，跳过验证；2，修改root密码；3，设置密码不过期。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;mysql&#x2F;bin</span><br><span class="line"></span><br><span class="line">.&#x2F;mysqld --initialize --user&#x3D;mysql</span><br></pre></td></tr></table></figure><p><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57198.png" alt="122919_1608_MySQL57198.png"><br>7，重置密码，并设置密码不过期。<br>在[mysqld]中增加下列字段，修改数据路径，并重启mysql</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip-grant-tables</span><br></pre></td></tr></table></figure><p><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57199.png" alt="122919_1608_MySQL57199.png"><br>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL571910.png" alt="122919_1608_MySQL571910.png"><br>8，用空密码登录mysql。<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL571911.png" alt="122919_1608_MySQL571911.png"><br>9，修改root密码为不过期。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use mysql ;</span><br><span class="line">update user set password_expired&#x3D;&#39;N&#39; where user&#x3D;&#39;root&#39;;</span><br></pre></td></tr></table></figure><p>10，修改密码，5.7已弃用passwd字段，<code>UPDATE user SET password=PASSWORD(&#39;123456&#39;) WHERE user=&#39;root&#39;;</code>命令已无效，用下面的命令，另外，MySQL5.7默认无grant权限，所以要加with grant option参数。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update mysql.user set authentication_string&#x3D;password(&#39;123456&#39;) where user&#x3D;&#39;root&#39; and Host &#x3D; &#39;localhost&#39;;</span><br></pre></td></tr></table></figure><p><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL571912.png" alt="122919_1608_MySQL571912.png"><br>11，取消跳过密码认证，并重启数据库后配置可在网络登录的用户。mysql不允许在跳过密码时创建用户。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39;IDENTIFIED BY &#39;123456&#39; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure><p><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL571913.png" alt="122919_1608_MySQL571913.png"><br>未取消跳过密码时创建用户的错误提示。<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL571914.png" alt="122919_1608_MySQL571914.png"></p><p>12，配置mysql开机启动。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig mysqld on</span><br></pre></td></tr></table></figure><p>至此mysql编译安装及简单配置完成。</p><p>附件：<br><a href="/downloads/boost_1_59_0.tar.gz">boost_1_59_0.tar.gz</a><br><a href="/downloads/cmake-3.5.2.tar.gz">cmake-3.5.2.tar.gz</a><br><a href="/downloads/mysql-boost-5.7.19.tar.gz">mysql-boost-5.7.19.tar.gz</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本文档讲述如何通过编译的方式安装MySQL5.7.19，并进行简单配置。需要服务器配置不低于2CPU，2G内存，20G硬盘，否则不一定能顺利安装。安装前需要cmake和boost两个组件，可在附件中下载。&lt;br&gt;mysql安装路径/usr/local，数据路径/mysql，
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="MySQL" scheme="https://iosbb.com/categories/Server/MySQL/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="MySQL" scheme="https://iosbb.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mysql查看数据量</title>
+    <link href="https://iosbb.com/2019/12/27/mysql-data-storage/"/>
+    <id>https://iosbb.com/2019/12/27/mysql-data-storage/</id>
+    <published>2019-12-27T13:41:02.000Z</published>
+    <updated>2020-07-24T13:43:13.244Z</updated>
+    
+    <content type="html"><![CDATA[<p>任何查询均需进入information_schema数据库，命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use information_schema;</span><br></pre></td></tr></table></figure><p>1，查看总数据量</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select concat(round(sum(data_length&#x2F;1024&#x2F;1024),2),&#39;MB&#39;) as data from tables;</span><br></pre></td></tr></table></figure><p>2，查看某个数据库的数据量，此处为data数据库</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select concat(round(sum(data_length&#x2F;1024&#x2F;1024),2),&#39;MB&#39;) as data from tables where table_schema&#x3D;&#39;data&#39;;</span><br></pre></td></tr></table></figure><p>3，查看某个表的数据量，此处为data数据库中的storage表</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select concat(round(sum(data_length&#x2F;1024&#x2F;1024),2),&#39;MB&#39;) as data from tables where table_schema&#x3D;&#39;data&#39; and table_name&#x3D;&#39;storage&#39;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;任何查询均需进入information_schema数据库，命令&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="MySQL" scheme="https://iosbb.com/categories/Server/MySQL/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="MySQL" scheme="https://iosbb.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL密码遗失处理方法</title>
+    <link href="https://iosbb.com/2019/12/24/mysql-lost-password/"/>
+    <id>https://iosbb.com/2019/12/24/mysql-lost-password/</id>
+    <published>2019-12-24T13:36:36.000Z</published>
+    <updated>2020-07-24T13:40:38.792Z</updated>
+    
+    <content type="html"><![CDATA[<p>当前情况：已知linux root密码，mysql密码不知道，有程序运行不可更改root密码，想导出mysql的数据。<br>具体方法如下：<br>1，登录到服务器，修改mysql配置文件/etc/my.cnf，在[mysqld]段下增加skip-grant-tables，并重启mysql。<br>2，此时访问mysql不需要验证，使用mysql -uroot即可连接。<br>3，导出数据，这里以使用mysqldump导出data库到/mnt为例，linux命令为mysqldump -uroot data &gt; /mnt/data.sql<br>4，导出数据后修改mysql配置文件/etc/my.cnf，删除或注释skip-grant-tables配置，并重启服务器，此时mysql恢复需要验证的状态。<br>这种方法涉及重启mysql，可能会造成程序运行异常。如果需要修改mysql密码，可在第2步后执行下列操作，序号接第2步：<br>3，进入mysql库，修改密码为123456，下面命令适用于5.7+版本。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update mysql.user set authentication_string&#x3D;password(&#39;123456&#39;) where user&#x3D;&#39;root&#39; and Host &#x3D; &#39;localhost&#39;;</span><br></pre></td></tr></table></figure><p>低于5.7版本可用下面命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">UPDATE user SET password&#x3D;PASSWORD(&#39;123456&#39;) WHERE user&#x3D;&#39;root&#39;;</span><br></pre></td></tr></table></figure><p>4，导出数据后修改mysql配置文件/etc/my.cnf，删除或注释skip-grant-tables配置，并重启服务器，此时mysql恢复需要验证的状态。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;当前情况：已知linux root密码，mysql密码不知道，有程序运行不可更改root密码，想导出mysql的数据。&lt;br&gt;具体方法如下：&lt;br&gt;1，登录到服务器，修改mysql配置文件/etc/my.cnf，在[mysqld]段下增加skip-grant-tables，
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="MySQL" scheme="https://iosbb.com/categories/Server/MySQL/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="MySQL" scheme="https://iosbb.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VMWare下Linux增加硬盘并配置开机挂载</title>
+    <link href="https://iosbb.com/2019/12/22/vmware-linux-hdd-auto-mount/"/>
+    <id>https://iosbb.com/2019/12/22/vmware-linux-hdd-auto-mount/</id>
+    <published>2019-12-22T13:15:43.000Z</published>
+    <updated>2020-07-24T13:36:08.793Z</updated>
+    
+    <content type="html"><![CDATA[<p>上篇文档讲到CentOS6和7的安装和简单配置，由于使用的是1C1G20G的虚拟硬件，不足以满足实际业务需求，此文档讲述如何给虚拟机增加硬盘并配置开机自动挂载。<br>下面是虚机配置：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux1.png" alt="122219_1132_VMWareLinux1.png"><br>具体操作过程如下：<br>1，关机，如已关机可忽略。<br>2，打开虚拟机配置，点击添加选项：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux2.png" alt="122219_1132_VMWareLinux2.png"><br>在后续配置中选择硬盘，点击下一步：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux3.png" alt="122219_1132_VMWareLinux3.png"><br>选择硬盘接口，点击下一步：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux4.png" alt="122219_1132_VMWareLinux4.png"><br>选择创建虚拟磁盘：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux5.png" alt="122219_1132_VMWareLinux5.png"><br>输入磁盘容量，并选择将虚拟磁盘拆分成多个文件。如果硬盘够大且分区格式支持大文件，可选将虚拟硬盘存储为单个文件，以提升性能：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux6.png" alt="122219_1132_VMWareLinux6.png"><br>指定虚拟磁盘文件名，点击确认。默认情况下与虚拟机保存在同一个目录中，如不想保存在同一目录，可点击浏览另行指定：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux7.png" alt="122219_1132_VMWareLinux7.png"><br>完成后即可在虚拟机配资中看到新硬盘，点击确定，回到虚拟机控制台，并开机：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux8.png" alt="122219_1132_VMWareLinux8.png"><br>现在已添加完成虚拟硬件，下面进行虚拟硬盘的格式化和配置开机挂载。<br>3，开机并进入系统，通过控制台或SSH均可，我这里使用SSH方式登录。df -HT可看到当前分区情况，此时新增加的磁盘尚未初始化，暂时显示不出。注意，这一步操作需谨慎，错误操作可能会导致全部数据丢失。<br>fdisk参数如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-l 列出素所有分区表</span><br><span class="line">-u 与”-l”搭配使用，显示分区数目</span><br><span class="line">-s 分区编号 指定分区</span><br><span class="line">-v 版本信息</span><br><span class="line">m ：显示菜单和帮助信息</span><br><span class="line">a ：活动分区标记&#x2F;引导分区</span><br><span class="line">d ：删除分区</span><br><span class="line">l ：显示分区类型</span><br><span class="line">n ：新建分区</span><br><span class="line">p ：显示分区信息</span><br><span class="line">q ：退出不保存</span><br><span class="line">t ：设置分区号</span><br><span class="line">v ：进行分区检查</span><br><span class="line">w ：保存修改</span><br><span class="line">x ：扩展应用，高级功能</span><br></pre></td></tr></table></figure><p><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux9.png" alt="122219_1132_VMWareLinux9.png"><br>fdisk -l查看设备情况，可看到新硬盘是/dev/sdb，下面对其分区：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux10.png" alt="122219_1132_VMWareLinux10.png"><br>fdisk /dev/sdb命令对该磁盘分区，按p查看当前分区情况，确定该磁盘没有分区：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux11.png" alt="122219_1132_VMWareLinux11.png"><br>按n，新建分区，然后按p，新建主分区，按1，确定分区号，1号，其它选项均可按回车键选择默认：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux12.png" alt="122219_1132_VMWareLinux12.png"><br>再按p查看当前分区情况，如显示新分区/dev/sdb1则创建完成，按w写入磁盘。再次提醒，任何错误操作可能导致数据全部丢失。<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux13.png" alt="122219_1132_VMWareLinux13.png"><br>至此，分区创建完成，下一步格式化磁盘。<br>4，格式化磁盘，这里使用mkfs命令，这里使用ext4分区格式，命令有下面两种写法，任选一种即可：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 &#x2F;dev&#x2F;sdb1</span><br><span class="line">mkfs -t ext4 &#x2F;dev&#x2F;sdb1</span><br></pre></td></tr></table></figure><p><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux14.png" alt="122219_1132_VMWareLinux14.png"><br>5，磁盘格式化完毕，下面将新硬盘挂载到/mnt，命令如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -t ext4 &#x2F;dev&#x2F;sdb1 &#x2F;mnt</span><br></pre></td></tr></table></figure><p>此语句格式为 mount -t 分区格式 要挂载的分区路径 挂载目标路径</p><p>修改目标路径可将新分区挂载至其它路径下。<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux15.png" alt="122219_1132_VMWareLinux15.png"><br>6，当前情况下，新硬盘只本次开机有效，如不想每次手动挂载，需修改/etc/fstab配置文件使系统在开机时自动挂载之。<br>将下列语句写入到/etc/fstab文件末尾，注意只有两个0之间是空格，其他字段之间是tab分隔符：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;dev&#x2F;sdb1 &#x2F;mnt ext4 defaults 0 0</span><br></pre></td></tr></table></figure><p>此语句格式是  要挂载的设备 挂载目标位置 分区格式 挂载参数 备份配置 检查配置<br>如果备份配置和检查配置为0则不检查也不备份。<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux16.png" alt="122219_1132_VMWareLinux16.png"><br>保存退出，配置将在下次启动时生效，如下图：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux17.png" alt="122219_1132_VMWareLinux17.png"><br>至此全部配置完成。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;上篇文档讲到CentOS6和7的安装和简单配置，由于使用的是1C1G20G的虚拟硬件，不足以满足实际业务需求，此文档讲述如何给虚拟机增加硬盘并配置开机自动挂载。&lt;br&gt;下面是虚机配置：&lt;br&gt;&lt;img src=&quot;/2019/12/22/vmware-linux-hdd-au
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="虚拟化" scheme="https://iosbb.com/categories/Server/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="Linux" scheme="https://iosbb.com/tags/Linux/"/>
+    
+      <category term="虚拟化" scheme="https://iosbb.com/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ERROR 1862 (HY000): Your password has expired. To log in you must change</title>
+    <link href="https://iosbb.com/2019/12/17/ERROR-1862-HY000-Your-password-has-expired-To-log-in-you-must-change/"/>
+    <id>https://iosbb.com/2019/12/17/ERROR-1862-HY000-Your-password-has-expired-To-log-in-you-must-change/</id>
+    <published>2019-12-17T13:13:37.000Z</published>
+    <updated>2020-07-24T13:15:09.848Z</updated>
+    
+    <content type="html"><![CDATA[<p>1，修改/etc/my.cnf，将下面语句加入到[mysqld]字段下跳过验证并重启。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip-grant-tables</span><br></pre></td></tr></table></figure><p>2，进入到mysql库，修改密码过期选项。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update user set password_expired&#x3D;&#39;N&#39; where user&#x3D;&#39;root&#39;;</span><br></pre></td></tr></table></figure><p>3，将跳过密码改回，并重启MySQL。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;1，修改/etc/my.cnf，将下面语句加入到[mysqld]字段下跳过验证并重启。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="MySQL" scheme="https://iosbb.com/categories/Server/MySQL/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="MySQL" scheme="https://iosbb.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL主从复制配置</title>
+    <link href="https://iosbb.com/2019/12/15/mysql-replication/"/>
+    <id>https://iosbb.com/2019/12/15/mysql-replication/</id>
+    <published>2019-12-15T13:06:58.000Z</published>
+    <updated>2020-07-24T13:13:26.392Z</updated>
+    
+    <content type="html"><![CDATA[<p>1，修改主库，开启bin-log，并设置server-id</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">log-bin&#x3D;mysql-bin #[必须]启用二进制日志</span><br><span class="line">server-id&#x3D;111 #[必须]服务器唯一ID</span><br></pre></td></tr></table></figure><p>2，修改从库，并设置server-id</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">log-bin&#x3D;mysql-bin #[非必须]启用二进制日志</span><br><span class="line">server-id&#x3D;222 #[必须]服务器唯一ID</span><br></pre></td></tr></table></figure><p>3，重启所有mysql<br>4，在主库上创建一用户，用于主从复制。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GRANT REPLICATION SLAVE ON *.* to &#39;sync&#39;@&#39;localhost&#39; identified by &#39;123456&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure><p>5，在主库上查看master状态，并记下File和Position，这两个值将作为主从复制的起始值。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show master status;</span><br></pre></td></tr></table></figure><p><img src="/2019/12/15/mysql-replication/121519_1345_MySQL1.png" alt="121519_1345_MySQL1.png"><br>6，从库配置slave，master_log_file和master_log_pos分别对应上面查到的File和Postition</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">change master to master_host&#x3D;&#39;localhost&#39;,</span><br><span class="line">MASTER_PORT&#x3D;3306,</span><br><span class="line">master_user&#x3D;&#39;sync&#39;,</span><br><span class="line">master_password&#x3D;&#39;123456&#39;,</span><br><span class="line">master_log_file&#x3D;&#39;mysql-bin.000001&#39;,</span><br><span class="line">master_log_pos&#x3D;337;</span><br><span class="line">start slave;</span><br></pre></td></tr></table></figure><p>7，从库查看主从状态，看到Slave_IO_Running和Slave_SQL_Running均为Yes，配置即完。其中有一个为No，则有问题。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show slave status;</span><br></pre></td></tr></table></figure><p><img src="/2019/12/15/mysql-replication/121519_1345_MySQL2.png" alt="121519_1345_MySQL2.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;1，修改主库，开启bin-log，并设置server-id&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="MySQL" scheme="https://iosbb.com/categories/Server/MySQL/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="MySQL" scheme="https://iosbb.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nginx在ssl站点中报nginx: [warn] the &quot;ssl&quot; directive is deprecated, use the &quot;listen ... ssl&quot; directive instead in错误</title>
+    <link href="https://iosbb.com/2019/12/14/nginx-ssl-nginx-warn-the-ssl-directive-is-deprecated-use-the-listen-ssl-directive-instead-in/"/>
+    <id>https://iosbb.com/2019/12/14/nginx-ssl-nginx-warn-the-ssl-directive-is-deprecated-use-the-listen-ssl-directive-instead-in/</id>
+    <published>2019-12-14T13:01:38.000Z</published>
+    <updated>2020-07-24T13:06:01.095Z</updated>
+    
+    <content type="html"><![CDATA[<p>环境情况及具体表现：CentOS7 x86_64，nginx 1.15.0，启动nginx时有下列提示，但测试也可通过，服务能正常启动，也能访问。<br><img src="/2019/12/14/nginx-ssl-nginx-warn-the-ssl-directive-is-deprecated-use-the-listen-ssl-directive-instead-in/121419_1056_nginxsslng1.png" alt="121419_1056_nginxsslng1.png"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@iz2ze6jjhwn5m83ygo2yo6z vhost]# &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx -t -c &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf</span><br><span class="line">nginx: [warn] the &quot;ssl&quot; directive is deprecated, use the &quot;listen ... ssl&quot; directive instead in &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;vhost&#x2F;web.conf:4</span><br><span class="line">nginx: the configuration file &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf test is successful</span><br></pre></td></tr></table></figure><p>据查资料，这是nginx在1.15.0之后，ssl站点无需再写ssl on参数，将此参数注释后即可，该问题初次遇到，正在观察是否有其它问题。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;环境情况及具体表现：CentOS7 x86_64，nginx 1.15.0，启动nginx时有下列提示，但测试也可通过，服务能正常启动，也能访问。&lt;br&gt;&lt;img src=&quot;/2019/12/14/nginx-ssl-nginx-warn-the-ssl-directive
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="nginx" scheme="https://iosbb.com/categories/Server/nginx/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="nginx" scheme="https://iosbb.com/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nginx通过htpasswd保护目录</title>
+    <link href="https://iosbb.com/2019/12/12/nginx-htpasswd/"/>
+    <id>https://iosbb.com/2019/12/12/nginx-htpasswd/</id>
+    <published>2019-12-12T12:57:21.000Z</published>
+    <updated>2020-07-24T13:06:20.713Z</updated>
+    
+    <content type="html"><![CDATA[<p>某些目录不想直接被公网访问，又不能墙掉端口，所以通过给某个目录增加访问密码的方式进行安全控制。<br>1，生成密码文件，生成完毕后须将其属主改为nginx运行用户</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">htpasswd -bdc &#x2F;data&#x2F;web&#x2F;htpasswd username password</span><br></pre></td></tr></table></figure><p>2，被保护的目录增加一段location，指定密码文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location ^~ &#x2F;auth&#x2F;&#123;</span><br><span class="line">auth_basic &quot;Authorized users only&quot;;</span><br><span class="line">auth_basic_user_file &#x2F;data&#x2F;web&#x2F;htpasswd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>3，如果该目录下有php程序，php程序将变成下载而非执行，需修改上面的location配置，增加php-fpm配置。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">location ^~ &#x2F;auth&#x2F;&#123;</span><br><span class="line">location ~ \.php$ &#123;</span><br><span class="line">include fastcgi_params;</span><br><span class="line">fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">fastcgi_index index.php;</span><br><span class="line">fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">&#125;</span><br><span class="line">auth_basic &quot;Authorized users only&quot;;</span><br><span class="line">auth_basic_user_file &#x2F;data&#x2F;web&#x2F;htpasswd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;某些目录不想直接被公网访问，又不能墙掉端口，所以通过给某个目录增加访问密码的方式进行安全控制。&lt;br&gt;1，生成密码文件，生成完毕后须将其属主改为nginx运行用户&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td clas
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="nginx" scheme="https://iosbb.com/categories/Server/nginx/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="nginx" scheme="https://iosbb.com/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>腾讯云VPS配置IPV6</title>
+    <link href="https://iosbb.com/2019/12/06/qcloud-vps-ipv6-config/"/>
+    <id>https://iosbb.com/2019/12/06/qcloud-vps-ipv6-config/</id>
+    <published>2019-12-06T12:48:12.000Z</published>
+    <updated>2020-07-24T12:56:36.408Z</updated>
+    
+    <content type="html"><![CDATA[<p>看到腾讯云开始提供ipv6网络，目前是双栈，计划给自己的云环境配置IPv6网。目前腾讯云IPv6网是测试阶段，不保证可用性，另外开启IPv6网需要申请内测。腾讯云IPv6方案和内测审批通过邮件如下。<br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV61.png" alt="120619_0547_VPSIPV61.png"><br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV62.png" alt="120619_0547_VPSIPV62.png"><br>具体操作步骤如下：<br>1，私有网络中点击编辑CIDR，然后获取IPv6 CIDR。<br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV63.png" alt="120619_0547_VPSIPV63.png"><br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV64.png" alt="120619_0547_VPSIPV64.png"><br>成功后能获取到/56的地址段。<br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV65.png" alt="120619_0547_VPSIPV65.png"><br>2，配置子网IPv6 CIDR。在子网中，选中某个子网，选择获取IPv6 CIDR，设置IPv6子网号码，取值范围0-255。<br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV66.png" alt="120619_0547_VPSIPV66.png"><br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV67.png" alt="120619_0547_VPSIPV67.png"><br>3，配置网卡IPv6。在IP与网卡中选择弹性网卡，打开需要增加IPv6地址的网卡。<br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV68.png" alt="120619_0547_VPSIPV68.png"><br>打开IPv6地址管理标签，选择分配IP选项。可自动分配或手动指定。<br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV69.png" alt="120619_0547_VPSIPV69.png"><br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV610.png" alt="120619_0547_VPSIPV610.png"><br>成功后即可看到IPv6地址。<br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV611.png" alt="120619_0547_VPSIPV611.png"><br>至此，腾讯云网络配置完成，由于服务器是支持IPv6之前创建的，现在不支持IPv6，下面需要开启它。<br>4，开启系统ipv6支持。修改<code>/etc/sysctl.conf</code>并增加下列配置。完成后sysctl -p加载之。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net.ipv6.conf.all.disable_ipv6 &#x3D; 0</span><br><span class="line">net.ipv6.conf.default.disable_ipv6 &#x3D; 0</span><br><span class="line">net.ipv6.conf.lo.disable_ipv6 &#x3D; 0</span><br></pre></td></tr></table></figure><p>验证方法<code>sysctl -a | grep ipv6 | grep disable</code><br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV612.png" alt="120619_0547_VPSIPV612.png"><br>5，修改网卡配置文件，增加IPv6配置选项，修改后不重启网络。CentOS下是<code>/etc/sysconfig/network-scripts/ifcfg-eth0</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DHCPV6C&#x3D;yes</span><br></pre></td></tr></table></figure><p><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV613.png" alt="120619_0547_VPSIPV613.png"><br>6，增加IPv6默认路由，并重启网络。CentOS下是<code>/etc/sysconfig/network-scripts/route6-eth0</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">default dev eth0</span><br></pre></td></tr></table></figure><p><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV614.png" alt="120619_0547_VPSIPV614.png"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure><p>7，配置安全组，放行IPV6。<br>8，ping之，已通。<br><img src="/2019/12/06/qcloud-vps-ipv6-config/120619_0547_VPSIPV615.png" alt="120619_0547_VPSIPV615.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;看到腾讯云开始提供ipv6网络，目前是双栈，计划给自己的云环境配置IPv6网。目前腾讯云IPv6网是测试阶段，不保证可用性，另外开启IPv6网需要申请内测。腾讯云IPv6方案和内测审批通过邮件如下。&lt;br&gt;&lt;img src=&quot;/2019/12/06/qcloud-vps-i
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="IPv6" scheme="https://iosbb.com/categories/Network/IPv6/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="IPv6" scheme="https://iosbb.com/tags/IPv6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS配置MAC地址过滤</title>
+    <link href="https://iosbb.com/2019/12/03/ros-mac-filter/"/>
+    <id>https://iosbb.com/2019/12/03/ros-mac-filter/</id>
+    <published>2019-12-03T12:32:22.000Z</published>
+    <updated>2020-07-24T12:45:55.282Z</updated>
+    
+    <content type="html"><![CDATA[<p>自家无线被蹭网了，用mac地址过滤来防止蹭网。由于无线网卡和物理网卡桥接在一起，所以mac过滤要在网桥上配置。<br>1，打开Bridge-&gt;Filaters，配置网桥MAC过滤规则。<br><img src="/2019/12/03/ros-mac-filter/113019_1453_ROSMAC1.png" alt="113019_1453_ROSMAC1.png"><br>2，General标签中，Chain选择input，不是forward。In. Bridege选择要进行过滤的网桥。Src. MAC  Address中填写要过滤的MAC地址。<br>Action标签中，Action选择drop。<br><img src="/2019/12/03/ros-mac-filter/113019_1453_ROSMAC2.png" alt="113019_1453_ROSMAC2.png"><br><img src="/2019/12/03/ros-mac-filter/113019_1453_ROSMAC3.png" alt="113019_1453_ROSMAC3.png"><br>至此MAC过滤配置完成。下面进行测试：<br>3，用手机验证，连接时只看到在转圈，不能获取到IP地址。<br><img src="/2019/12/03/ros-mac-filter/113019_1453_ROSMAC4.png" alt="113019_1453_ROSMAC4.png"><br><img src="/2019/12/03/ros-mac-filter/113019_1453_ROSMAC5.png" alt="113019_1453_ROSMAC5.png"><br><img src="/2019/12/03/ros-mac-filter/113019_1453_ROSMAC6.png" alt="113019_1453_ROSMAC6.png"><br>经测试，Chain选择forward时被阻断的mac地址仍可以通信。猜测Chain选择in，是禁止该mac地址进入网桥。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;自家无线被蹭网了，用mac地址过滤来防止蹭网。由于无线网卡和物理网卡桥接在一起，所以mac过滤要在网桥上配置。&lt;br&gt;1，打开Bridge-&amp;gt;Filaters，配置网桥MAC过滤规则。&lt;br&gt;&lt;img src=&quot;/2019/12/03/ros-mac-filter/1
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/categories/Network/ROS/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS使用E160E网卡配置第二链路实现故障自动切换</title>
+    <link href="https://iosbb.com/2019/11/28/ros-e160e-wcdma-switch/"/>
+    <id>https://iosbb.com/2019/11/28/ros-e160e-wcdma-switch/</id>
+    <published>2019-11-28T05:10:22.000Z</published>
+    <updated>2020-07-24T05:17:05.654Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文原理与配置LTE作为第二链路一样，基于路由distance，小者优先。不同的是E160E网卡在连接后不会自动产生lte1接口，需要手动配置，写此文档算是弥补LTE做第二链路没有操作部分的缺陷吧。<br>1，将E160E连接到RB962上，并确保网卡指示灯变成蓝色。此灯绿色表示正在搜索网络，蓝色表示已注册。<br><img src="/2019/11/28/ros-e160e-wcdma-switch/be5ae398-1054-49b1-9788-33f136eef1ba.jpg" alt="be5ae398-1054-49b1-9788-33f136eef1ba.jpg"><br>2，在winbox中增加ppp-client，设置Port为usb1，APN为3gnet。移动APN是cmnet，E160E不兼容电信卡。<br><img src="/2019/11/28/ros-e160e-wcdma-switch/112119_1252_ROSE160E1.png" alt="112119_1252_ROSE160E1.png"><br>3，取消勾选Dial On Demand和Add Default Route选项。<br><img src="/2019/11/28/ros-e160e-wcdma-switch/112119_1252_ROSE160E2.png" alt="112119_1252_ROSE160E2.png"><br>4，启动后便可看到ppp-out接口状态时R，日志中也有记录。<br><img src="/2019/11/28/ros-e160e-wcdma-switch/112119_1252_ROSE160E3.png" alt="112119_1252_ROSE160E3.png"><br><img src="/2019/11/28/ros-e160e-wcdma-switch/112119_1252_ROSE160E4.png" alt="112119_1252_ROSE160E4.png"><br>5，设置默认路由，Gateway选择ppp-out1接口，这里要选择接口，不是设置某个IP为吓一跳。Distance大于pppoe线路。此值小者优先级高。<br><img src="/2019/11/28/ros-e160e-wcdma-switch/112119_1252_ROSE160E5.png" alt="112119_1252_ROSE160E5.png"><br>6，此时可在路由表中看到两条默认路由，其中Distance=2的默认路由不生效。<br><img src="/2019/11/28/ros-e160e-wcdma-switch/112119_1252_ROSE160E6.png" alt="112119_1252_ROSE160E6.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本文原理与配置LTE作为第二链路一样，基于路由distance，小者优先。不同的是E160E网卡在连接后不会自动产生lte1接口，需要手动配置，写此文档算是弥补LTE做第二链路没有操作部分的缺陷吧。&lt;br&gt;1，将E160E连接到RB962上，并确保网卡指示灯变成蓝色。此灯绿
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/categories/Network/ROS/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS改MAC地址进行PPPoE连接</title>
+    <link href="https://iosbb.com/2019/11/24/ros-bridge-mac-pppoe/"/>
+    <id>https://iosbb.com/2019/11/24/ros-bridge-mac-pppoe/</id>
+    <published>2019-11-24T05:04:02.000Z</published>
+    <updated>2020-07-24T05:09:37.058Z</updated>
+    
+    <content type="html"><![CDATA[<p>破解光猫后拿到tr069的pppoe账号密码，建立pppoe连接时对方无响应，没有提示，猜测是BRAS绑定了mac地址，不响应未绑定之mac。未验证此问题，将创建bridge来验证。<br>下面是拨号失败的日志，具体可看到发起拨号，但对方无响应。<br><img src="/2019/11/24/ros-bridge-mac-pppoe/log.png" alt="log.png"><br>1，查看光猫中的MAC地址，联通光猫的几个pppoe接口MAC地址都不相同，所以导致了拨号失败。<br><img src="/2019/11/24/ros-bridge-mac-pppoe/112019_1307_ROSMACPPPo1.png" alt="112019_1307_ROSMACPPPo1.png"><br>2，创建bridge，设置Admin. MAC Address，此地址将作为拨号地址。<br><img src="/2019/11/24/ros-bridge-mac-pppoe/112019_1307_ROSMACPPPo2.png" alt="112019_1307_ROSMACPPPo2.png"><br>3，将sfp物理接口下的tr069所用vlan虚接口加入到上面创建的网桥中。<br><img src="/2019/11/24/ros-bridge-mac-pppoe/112019_1307_ROSMACPPPo3.png" alt="112019_1307_ROSMACPPPo3.png"><br>4，创建pppoe-client连接，Interfaces选择刚才新建的tr069网桥。并去除<code>Add Default Routes</code>选项。<br><img src="/2019/11/24/ros-bridge-mac-pppoe/112019_1307_ROSMACPPPo4.png" alt="112019_1307_ROSMACPPPo4.png"><br><img src="/2019/11/24/ros-bridge-mac-pppoe/112019_1307_ROSMACPPPo5.png" alt="112019_1307_ROSMACPPPo5.png"><br>5，点击OK确认，稍等片刻，tr069拨号完成。<br><img src="/2019/11/24/ros-bridge-mac-pppoe/112019_1307_ROSMACPPPo6.png" alt="112019_1307_ROSMACPPPo6.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;破解光猫后拿到tr069的pppoe账号密码，建立pppoe连接时对方无响应，没有提示，猜测是BRAS绑定了mac地址，不响应未绑定之mac。未验证此问题，将创建bridge来验证。&lt;br&gt;下面是拨号失败的日志，具体可看到发起拨号，但对方无响应。&lt;br&gt;&lt;img src=&quot;
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/categories/Network/ROS/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>北京联通烽火HG2201U光猫破解研究</title>
+    <link href="https://iosbb.com/2019/11/17/peking-unicom-epon-hg2201u-cracking/"/>
+    <id>https://iosbb.com/2019/11/17/peking-unicom-epon-hg2201u-cracking/</id>
+    <published>2019-11-17T04:52:06.000Z</published>
+    <updated>2020-07-24T12:31:20.140Z</updated>
+    
+    <content type="html"><![CDATA[<p>前些日子搞定了EPON模块代替光猫，折腾之心又起，这次计划搞到它的超级密码。<br>1，打开光猫管理页面，并用默认密码登录。<br><img src="/2019/11/17/peking-unicom-epon-hg2201u-cracking/111719_1624_HG2201U1.png" alt="111719_1624_HG2201U1.png"><br><img src="/2019/11/17/peking-unicom-epon-hg2201u-cracking/111719_1624_HG2201U2.png" alt="111719_1624_HG2201U2.png"><br>2，登录后访问<a href="http://192.168.1.1/servmngr.html" target="_blank" rel="noopener">http://192.168.1.1/servmngr.html</a><br>此时会发现页面中一片空白，只有部分选项，全选之。<br><img src="/2019/11/17/peking-unicom-epon-hg2201u-cracking/111719_1624_HG2201U3.png" alt="111719_1624_HG2201U3.png"><br>3，开启telnet选项，并在lan中enable之。默认用户名和密码都是admin<br><img src="/2019/11/17/peking-unicom-epon-hg2201u-cracking/111719_1624_HG2201U4.png" alt="111719_1624_HG2201U4.png"><br>4，修改后即可使用telnet登录光猫。使用sh命令进入shell。<br><img src="/2019/11/17/peking-unicom-epon-hg2201u-cracking/111719_1624_HG2201U5.png" alt="111719_1624_HG2201U5.png"><br><img src="/2019/11/17/peking-unicom-epon-hg2201u-cracking/111719_1624_HG2201U6.png" alt="111719_1624_HG2201U6.png"><br>5，修改配置文件<code>/fhconf/backpresettings.conf</code>，修改前先备份。<br>将<code>AreaCode</code>改为0<br><img src="/2019/11/17/peking-unicom-epon-hg2201u-cracking/111719_1624_HG2201U7.png" alt="111719_1624_HG2201U7.png"><br>修改AdminHideEnable为True<br><img src="/2019/11/17/peking-unicom-epon-hg2201u-cracking/111719_1624_HG2201U8.png" alt="111719_1624_HG2201U8.png"><br>这里面的AdminPassword是超级管理员的密码，Base64加密，解密后是<code>123qweasdzxc</code><br>6，修改保存后退出shell，然后执行下面命令加载配置文件，此时光猫会重启。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loaddefsettings fhconf&#x2F;backpresettings.conf</span><br></pre></td></tr></table></figure><p>7，重启后即可通过192.168.1.1/cu.html登录光猫。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;前些日子搞定了EPON模块代替光猫，折腾之心又起，这次计划搞到它的超级密码。&lt;br&gt;1，打开光猫管理页面，并用默认密码登录。&lt;br&gt;&lt;img src=&quot;/2019/11/17/peking-unicom-epon-hg2201u-cracking/111719_1624_H
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ChinaUnicom" scheme="https://iosbb.com/categories/Network/ChinaUnicom/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ChinaUnicom" scheme="https://iosbb.com/tags/ChinaUnicom/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS配置LTE第二链路实现故障自动切换</title>
+    <link href="https://iosbb.com/2019/11/11/ros-lte-switch/"/>
+    <id>https://iosbb.com/2019/11/11/ros-lte-switch/</id>
+    <published>2019-11-11T04:44:36.000Z</published>
+    <updated>2020-07-24T04:51:01.413Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文几乎没有操作部分，主要是讲原理。设备是RB962，通过PPPoE方式上网，华为5577移动路由器配合电信日租卡作为第二链路备用。<br>计划实现宽带正常时通过PPPoE线路上网，异常时通过LTE线路上网，PPPoE线路恢复正常时，流量回到PPPoE接口。本文技术通过策略路由实现。操作很是简单，把5577路由器连接到RB962的USB接口上就可以了，如下图：<br><img src="/2019/11/11/ros-lte-switch/111119_1522_ROSLTE1.png" alt="111119_1522_ROSLTE1.png"><br>连接5577后，RB962中看到新增lte接口，状态是R，此时没有流量。<br><img src="/2019/11/11/ros-lte-switch/111119_1522_ROSLTE2.png" alt="111119_1522_ROSLTE2.png"><br>查看路由表有两条默认路由，其中lte线路默认路由的distance=2。即pppoe-out1接口的distance=1的默认路由有效时，此路由条目不生效。<br><img src="/2019/11/11/ros-lte-switch/111119_1522_ROSLTE3.png" alt="111119_1522_ROSLTE3.png"><br>上网显示运营商是北京联通。<br><img src="/2019/11/11/ros-lte-switch/111119_1522_ROSLTE4.png" alt="111119_1522_ROSLTE4.png"><br>下面拔掉光纤模拟宽带故障。<br><img src="/2019/11/11/ros-lte-switch/111119_1522_ROSLTE5.png" alt="111119_1522_ROSLTE5.png"><br>此时可看到站点出现请求超时，延迟也从个位数上升到30左右。<br><img src="/2019/11/11/ros-lte-switch/111119_1522_ROSLTE6.png" alt="111119_1522_ROSLTE6.png"><br>查看IP已经变成北京电信。<br><img src="/2019/11/11/ros-lte-switch/111119_1522_ROSLTE7.png" alt="111119_1522_ROSLTE7.png"><br>查看路由表，PPPoE接口的默认路由已经消失。<br><img src="/2019/11/11/ros-lte-switch/111119_1522_ROSLTE8.png" alt="111119_1522_ROSLTE8.png"><br>查看接口状态，lte接口产生了流量，pppoe-out1接口流量归零。<br><img src="/2019/11/11/ros-lte-switch/111119_1522_ROSLTE9.png" alt="111119_1522_ROSLTE9.png"><br>顺带测速<br><img src="/2019/11/11/ros-lte-switch/111119_1522_ROSLTE10.png" alt="111119_1522_ROSLTE10.png"><br>插回光缆跳线，pppoe连接建立后，distance=1的默认路由随机产生，流量自动切回pppoe线路。即存在多条默认路由时，distance小者优先级高。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本文几乎没有操作部分，主要是讲原理。设备是RB962，通过PPPoE方式上网，华为5577移动路由器配合电信日租卡作为第二链路备用。&lt;br&gt;计划实现宽带正常时通过PPPoE线路上网，异常时通过LTE线路上网，PPPoE线路恢复正常时，流量回到PPPoE接口。本文技术通过策略
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/categories/Network/ROS/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS重装及恢复出厂设置</title>
+    <link href="https://iosbb.com/2019/11/09/ros-reinstall-reset/"/>
+    <id>https://iosbb.com/2019/11/09/ros-reinstall-reset/</id>
+    <published>2019-11-09T01:18:53.000Z</published>
+    <updated>2020-07-24T02:08:54.371Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文适用于：RouterBoard路由器密码忘记，重置全部配置，大版本升级。<br>文档以RB450G为实验设备，亦适用于RouterBoard设备，不适用于CCR或x86设备。<br>1，用网线连接电脑和ether1口，并在电脑上设置IP为192.168.88.0/24网段内的地址，我这里设为192.168.88.4。只需要同网段通信，请忽略我设置的网关。<br><img src="/2019/11/09/ros-reinstall-reset/110919_0619_ROS1-1.png" alt="110919_0619_ROS1-1.png"><br>2，下载Mikrotik Netinstall for RouterOS和对应硬件的软件包，装错会变砖。RB450G是mipsbe架构。运行后软件界面如下图：<br><img src="/2019/11/09/ros-reinstall-reset/110919_0619_ROS2-1.png" alt="110919_0619_ROS2-1.png"><br>3，点击Brose，选择放置npk文件的目录，载入系统包。当下面方框中看到有程序包出现时，程序包载入完成。<br>4，配置网络启动，点击Net booting，勾选Boot Server enabled，并在Client IP address中也设置为192.168.88.0/24网段内的地址，且不可与第一步设置的地址重复。我这里设为192.168.88.2。<br><img src="/2019/11/09/ros-reinstall-reset/110919_0619_ROS3-1.png" alt="110919_0619_ROS3-1.png"><br>5，拔掉RB450G电源，摁住reset键后通电启动，此时可看到Netinstall中已经显示RB450G路由器，此时点选RB450G 路由器并选择要安装的程序包，点击Instal。<br>RB450G的reset键在电源接口旁边，其它型号请自行寻找，如下图：<br><img src="/2019/11/09/ros-reinstall-reset/110919_0619_ROS4-1.png" alt="110919_0619_ROS4-1.png"><br><img src="/2019/11/09/ros-reinstall-reset/110919_0619_ROS5-1.png" alt="110919_0619_ROS5-1.png"><br>安装过程如下：<br><img src="/2019/11/09/ros-reinstall-reset/110919_0619_ROS6-1.png" alt="110919_0619_ROS6-1.png"><br>安装完毕后，会出现Installation finished successfully。此时重启路由器即可。<br><img src="/2019/11/09/ros-reinstall-reset/110919_0619_ROS7-1.png" alt="110919_0619_ROS7-1.png"></p><p>附：Netinstall和RB450G软件包下载<br><a href="/downloads/netinstall-6.45.6.zip">netinstall-6.45.6.zip</a><br><a href="/downloads/all_packages-mipsbe-6.45.6.zip">all_packages-mipsbe-6.45.6.zip</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本文适用于：RouterBoard路由器密码忘记，重置全部配置，大版本升级。&lt;br&gt;文档以RB450G为实验设备，亦适用于RouterBoard设备，不适用于CCR或x86设备。&lt;br&gt;1，用网线连接电脑和ether1口，并在电脑上设置IP为192.168.88.0/24网
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/categories/Network/ROS/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
+    
+  </entry>
   
   <entry>
     <title>ROS配置ipv6方法</title>
@@ -73,9 +619,9 @@
     
       <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
     
-      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
-    
       <category term="ChinaUnicom" scheme="https://iosbb.com/tags/ChinaUnicom/"/>
+    
+      <category term="ROS" scheme="https://iosbb.com/tags/ROS/"/>
     
   </entry>
   

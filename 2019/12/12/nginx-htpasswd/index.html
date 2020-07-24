@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>nginx通过htpasswd保护目录 | 垃圾网管的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="某些目录不想直接被公网访问，又不能墙掉端口，所以通过给某个目录增加访问密码的方式进行安全控制。1，生成密码文件，生成完毕后须将其属主改为nginx运行用户 1htpasswd -bdc &#x2F;data&#x2F;web&#x2F;htpasswd username password 2，被保护的目录增加一段location，指定密码文件 1234location ^~ &#x2F;auth&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx通过htpasswd保护目录">
+<meta property="og:url" content="https://iosbb.com/2019/12/12/nginx-htpasswd/index.html">
+<meta property="og:site_name" content="垃圾网管的笔记">
+<meta property="og:description" content="某些目录不想直接被公网访问，又不能墙掉端口，所以通过给某个目录增加访问密码的方式进行安全控制。1，生成密码文件，生成完毕后须将其属主改为nginx运行用户 1htpasswd -bdc &#x2F;data&#x2F;web&#x2F;htpasswd username password 2，被保护的目录增加一段location，指定密码文件 1234location ^~ &#x2F;auth&amp;">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2019-12-12T12:57:21.000Z">
+<meta property="article:modified_time" content="2020-07-24T13:06:20.713Z">
+<meta property="article:author" content="垃圾网管">
+<meta property="article:tag" content="Server">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/rss.xml" title="垃圾网管的笔记" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">垃圾网管的笔记</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/rss.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://iosbb.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-nginx-htpasswd" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/12/nginx-htpasswd/" class="article-date">
+  <time datetime="2019-12-12T12:57:21.000Z" itemprop="datePublished">2019-12-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/nginx/">nginx</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      nginx通过htpasswd保护目录
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>某些目录不想直接被公网访问，又不能墙掉端口，所以通过给某个目录增加访问密码的方式进行安全控制。<br>1，生成密码文件，生成完毕后须将其属主改为nginx运行用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">htpasswd -bdc &#x2F;data&#x2F;web&#x2F;htpasswd username password</span><br></pre></td></tr></table></figure>
+<p>2，被保护的目录增加一段location，指定密码文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location ^~ &#x2F;auth&#x2F;&#123;</span><br><span class="line">auth_basic &quot;Authorized users only&quot;;</span><br><span class="line">auth_basic_user_file &#x2F;data&#x2F;web&#x2F;htpasswd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3，如果该目录下有php程序，php程序将变成下载而非执行，需修改上面的location配置，增加php-fpm配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">location ^~ &#x2F;auth&#x2F;&#123;</span><br><span class="line">location ~ \.php$ &#123;</span><br><span class="line">include fastcgi_params;</span><br><span class="line">fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">fastcgi_index index.php;</span><br><span class="line">fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">&#125;</span><br><span class="line">auth_basic &quot;Authorized users only&quot;;</span><br><span class="line">auth_basic_user_file &#x2F;data&#x2F;web&#x2F;htpasswd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2019/12/12/nginx-htpasswd/" data-id="ckd0be4di001qwnku6uithmog" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/12/14/nginx-ssl-nginx-warn-the-ssl-directive-is-deprecated-use-the-listen-ssl-directive-instead-in/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          nginx在ssl站点中报nginx: [warn] the &#34;ssl&#34; directive is deprecated, use the &#34;listen ... ssl&#34; directive instead in错误
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/12/06/qcloud-vps-ipv6-config/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">腾讯云VPS配置IPV6</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Network/Asus/">Asus</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/ChinaUnicom/">ChinaUnicom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/Cisco/">Cisco</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/IPv6/">IPv6</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/ROS/">ROS</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/">Server</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Apache/">Apache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/MQ/">MQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Nexus/">Nexus</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Oracle/">Oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/docker/">docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/firewalld/">firewalld</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/nginx/">nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/BTC/">BTC</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E7%BA%BF%E7%94%B5/">无线电</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%BD%92%E6%A1%A3/">未归档</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/" rel="tag">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Asus/" rel="tag">Asus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BTC/" rel="tag">BTC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ChinaUnicom/" rel="tag">ChinaUnicom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cisco/" rel="tag">Cisco</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IPv6/" rel="tag">IPv6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/" rel="tag">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nexus/" rel="tag">Nexus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/" rel="tag">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewalld/" rel="tag">firewalld</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" rel="tag">无线电</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" rel="tag">未归档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Apache/" style="font-size: 10px;">Apache</a> <a href="/tags/Asus/" style="font-size: 12px;">Asus</a> <a href="/tags/BTC/" style="font-size: 12px;">BTC</a> <a href="/tags/ChinaUnicom/" style="font-size: 12px;">ChinaUnicom</a> <a href="/tags/Cisco/" style="font-size: 10px;">Cisco</a> <a href="/tags/IPv6/" style="font-size: 10px;">IPv6</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MySQL/" style="font-size: 14px;">MySQL</a> <a href="/tags/Network/" style="font-size: 18px;">Network</a> <a href="/tags/Nexus/" style="font-size: 12px;">Nexus</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/ROS/" style="font-size: 16px;">ROS</a> <a href="/tags/Server/" style="font-size: 20px;">Server</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewalld/" style="font-size: 10px;">firewalld</a> <a href="/tags/nginx/" style="font-size: 12px;">nginx</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 12px;">区块链</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" style="font-size: 10px;">无线电</a> <a href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" style="font-size: 10px;">未归档</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/1900/01/">January 1900</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/01/07/ros-android-lte-switch/">ROS通过安卓手机配置LTE第二链路实现故障自动切换</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/05/oracle-rows-count/">Oracle 统计行数</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/04/ros-dhcp-configure/">ROS DHCP配置</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/01/mysql-5-7-19-compile-install-config/">MySQL 5.7.19编译安装及简单配置方法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/27/mysql-data-storage/">Mysql查看数据量</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 垃圾网管<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
