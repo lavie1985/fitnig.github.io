@@ -64,14 +64,14 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-apache-virtual-host" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-route-import-redistribute" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/01/10/apache-virtual-host/" class="article-date">
-  <time datetime="2020-01-09T16:15:25.000Z" itemprop="datePublished">2020-01-10</time>
+    <a href="/2020/02/07/route-import-redistribute/" class="article-date">
+  <time datetime="2020-02-07T11:17:09.000Z" itemprop="datePublished">2020-02-07</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/apache/">apache</a>
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/cisco/">cisco</a>
   </div>
 
   </div>
@@ -82,7 +82,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/10/apache-virtual-host/">apache虚拟主机</a>
+      <a class="article-title" href="/2020/02/07/route-import-redistribute/">路由重分布-路由引入</a>
     </h1>
   
 
@@ -90,15 +90,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NameVirtualHost *:80</span><br><span class="line">&lt;VirtualHost *:80&gt;</span><br><span class="line">ServerAdmin a@a.a #管理员邮箱</span><br><span class="line">DocumentRoot &#x2F;data&#x2F;web #路径</span><br><span class="line">ServerName domain.com #域名</span><br><span class="line">ServerAlias http:&#x2F;&#x2F;www.domain.com #别名</span><br><span class="line">ErrorLog &#x2F;data&#x2F;log&#x2F;error #错误日志路径</span><br><span class="line">CustomLog &#x2F;data&#x2F;log&#x2F;access common #访问日志路径</span><br><span class="line">&lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+        <h2 id="cisco"><a href="#cisco" class="headerlink" title="cisco"></a>cisco</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">router ospf</span><br><span class="line">red static</span><br></pre></td></tr></table></figure>
+
+<h2 id="华为"><a href="#华为" class="headerlink" title="华为"></a>华为</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ospf</span><br><span class="line">import static</span><br></pre></td></tr></table></figure>
+
+<h2 id="H3C"><a href="#H3C" class="headerlink" title="H3C"></a>H3C</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ospf 1</span><br><span class="line">import-route</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/02/07/route-import-redistribute/1578559229435.png" alt="1578559229435.png"><br>路由引入，即路由重分布，多个运行不同路由协议的网络，通过asbr（自治系统边界路由器）互相交换路由信息。如果这些网是不同的路由协议，那么需要在多种协议中互相引入。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/10/apache-virtual-host/" data-id="ckd30wlke000186ku0cbjff85" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/02/07/route-import-redistribute/" data-id="ckd33w50e009mg5ku74n9ar3i" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/" rel="tag">apache</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li></ul>
 
     </footer>
   </div>
@@ -107,14 +112,14 @@
 
 
   
-    <article id="post-centos6-ipv6-disabled" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/01/09/centos6-ipv6-disabled/" class="article-date">
-  <time datetime="2020-01-09T15:49:27.000Z" itemprop="datePublished">2020-01-09</time>
+    <a href="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/" class="article-date">
+  <time datetime="2020-02-03T11:09:06.000Z" itemprop="datePublished">2020-02-03</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/linux/">linux</a>
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/sangfor/">sangfor</a>
   </div>
 
   </div>
@@ -125,7 +130,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/09/centos6-ipv6-disabled/">CentOS6禁用ipv6</a>
+      <a class="article-title" href="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/">SANGFOR M6.6 SSL VPN外部认证配置</a>
     </h1>
   
 
@@ -133,19 +138,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1，修改网卡配置文件，末尾追加下列配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NETWORKING_IPV6&#x3D;no</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/01/09/centos6-ipv6-disabled/1578538171615.png" alt="1578538171615.png"><br>2，/etc/modprobe.d/目录中创建禁用ipv6的配置文件，名称随意，这里取名ipv6off.conf。写入下列配置`</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alias net-pf-10 off</span><br><span class="line">options ipv6 disable&#x3D;1</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/01/09/centos6-ipv6-disabled/1578538171621.png" alt="1578538171621.png"><br>3，重启系统，即可看到ipv6已被关闭，重启网络无效。<br><img src="/2020/01/09/centos6-ipv6-disabled/1578538171626.png" alt="1578538171626.png"></p>
+        <p>1，登录SSL VPN，如果是HA需要使用虚拟IP登录，登录分发器或业务服务器将不能修改配置。<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765305.png" alt="1580700765305.png"><br>登陆后可在系统设置-&gt;SSL VPN选项-&gt;集群部署中看到当前HA状态。<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765316.png" alt="1580700765316.png"><br>2，SSL VPN设置-&gt;认证设置-&gt;LDAP认证中增加LDAP或AD域控。<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765324.png" alt="1580700765324.png"><br>点击新建<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765331.png" alt="1580700765331.png"><br>填写服务器名称，地址，管理员全路径，密码和设置搜索入口。<br>管理员全路径是有能访问域控权限的用户名全名，不需要管理权限。<br>搜索入口可点击&gt;&gt;按钮搜索自动填写。<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765341.png" alt="1580700765341.png"><br>3，配置认证优先级。<br>SSL VPN设置-&gt;认证设置-&gt;LDAP与Radius服务器认证优先级设置中查看认证顺序是否正确。如果第二步中只配置了一个外部认证服务器，则此步骤可忽略。<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765351.png" alt="1580700765351.png"><br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765353.png" alt="1580700765353.png"><br>4，SSL VPN设置-&gt;认证设置-&gt;LDAP认证中勾选新增的认证服务器，点击导入用户到本地<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765356.png" alt="1580700765356.png"><br>配置导入用户和本地目标组，点击保存并立即同步<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765359.png" alt="1580700765359.png"><br>完成后即可使用LDAP认证登录。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/09/centos6-ipv6-disabled/" data-id="ckd30wln6000j86ku06wk958d" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/" data-id="ckd33w50o009sg5kug6gw1jaz" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li></ul>
 
     </footer>
   </div>
@@ -154,10 +155,182 @@
 
 
   
-    <article id="post-ros-android-lte-switch" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-sangfor-ad-6-3-load-banlancer-service-configure" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/01/07/ros-android-lte-switch/" class="article-date">
-  <time datetime="2020-01-07T14:13:57.000Z" itemprop="datePublished">2020-01-07</time>
+    <a href="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/" class="article-date">
+  <time datetime="2020-01-29T11:01:31.000Z" itemprop="datePublished">2020-01-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/sangfor/">sangfor</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/">SANGFOR-AD-6.3负载均衡机业务配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1，登录负载均衡机，如果是HA需登录主机，备机此时不工作。<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295673.png" alt="1579482295673.png"><br>2，创建虚拟IP，此IP将作为负载均衡的虚拟IP。<br>点击应用负载-&gt;IP组，在待选中选择未使用的IP地址。<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295701.png" alt="1579482295701.png"><br>添加好后如下图：<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295728.png" alt="1579482295728.png"><br>3，创建节点池，这里面将添加业务服务器节点。<br>应用负载-&gt;节点池，如需会话保持，可根据需要选择cookie或session。默认情况下，负载均衡机使用轮询方式进行调度。<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295746.png" alt="1579482295746.png"><br>添加完成后即可在查看节点中看到所有节点。<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295761.png" alt="1579482295761.png"><br>4，创建虚拟服务。此处是关联虚拟IP与业务，创建完成后即可提供服务。<br>应用负载-&gt;虚拟服务，创建时选择七层模式<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295764.png" alt="1579482295764.png"><br>服务选择http，IP组选择第二步中选择的虚拟IP，默认节点池选择第三步中创建的业务节点池，SNAT地址集选择自动SNAT。<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295780.png" alt="1579482295780.png"><br>5，添加完成后即可通过VIP访问，负载均衡机把请求转发给后面业务服务器提供服务。<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295803.png" alt="1579482295803.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/" data-id="ckd33w50j009pg5kuekro1wzh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-isp-vlan-type-collect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/26/isp-vlan-type-collect/" class="article-date">
+  <time datetime="2020-01-26T10:51:28.000Z" itemprop="datePublished">2020-01-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/isp/">isp</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/26/isp-vlan-type-collect/">各地运营商VLAN及连接方式收集</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="北京联通（EPON）-2020-01-26"><a href="#北京联通（EPON）-2020-01-26" class="headerlink" title="北京联通（EPON）-2020.01.26"></a>北京联通（EPON）-2020.01.26</h3><table>
+<thead>
+<tr>
+<th>VLAN-ID</th>
+<th>用途</th>
+<th>连接方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3961</td>
+<td>上网</td>
+<td>PPPoE</td>
+</tr>
+<tr>
+<td>3962</td>
+<td>其它</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3964</td>
+<td>IPTV</td>
+<td>DHCP</td>
+</tr>
+<tr>
+<td>3969</td>
+<td>TR069</td>
+<td>PPPoE</td>
+</tr>
+<tr>
+<td>4000</td>
+<td>IPTV-IGMP</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3 id="山东泰安联通（GPON）-2020-01-26"><a href="#山东泰安联通（GPON）-2020-01-26" class="headerlink" title="山东泰安联通（GPON）-2020.01.26"></a>山东泰安联通（GPON）-2020.01.26</h3><table>
+<thead>
+<tr>
+<th>VLAN-ID</th>
+<th>用途</th>
+<th>连接方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>50</td>
+<td>TR069</td>
+<td>IPOE</td>
+</tr>
+<tr>
+<td>164</td>
+<td>IPTV</td>
+<td>PPPoE</td>
+</tr>
+<tr>
+<td>3967</td>
+<td>上网</td>
+<td>PPPoE</td>
+</tr>
+</tbody></table>
+<h2 id="待验证："><a href="#待验证：" class="headerlink" title="待验证："></a>待验证：</h2><h3 id="河北秦皇岛电信（GPON）-感谢偶然提供-2020-01-28"><a href="#河北秦皇岛电信（GPON）-感谢偶然提供-2020-01-28" class="headerlink" title="河北秦皇岛电信（GPON）-感谢偶然提供-2020.01.28"></a>河北秦皇岛电信（GPON）-感谢偶然提供-2020.01.28</h3><table>
+<thead>
+<tr>
+<th>VLAN-ID</th>
+<th>用途</th>
+<th>连接方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>46</td>
+<td>TR069</td>
+<td>IPOE</td>
+</tr>
+<tr>
+<td>99</td>
+<td>IPTV</td>
+<td>PPPoE</td>
+</tr>
+<tr>
+<td>43</td>
+<td>IPTV-IGMP</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>上网</td>
+<td>PPPoE</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/01/26/isp-vlan-type-collect/" data-id="ckd33w4lh001jg5kuhwcr4me1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/isp/" rel="tag">isp</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ros-mac-filter-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/24/ros-mac-filter-2/" class="article-date">
+  <time datetime="2020-01-24T10:47:34.000Z" itemprop="datePublished">2020-01-24</time>
 </a>
     
   <div class="article-category">
@@ -172,7 +345,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/07/ros-android-lte-switch/">ROS通过安卓手机配置LTE第二链路实现故障自动切换</a>
+      <a class="article-title" href="/2020/01/24/ros-mac-filter-2/">ROS配置MAC地址过滤-2</a>
     </h1>
   
 
@@ -180,12 +353,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>继上篇文章用牢厂5577移动路由器做LTE备用线路之后，有群友问能否用用手机做第二链路。<br>具体原理请参考 ROS配置LTE第二链路实现故障自动切换<br>这是配置和测试文档：<br>1，查看当前IP，是北京联通。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE1.png" alt="010320_1451_ROSLTE1.png"><br>2，安卓手机连接到RB962的USB接口，然后打开USB网络共享功能，手机型号是1+ 5（没有T）。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE2.jpg" alt="010320_1451_ROSLTE2.jpg"><br>3，查看接口状况，ROS中出lte1接口，状态是R。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE3.png" alt="010320_1451_ROSLTE3.png"><br>4，查看路由状况，出现一条distance=2的默认路由。此路由在pppoe接口正常时不起作用。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE4.png" alt="010320_1451_ROSLTE4.png"><br>5，禁用pppoe线路故障。此时看到路由表中pppoe的默认路由已经消失，只剩下此lte路由条目。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE5.png" alt="010320_1451_ROSLTE5.png"><br>6，查看ping值从个位数增加到30左右。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE6.png" alt="010320_1451_ROSLTE6.png"><br>7，查看IP，现在是北京移动。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE7.png" alt="010320_1451_ROSLTE7.png"></p>
+        <p>以前写过通过网桥配置MAC地址过滤使客户机不能进入网桥达到防止蹭网的目的，但客户机依旧可以通过正确的密码进入无线网，本文档记录如何在无线接口上配置MAC地址过滤使其不能接入无线网。<br>1，Wireless-&gt;Access List中新增ACL。<br><img src="/2020/01/24/ros-mac-filter-2/1579660515658.png" alt="1579660515658.png"><br>2，勾选Enable，MAC Address中填写要被拒绝接入的MAC地址，取消勾选Authentication选项，保存。<br><img src="/2020/01/24/ros-mac-filter-2/1579660515672.png" alt="1579660515672.png"><br>3，如有对信号质量要求，配置Signal Strength Rance，下图范围是-120到120，Allow Signal Out Of Range是持续时间，下图范围是10秒。即信号弱于-120或强于120，持续10秒则踢出。<br><img src="/2020/01/24/ros-mac-filter-2/1579660515679.png" alt="1579660515679.png"><br>至此配置完成，被禁止之MAC将无法连接无线网，已连接的设备会立即掉线。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/07/ros-android-lte-switch/" data-id="ckd30wlzd006x86kuh8pt4msy" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/24/ros-mac-filter-2/" data-id="ckd33w4yx0091g5ku5dlna9w4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ros/" rel="tag">ros</a></li></ul>
@@ -197,14 +370,14 @@
 
 
   
-    <article id="post-oracle-rows-count" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-panabit-password-reset" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/01/05/oracle-rows-count/" class="article-date">
-  <time datetime="2020-01-05T14:11:25.000Z" itemprop="datePublished">2020-01-05</time>
+    <a href="/2020/01/20/panabit-password-reset/" class="article-date">
+  <time datetime="2020-01-20T10:44:12.000Z" itemprop="datePublished">2020-01-20</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/oracle/">oracle</a>
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/panabit/">panabit</a>
   </div>
 
   </div>
@@ -215,7 +388,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/05/oracle-rows-count/">Oracle 统计行数</a>
+      <a class="article-title" href="/2020/01/20/panabit-password-reset/">panabit重置密码</a>
     </h1>
   
 
@@ -223,15 +396,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*) FROM tablename;</span><br></pre></td></tr></table></figure>
+        <p>SSH查看Web管理密码   控制台登录　用户名root，密码panaos<br>root用户SSH进入到控制台界面或者设备直接接上显示器和键盘，输入命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;usr&#x2F;panabit&#x2F;admin&#x2F;.htpasswd （BSD8.0）</span><br><span class="line">cat &#x2F;ust&#x2F;system&#x2F;admin&#x2F;.htpasswd   （BSD9.2）</span><br></pre></td></tr></table></figure>
+<p>能查看密码<br>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;usr&#x2F;ramdisk&#x2F;admin&#x2F;.htpasswd</span><br></pre></td></tr></table></figure>
+<p>查看到的结果一般是admin:xxxx，冒号后面的就是密码</p>
+<p>如果是root密码忘记了<br>设备接上显示器和键盘<br>重启设备，并不停的接Tab键<br>在boot:里输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;boot&#x2F;loader -s</span><br></pre></td></tr></table></figure>
+<p>进入单用户模式<br>在/bin/sh回车一下<br>进到#里<br>键入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;sbin&#x2F;mount -a 回车</span><br><span class="line">passwd   回车</span><br><span class="line">修改新的密码</span><br><span class="line">&#x2F;sbin&#x2F;reboot，重启后就能用新的密码登入root用户了。</span><br></pre></td></tr></table></figure>
+
+<p>如果某些情况下，Web管理用户名密码丢失,<code>cat /usr/panabit/admin/.htpasswd</code><br>显示是空白的，可以这么处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;admin:panabit&#39; &gt; &#x2F;usr&#x2F;panabit&#x2F;admin&#x2F;.htpasswd（admin:panabit，就是用户名和密码）</span><br><span class="line">cp &#x2F;usr&#x2F;panabit&#x2F;admin&#x2F;.htpasswd &#x2F;usr&#x2F;ramdisk&#x2F;admin&#x2F;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/05/oracle-rows-count/" data-id="ckd30wlr5002986ku9rd6hn0i" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/20/panabit-password-reset/" data-id="ckd33w4o8002tg5ku9ddr7xdf" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/" rel="tag">oracle</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/panabit/" rel="tag">panabit</a></li></ul>
 
     </footer>
   </div>
@@ -240,10 +424,173 @@
 
 
   
-    <article id="post-ros-dhcp-configure" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-h3c-snmpv1-configure" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/01/04/ros-dhcp-configure/" class="article-date">
-  <time datetime="2020-01-04T14:05:04.000Z" itemprop="datePublished">2020-01-04</time>
+    <a href="/2020/01/14/h3c-snmpv1-configure/" class="article-date">
+  <time datetime="2020-01-14T10:42:39.000Z" itemprop="datePublished">2020-01-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/h3c/">h3c</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/14/h3c-snmpv1-configure/">H3C SNMPv1配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>内网，用snmp v1，public就可以了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">snmp-agent sys-info version v1 #开启SNMP</span><br><span class="line">snmp-agent community read public #设置团体名为public</span><br><span class="line">snmp-agent trap enable  #开启trap</span><br><span class="line">snmp-agent target-host trap address udp-domain 172.16.1.1 params securityname public v1  #指定报文目的172.16.1.1，团体名public，协议版本v1</span><br></pre></td></tr></table></figure>
+<p>由于只需要监控，不需要管理，所以只给read即可，无需write。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/01/14/h3c-snmpv1-configure/" data-id="ckd33w4kc0011g5kuajugdg5g" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/h3c/" rel="tag">h3c</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-peking-unicom-vlan-tag" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/12/peking-unicom-vlan-tag/" class="article-date">
+  <time datetime="2020-01-12T10:33:37.000Z" itemprop="datePublished">2020-01-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/chinaunicom/">chinaunicom</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/12/peking-unicom-vlan-tag/">联通宽带VLAN学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>搞了几天IGMP，VLAN 3964上没有数据，经海鲜大佬提示，可能在别的VLAN里，进模块学习一下。<br>1，打开模块的telnet功能。<br><img src="/2020/01/12/peking-unicom-vlan-tag/1578824630034.png" alt="1578824630034.png"><br>2，登录后diag，再用l2-table get entry address valid命令学习VLAN信息。从命令看好像是读取读取二层数据中的vlan tag。<br><img src="/2020/01/12/peking-unicom-vlan-tag/1578824630040.png" alt="1578824630040.png"><br>即可看到当前线路上的VLAN Tag。<br><img src="/2020/01/12/peking-unicom-vlan-tag/1578824630049.png" alt="1578824630049.png"><br><img src="/2020/01/12/peking-unicom-vlan-tag/1578824630058.png" alt="1578824630058.png"><br>从上图可看到北京联通有下列VLAN：</p>
+<table>
+<thead>
+<tr>
+<th>VLAN-ID</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3961</td>
+<td>上网用</td>
+</tr>
+<tr>
+<td>4000</td>
+<td>组播用</td>
+</tr>
+<tr>
+<td>3969</td>
+<td>TR069管理用</td>
+</tr>
+</tbody></table>
+<p>奇怪的是，这里面没有IPTV的VLAN 3964，而这个VLAN配置在了光猫里。<br><img src="/2020/01/12/peking-unicom-vlan-tag/1578824630067.png" alt="1578824630067.png"></p>
+<p>2020.01.16补充：<br>今天再次学习VLAN信息时，出现VLAN-3964，猜测有数据时才会出现，没有数据时二层地址信息过期会导致自动删除。<br>但IGMP数据依旧没有。<br><img src="/2020/01/12/peking-unicom-vlan-tag/QQ20200116-091325.png" alt="QQ20200116-091325.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/01/12/peking-unicom-vlan-tag/" data-id="ckd33w4oj0031g5ku70mb4ebo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chinaunicom/" rel="tag">chinaunicom</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-cisco-asa-5505-password-reset" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/11/cisco-asa-5505-password-reset/" class="article-date">
+  <time datetime="2020-01-11T10:24:37.000Z" itemprop="datePublished">2020-01-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/cisco/">cisco</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/11/cisco-asa-5505-password-reset/">Cisco ASA 5505 密码重置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>仓库中翻出一台ASA 5505，不知密码，需要破解。<br><img src="/2020/01/11/cisco-asa-5505-password-reset/1578543119956.png" alt="1578543119956.png"><br>操作方法如下：<br>1，先连接console线，再通电启动。<br>2，启动时按ESC或ctrl+break中断启动，进入ROM Monitor模式。<br><img src="/2020/01/11/cisco-asa-5505-password-reset/1578543119962.png" alt="1578543119962.png"><br>3，通过confreg命令查看寄存器的值，并输入no不修改。寄存器默认值0x00000001。<br><img src="/2020/01/11/cisco-asa-5505-password-reset/1578543119967.png" alt="1578543119967.png"><br>4，修改寄存器的值为0x41。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">confreg 0x41</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/01/11/cisco-asa-5505-password-reset/1578543119972.png" alt="1578543119972.png"><br>5，输入boot启动防火墙。<br><img src="/2020/01/11/cisco-asa-5505-password-reset/1578543119977.png" alt="1578543119977.png"><br>此时启动ASA会跳过加载startup配置，直接进入用户模式。此时即可使用空enable密码登陆。<br>6，将startup配置保存至running配置中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy startup-config running-config</span><br></pre></td></tr></table></figure>
+<p>7，全局配置模式下重置enable和远程管理密码为123456。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">enable password 123456</span><br><span class="line">password 123456</span><br></pre></td></tr></table></figure>
+<p>8，改回寄存器值，并用show version查看寄存器值是否已改为0x00000001</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config-register 0x11</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/01/11/cisco-asa-5505-password-reset/1578543119981.png" alt="1578543119981.png"><br>9，保存配置并重启</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">copy running-config startup-config</span><br><span class="line">reload</span><br></pre></td></tr></table></figure>
+<p>至此密码已重置为123456，并且配置不会丢失。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/01/11/cisco-asa-5505-password-reset/" data-id="ckd33w4j9000ug5kuec0zdiju" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ros-dual-wan-configure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/11/ros-dual-wan-configure/" class="article-date">
+  <time datetime="2020-01-10T16:17:49.000Z" itemprop="datePublished">2020-01-11</time>
 </a>
     
   <div class="article-category">
@@ -258,7 +605,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/04/ros-dhcp-configure/">ROS DHCP配置</a>
+      <a class="article-title" href="/2020/01/11/ros-dual-wan-configure/">ROS多网段多出口实现</a>
     </h1>
   
 
@@ -266,289 +613,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1，指定接口IP。<br><img src="/2020/01/04/ros-dhcp-configure/1578135190745.png" alt="1578135190745.png"><br>2，IP-&gt;Pool创建地址池。Name随便写。Address是地址范围，与接口要在同一网段，但不能包括接口IP。<br><img src="/2020/01/04/ros-dhcp-configure/1578135190754.png" alt="1578135190754.png"><br>3，IP-&gt;DHCP Servert-&gt;DHCP添加DHCP服务。Interface选择要分配地址的接口，如果是网桥，需选择对应桥接口。Address Pool选择要使用的地址池。Lease Time配置租期。<br><img src="/2020/01/04/ros-dhcp-configure/1578135190765.png" alt="1578135190765.png"><br>4，完成后到Networks标签，添加Options。Address填网络地址和掩码，要与接口一致，如我填写的是10.0.1.0/24。Gateway是网关地址，一般来说是接口地址，我这填写的是10.0.1.1。DNS Servers是DNS地址，可根据需要多写几个。<br><img src="/2020/01/04/ros-dhcp-configure/1578135190775.png" alt="1578135190775.png"><br>至此，DHCP配置完成，连接设备后ROS即可对其分配地址。</p>
+        <p>环境介绍：<br>RB2011，ether1为内网口10.0.0.1，ether2/3是两个外网口。<br>内网网段：172.16.1.0/172.16.2.0/172.16.3.0/172.16.4.0/10.7.7.0/10.0.0.0，前五个网段通过S5700三层交换到核心网。<br>计划实现172.16.1.0/172.16.2.0两个网段走ether3的固定IP，172.16.3.0/172.16.4.0/10.7.7.0三个网段走ether2上的pppoe-out1出口。<br>本文中除有标注外所有IP的掩码均是24位。<br>1，建立不同网段的NAT Rule，其中必须指定出口。<br><img src="/2020/01/11/ros-dual-wan-configure/1578542700075.png" alt="1578542700075.png"><br>2，设置Mangle Rule，标记不同走向的数据包，prerouting链表，Action=mark routing。<br><img src="/2020/01/11/ros-dual-wan-configure/1578542700081.png" alt="1578542700081.png"><br><img src="/2020/01/11/ros-dual-wan-configure/1578542700085.png" alt="1578542700085.png"><br>4，设置路由表，Routing Mark中选择要走特定线路的标记，Gateway中指定其出口，Dst. Address中填0.0.0.0/0按照默认路由处理。<br><img src="/2020/01/11/ros-dual-wan-configure/1578542700089.png" alt="1578542700089.png"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/04/ros-dhcp-configure/" data-id="ckd30wm0t007286kugh290jya" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/11/ros-dual-wan-configure/" data-id="ckd33w4pe003pg5ku5pjkak0h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ros/" rel="tag">ros</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mysql-5-7-19-compile-install-config" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/01/mysql-5-7-19-compile-install-config/" class="article-date">
-  <time datetime="2020-01-01T13:43:51.000Z" itemprop="datePublished">2020-01-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/mysql/">mysql</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/01/mysql-5-7-19-compile-install-config/">MySQL 5.7.19编译安装及简单配置方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文档讲述如何通过编译的方式安装MySQL5.7.19，并进行简单配置。需要服务器配置不低于2CPU，2G内存，20G硬盘，否则不一定能顺利安装。安装前需要cmake和boost两个组件，可在附件中下载。<br>mysql安装路径/usr/local，数据路径/mysql，root密码123456<br>下面进行依赖安装：<br>1，安装cmake</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -xf cmake-3.5.2.tar.gz</span><br><span class="line">cd cmake-3.5.2</span><br><span class="line">.&#x2F;bootstrap</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57191.png" alt="122919_1608_MySQL57191.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmake</span><br></pre></td></tr></table></figure>
-<p>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57192.png" alt="122919_1608_MySQL57192.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gmake install</span><br></pre></td></tr></table></figure>
-<p>至此，cmake安装完成。<br>2，boost，安装时需指定路径（–prefix），默认路径能安装，但找不到。./b2 install安装时间很长。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -xf boost_1_59_0.tar.gz</span><br><span class="line">cd boost_1_59_0</span><br><span class="line">.&#x2F;bootstrap.sh --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;</span><br></pre></td></tr></table></figure>
-<p>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57193.png" alt="122919_1608_MySQL57193.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;b2 install</span><br></pre></td></tr></table></figure>
-<p>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57194.png" alt="122919_1608_MySQL57194.png"><br>3，安装依赖ncurses-devel，这里就用yum进行了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ncurses-devel -y</span><br></pre></td></tr></table></figure>
-<p>至此，依赖安装完成，下面开始mysql编译。<br>4，编译MySQL，但这里的编译是通过CMake而非configure进行的，指定boost的源码路径，这里很奇怪，必须先安装boost这里也要指定源码路径，否则失败。<br>参数说明：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-DCMAKE_INSTALL_PREFIX&#x3D;安装路径</span><br><span class="line">-DMYSQL_DATADIR&#x3D;默认数据路径</span><br><span class="line">-DSYSCONFDIR&#x3D;配置文件路径</span><br><span class="line">-DMYSQL_TCP_PORT&#x3D;默认端口</span><br><span class="line">-DMYSQL_UNIX_ADDR&#x3D;socket路径</span><br><span class="line">-DWITH_BOOST&#x3D;boost源码路径</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -xf mysql-boost-5.7.19.tar.gz</span><br><span class="line">cd mysql-5.7.19</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;bin&#x2F;cmake . -DCMAKE_INSTALL_PREFIX&#x3D;&#x2F;usr&#x2F;mysql -DMYSQL_DATADIR&#x3D;&#x2F;mysql -DSYSCONFDIR&#x3D;&#x2F;etc -DWITH_INNOBASE_STORAGE_ENGINE&#x3D;1 -DWITH_ARCHIVE_STORAGE_ENGINE&#x3D;1 -DWITH_BLACKHOLE_STORAGE_ENGINE&#x3D;1 -DWITH_FEDERATED_STORAGE_ENGINE&#x3D;1 -DMYSQL_TCP_PORT&#x3D;3306 -DMYSQL_UNIX_ADDR&#x3D;&#x2F;mysql&#x2F;mysql.sock -DENABLED_LOCAL_INFILE&#x3D;1 -DEXTRA_CHARSETS&#x3D;all -DDEFAULT_CHARSET&#x3D;utf8 -DDEFAULT_COLLATION&#x3D;utf8_general_ci -DWITH_DEBUG&#x3D;0 -DENABLE_PROFILING&#x3D;1 -DWITH_BOOST&#x3D;&#x2F;root&#x2F;lnmp&#x2F;mysql&#x2F;boost_1_59_0</span><br></pre></td></tr></table></figure>
-<p>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57195.png" alt="122919_1608_MySQL57195.png"><br>下面开始编译，编译过程较长。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
-<p>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57196.png" alt="122919_1608_MySQL57196.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
-<p>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57197.png" alt="122919_1608_MySQL57197.png"><br>5，修改数据目录权限和复制启动脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">useradd mysql</span><br><span class="line">mkdir &#x2F;mysql</span><br><span class="line">chown -R mysql.mysql &#x2F;mysql &amp;&amp; chown -R mysql.mysql &#x2F;usr&#x2F;mysql</span><br><span class="line">cp -a &#x2F;usr&#x2F;mysql&#x2F;support-files&#x2F;mysql.server &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line">chmod +x &#x2F;etc&#x2F;init.d&#x2F;mysqld</span><br><span class="line">ln -s &#x2F;usr&#x2F;mysql&#x2F;bin&#x2F;mysql &#x2F;usr&#x2F;bin&#x2F;mysql</span><br><span class="line">chmod +x &#x2F;usr&#x2F;bin&#x2F;mysql</span><br></pre></td></tr></table></figure>
-<p>6，初始化数据库，5.5版本后会自动生成过期的root密码，需配置跳过密码并修改为不过期。顺序：1，跳过验证；2，修改root密码；3，设置密码不过期。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;mysql&#x2F;bin</span><br><span class="line"></span><br><span class="line">.&#x2F;mysqld --initialize --user&#x3D;mysql</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57198.png" alt="122919_1608_MySQL57198.png"><br>7，重置密码，并设置密码不过期。<br>在[mysqld]中增加下列字段，修改数据路径，并重启mysql</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip-grant-tables</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL57199.png" alt="122919_1608_MySQL57199.png"><br>如果没有错误，将会是下面的提示：<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL571910.png" alt="122919_1608_MySQL571910.png"><br>8，用空密码登录mysql。<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL571911.png" alt="122919_1608_MySQL571911.png"><br>9，修改root密码为不过期。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use mysql ;</span><br><span class="line">update user set password_expired&#x3D;&#39;N&#39; where user&#x3D;&#39;root&#39;;</span><br></pre></td></tr></table></figure>
-<p>10，修改密码，5.7已弃用passwd字段，<code>UPDATE user SET password=PASSWORD(&#39;123456&#39;) WHERE user=&#39;root&#39;;</code>命令已无效，用下面的命令，另外，MySQL5.7默认无grant权限，所以要加with grant option参数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update mysql.user set authentication_string&#x3D;password(&#39;123456&#39;) where user&#x3D;&#39;root&#39; and Host &#x3D; &#39;localhost&#39;;</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL571912.png" alt="122919_1608_MySQL571912.png"><br>11，取消跳过密码认证，并重启数据库后配置可在网络登录的用户。mysql不允许在跳过密码时创建用户。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39;IDENTIFIED BY &#39;123456&#39; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL571913.png" alt="122919_1608_MySQL571913.png"><br>未取消跳过密码时创建用户的错误提示。<br><img src="/2020/01/01/mysql-5-7-19-compile-install-config/122919_1608_MySQL571914.png" alt="122919_1608_MySQL571914.png"></p>
-<p>12，配置mysql开机启动。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig mysqld on</span><br></pre></td></tr></table></figure>
-<p>至此mysql编译安装及简单配置完成。</p>
-<p>附件：<br><a href="/downloads/boost_1_59_0.tar.gz">boost_1_59_0.tar.gz</a><br><a href="/downloads/cmake-3.5.2.tar.gz">cmake-3.5.2.tar.gz</a><br><a href="/downloads/mysql-boost-5.7.19.tar.gz">mysql-boost-5.7.19.tar.gz</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/01/mysql-5-7-19-compile-install-config/" data-id="ckd30wloj001786ku7rjk35rr" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mysql-data-storage" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/12/27/mysql-data-storage/" class="article-date">
-  <time datetime="2019-12-27T13:41:02.000Z" itemprop="datePublished">2019-12-27</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/mysql/">mysql</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/27/mysql-data-storage/">Mysql查看数据量</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>任何查询均需进入information_schema数据库，命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use information_schema;</span><br></pre></td></tr></table></figure>
-<p>1，查看总数据量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select concat(round(sum(data_length&#x2F;1024&#x2F;1024),2),&#39;MB&#39;) as data from tables;</span><br></pre></td></tr></table></figure>
-<p>2，查看某个数据库的数据量，此处为data数据库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select concat(round(sum(data_length&#x2F;1024&#x2F;1024),2),&#39;MB&#39;) as data from tables where table_schema&#x3D;&#39;data&#39;;</span><br></pre></td></tr></table></figure>
-<p>3，查看某个表的数据量，此处为data数据库中的storage表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select concat(round(sum(data_length&#x2F;1024&#x2F;1024),2),&#39;MB&#39;) as data from tables where table_schema&#x3D;&#39;data&#39; and table_name&#x3D;&#39;storage&#39;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2019/12/27/mysql-data-storage/" data-id="ckd30wlop001b86ku9e50dvbb" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mysql-lost-password" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/12/24/mysql-lost-password/" class="article-date">
-  <time datetime="2019-12-24T13:36:36.000Z" itemprop="datePublished">2019-12-24</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/mysql/">mysql</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/24/mysql-lost-password/">MySQL密码遗失处理方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当前情况：已知linux root密码，mysql密码不知道，有程序运行不可更改root密码，想导出mysql的数据。<br>具体方法如下：<br>1，登录到服务器，修改mysql配置文件/etc/my.cnf，在[mysqld]段下增加skip-grant-tables，并重启mysql。<br>2，此时访问mysql不需要验证，使用mysql -uroot即可连接。<br>3，导出数据，这里以使用mysqldump导出data库到/mnt为例，linux命令为mysqldump -uroot data &gt; /mnt/data.sql<br>4，导出数据后修改mysql配置文件/etc/my.cnf，删除或注释skip-grant-tables配置，并重启服务器，此时mysql恢复需要验证的状态。<br>这种方法涉及重启mysql，可能会造成程序运行异常。如果需要修改mysql密码，可在第2步后执行下列操作，序号接第2步：<br>3，进入mysql库，修改密码为123456，下面命令适用于5.7+版本。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update mysql.user set authentication_string&#x3D;password(&#39;123456&#39;) where user&#x3D;&#39;root&#39; and Host &#x3D; &#39;localhost&#39;;</span><br></pre></td></tr></table></figure>
-<p>低于5.7版本可用下面命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">UPDATE user SET password&#x3D;PASSWORD(&#39;123456&#39;) WHERE user&#x3D;&#39;root&#39;;</span><br></pre></td></tr></table></figure>
-<p>4，导出数据后修改mysql配置文件/etc/my.cnf，删除或注释skip-grant-tables配置，并重启服务器，此时mysql恢复需要验证的状态。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2019/12/24/mysql-lost-password/" data-id="ckd30wlot001d86ku4k9oejox" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-vmware-linux-hdd-auto-mount" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/12/22/vmware-linux-hdd-auto-mount/" class="article-date">
-  <time datetime="2019-12-22T13:15:43.000Z" itemprop="datePublished">2019-12-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/22/vmware-linux-hdd-auto-mount/">VMWare下Linux增加硬盘并配置开机挂载</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上篇文档讲到CentOS6和7的安装和简单配置，由于使用的是1C1G20G的虚拟硬件，不足以满足实际业务需求，此文档讲述如何给虚拟机增加硬盘并配置开机自动挂载。<br>下面是虚机配置：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux1.png" alt="122219_1132_VMWareLinux1.png"><br>具体操作过程如下：<br>1，关机，如已关机可忽略。<br>2，打开虚拟机配置，点击添加选项：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux2.png" alt="122219_1132_VMWareLinux2.png"><br>在后续配置中选择硬盘，点击下一步：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux3.png" alt="122219_1132_VMWareLinux3.png"><br>选择硬盘接口，点击下一步：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux4.png" alt="122219_1132_VMWareLinux4.png"><br>选择创建虚拟磁盘：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux5.png" alt="122219_1132_VMWareLinux5.png"><br>输入磁盘容量，并选择将虚拟磁盘拆分成多个文件。如果硬盘够大且分区格式支持大文件，可选将虚拟硬盘存储为单个文件，以提升性能：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux6.png" alt="122219_1132_VMWareLinux6.png"><br>指定虚拟磁盘文件名，点击确认。默认情况下与虚拟机保存在同一个目录中，如不想保存在同一目录，可点击浏览另行指定：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux7.png" alt="122219_1132_VMWareLinux7.png"><br>完成后即可在虚拟机配资中看到新硬盘，点击确定，回到虚拟机控制台，并开机：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux8.png" alt="122219_1132_VMWareLinux8.png"><br>现在已添加完成虚拟硬件，下面进行虚拟硬盘的格式化和配置开机挂载。<br>3，开机并进入系统，通过控制台或SSH均可，我这里使用SSH方式登录。df -HT可看到当前分区情况，此时新增加的磁盘尚未初始化，暂时显示不出。注意，这一步操作需谨慎，错误操作可能会导致全部数据丢失。<br>fdisk参数如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-l 列出素所有分区表</span><br><span class="line">-u 与”-l”搭配使用，显示分区数目</span><br><span class="line">-s 分区编号 指定分区</span><br><span class="line">-v 版本信息</span><br><span class="line">m ：显示菜单和帮助信息</span><br><span class="line">a ：活动分区标记&#x2F;引导分区</span><br><span class="line">d ：删除分区</span><br><span class="line">l ：显示分区类型</span><br><span class="line">n ：新建分区</span><br><span class="line">p ：显示分区信息</span><br><span class="line">q ：退出不保存</span><br><span class="line">t ：设置分区号</span><br><span class="line">v ：进行分区检查</span><br><span class="line">w ：保存修改</span><br><span class="line">x ：扩展应用，高级功能</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux9.png" alt="122219_1132_VMWareLinux9.png"><br>fdisk -l查看设备情况，可看到新硬盘是/dev/sdb，下面对其分区：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux10.png" alt="122219_1132_VMWareLinux10.png"><br>fdisk /dev/sdb命令对该磁盘分区，按p查看当前分区情况，确定该磁盘没有分区：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux11.png" alt="122219_1132_VMWareLinux11.png"><br>按n，新建分区，然后按p，新建主分区，按1，确定分区号，1号，其它选项均可按回车键选择默认：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux12.png" alt="122219_1132_VMWareLinux12.png"><br>再按p查看当前分区情况，如显示新分区/dev/sdb1则创建完成，按w写入磁盘。再次提醒，任何错误操作可能导致数据全部丢失。<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux13.png" alt="122219_1132_VMWareLinux13.png"><br>至此，分区创建完成，下一步格式化磁盘。<br>4，格式化磁盘，这里使用mkfs命令，这里使用ext4分区格式，命令有下面两种写法，任选一种即可：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 &#x2F;dev&#x2F;sdb1</span><br><span class="line">mkfs -t ext4 &#x2F;dev&#x2F;sdb1</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux14.png" alt="122219_1132_VMWareLinux14.png"><br>5，磁盘格式化完毕，下面将新硬盘挂载到/mnt，命令如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -t ext4 &#x2F;dev&#x2F;sdb1 &#x2F;mnt</span><br></pre></td></tr></table></figure>
-<p>此语句格式为 mount -t 分区格式 要挂载的分区路径 挂载目标路径</p>
-<p>修改目标路径可将新分区挂载至其它路径下。<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux15.png" alt="122219_1132_VMWareLinux15.png"><br>6，当前情况下，新硬盘只本次开机有效，如不想每次手动挂载，需修改/etc/fstab配置文件使系统在开机时自动挂载之。<br>将下列语句写入到/etc/fstab文件末尾，注意只有两个0之间是空格，其他字段之间是tab分隔符：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;dev&#x2F;sdb1 &#x2F;mnt ext4 defaults 0 0</span><br></pre></td></tr></table></figure>
-<p>此语句格式是  要挂载的设备 挂载目标位置 分区格式 挂载参数 备份配置 检查配置<br>如果备份配置和检查配置为0则不检查也不备份。<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux16.png" alt="122219_1132_VMWareLinux16.png"><br>保存退出，配置将在下次启动时生效，如下图：<br><img src="/2019/12/22/vmware-linux-hdd-auto-mount/122219_1132_VMWareLinux17.png" alt="122219_1132_VMWareLinux17.png"><br>至此全部配置完成。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2019/12/22/vmware-linux-hdd-auto-mount/" data-id="ckd30wm3c008886ku0taxee1p" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ERROR-1862-HY000-Your-password-has-expired-To-log-in-you-must-change" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/12/17/ERROR-1862-HY000-Your-password-has-expired-To-log-in-you-must-change/" class="article-date">
-  <time datetime="2019-12-17T13:13:37.000Z" itemprop="datePublished">2019-12-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/mysql/">mysql</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/17/ERROR-1862-HY000-Your-password-has-expired-To-log-in-you-must-change/">ERROR 1862 (HY000): Your password has expired. To log in you must change</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1，修改/etc/my.cnf，将下面语句加入到[mysqld]字段下跳过验证并重启。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip-grant-tables</span><br></pre></td></tr></table></figure>
-<p>2，进入到mysql库，修改密码过期选项。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update user set password_expired&#x3D;&#39;N&#39; where user&#x3D;&#39;root&#39;;</span><br></pre></td></tr></table></figure>
-<p>3，将跳过密码改回，并重启MySQL。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2019/12/17/ERROR-1862-HY000-Your-password-has-expired-To-log-in-you-must-change/" data-id="ckd30wljv000086ku3q5x65mu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li></ul>
 
     </footer>
   </div>
@@ -561,7 +634,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
   </nav>
 
 </section>
@@ -572,7 +645,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Network/asus/">asus</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/chinaunicom/">chinaunicom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/cisco/">cisco</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/h3c/">h3c</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/ipv6/">ipv6</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/isp/">isp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/panabit/">panabit</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/ros/">ros</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/sangfor/">sangfor</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/">Server</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Server/apache/">apache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/docker/">docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/firewalld/">firewalld</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/mq/">mq</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/nexus/">nexus</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/nginx/">nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/php/">php</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/btc/">btc</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E7%BA%BF%E7%94%B5/">无线电</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E7%BA%BF%E7%94%B5/yaesu/">yaesu</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%BD%92%E6%A1%A3/">未归档</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Network/asus/">asus</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/chinaunicom/">chinaunicom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/cisco/">cisco</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/h3c/">h3c</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/ipv6/">ipv6</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/isp/">isp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/panabit/">panabit</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/ros/">ros</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/sangfor/">sangfor</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/">Server</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Server/apache/">apache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/docker/">docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/firewalld/">firewalld</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/mq/">mq</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/nexus/">nexus</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/nginx/">nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/php/">php</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/btc/">btc</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E7%BA%BF%E7%94%B5/">无线电</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E7%BA%BF%E7%94%B5/yaesu/">yaesu</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%BD%92%E6%A1%A3/">未归档</a></li></ul>
     </div>
   </div>
 
@@ -582,7 +655,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/" rel="tag">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/asus/" rel="tag">asus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/" rel="tag">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinaunicom/" rel="tag">chinaunicom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewalld/" rel="tag">firewalld</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h3c/" rel="tag">h3c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ipv6/" rel="tag">ipv6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/isp/" rel="tag">isp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nexus/" rel="tag">nexus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/" rel="tag">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/panabit/" rel="tag">panabit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ros/" rel="tag">ros</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaesu/" rel="tag">yaesu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" rel="tag">无线电</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" rel="tag">未归档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/" rel="tag">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/asus/" rel="tag">asus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/" rel="tag">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinaunicom/" rel="tag">chinaunicom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewalld/" rel="tag">firewalld</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h3c/" rel="tag">h3c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ipv6/" rel="tag">ipv6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/isp/" rel="tag">isp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nexus/" rel="tag">nexus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/" rel="tag">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/panabit/" rel="tag">panabit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ros/" rel="tag">ros</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaesu/" rel="tag">yaesu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" rel="tag">无线电</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" rel="tag">未归档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
     </div>
   </div>
 
@@ -592,7 +665,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Server/" style="font-size: 18.33px;">Server</a> <a href="/tags/apache/" style="font-size: 11.67px;">apache</a> <a href="/tags/asus/" style="font-size: 11.67px;">asus</a> <a href="/tags/btc/" style="font-size: 11.67px;">btc</a> <a href="/tags/chinaunicom/" style="font-size: 13.33px;">chinaunicom</a> <a href="/tags/cisco/" style="font-size: 13.33px;">cisco</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewalld/" style="font-size: 10px;">firewalld</a> <a href="/tags/h3c/" style="font-size: 10px;">h3c</a> <a href="/tags/ipv6/" style="font-size: 10px;">ipv6</a> <a href="/tags/isp/" style="font-size: 10px;">isp</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nexus/" style="font-size: 11.67px;">nexus</a> <a href="/tags/nginx/" style="font-size: 11.67px;">nginx</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/panabit/" style="font-size: 10px;">panabit</a> <a href="/tags/php/" style="font-size: 11.67px;">php</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ros/" style="font-size: 16.67px;">ros</a> <a href="/tags/sangfor/" style="font-size: 11.67px;">sangfor</a> <a href="/tags/yaesu/" style="font-size: 10px;">yaesu</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 11.67px;">区块链</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" style="font-size: 10px;">无线电</a> <a href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" style="font-size: 10px;">未归档</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+      <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Server/" style="font-size: 18.57px;">Server</a> <a href="/tags/apache/" style="font-size: 11.43px;">apache</a> <a href="/tags/asus/" style="font-size: 11.43px;">asus</a> <a href="/tags/btc/" style="font-size: 11.43px;">btc</a> <a href="/tags/chinaunicom/" style="font-size: 12.86px;">chinaunicom</a> <a href="/tags/cisco/" style="font-size: 12.86px;">cisco</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewalld/" style="font-size: 10px;">firewalld</a> <a href="/tags/h3c/" style="font-size: 10px;">h3c</a> <a href="/tags/hexo/" style="font-size: 14.29px;">hexo</a> <a href="/tags/ipv6/" style="font-size: 10px;">ipv6</a> <a href="/tags/isp/" style="font-size: 10px;">isp</a> <a href="/tags/linux/" style="font-size: 12.86px;">linux</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 15.71px;">mysql</a> <a href="/tags/nexus/" style="font-size: 11.43px;">nexus</a> <a href="/tags/nginx/" style="font-size: 11.43px;">nginx</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/panabit/" style="font-size: 10px;">panabit</a> <a href="/tags/php/" style="font-size: 11.43px;">php</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ros/" style="font-size: 17.14px;">ros</a> <a href="/tags/sangfor/" style="font-size: 12.86px;">sangfor</a> <a href="/tags/yaesu/" style="font-size: 10px;">yaesu</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 11.43px;">区块链</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" style="font-size: 10px;">无线电</a> <a href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" style="font-size: 10px;">未归档</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
     </div>
   </div>
 
@@ -614,23 +687,23 @@
       <ul>
         
           <li>
-            <a href="/2020/02/07/route-import-redistribute/">路由重分布-路由引入</a>
+            <a href="/2020/02/20/hexo-page-tags/">hexo文章标签</a>
           </li>
         
           <li>
-            <a href="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/">SANGFOR M6.6 SSL VPN外部认证配置</a>
+            <a href="/2020/02/19/hexo-page-categories/">hexo文章分类</a>
           </li>
         
           <li>
-            <a href="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/">SANGFOR-AD-6.3负载均衡机业务配置</a>
+            <a href="/2020/02/19/how-to-insert-images-hexo/">hexo文章插入本地图片的方法</a>
           </li>
         
           <li>
-            <a href="/2020/01/26/isp-vlan-type-collect/">各地运营商VLAN及连接方式收集</a>
+            <a href="/2020/02/18/how-to-install-hexo-manually/">hexo手动安装</a>
           </li>
         
           <li>
-            <a href="/2020/01/24/ros-mac-filter-2/">ROS配置MAC地址过滤-2</a>
+            <a href="/2020/02/18/hexo-deploy-custom-domain-reset-solve/">解决hexo deploy之后自定义域名失效问题</a>
           </li>
         
       </ul>

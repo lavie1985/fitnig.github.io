@@ -6,7 +6,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="https://iosbb.com/"/>
-  <updated>2020-07-26T11:20:40.084Z</updated>
+  <updated>2020-07-26T13:13:47.100Z</updated>
   <id>https://iosbb.com/</id>
   
   <author>
@@ -15,6 +15,312 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo文章标签</title>
+    <link href="https://iosbb.com/2020/02/20/hexo-page-tags/"/>
+    <id>https://iosbb.com/2020/02/20/hexo-page-tags/</id>
+    <published>2020-02-20T13:12:17.000Z</published>
+    <updated>2020-07-26T13:13:47.100Z</updated>
+    
+    <content type="html"><![CDATA[<p>1，创建标签页。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure><p>完成后有提示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INFO Created: &#x2F;opt&#x2F;blog&#x2F;source&#x2F;tags&#x2F;index.md</span><br></pre></td></tr></table></figure><p>6，修改上一步生成的md文件，添加type: “tags”到文件中，改好后是这样的：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2020-02-18 03:14:58</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure><p>7，打开博文md文件，添加标签属性：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tags:</span><br><span class="line">- server</span><br></pre></td></tr></table></figure><p>8，重新发布即可看到。<br>与文章分类不同的是，文章可以有多个标签。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;1，创建标签页。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="hexo" scheme="https://iosbb.com/categories/Server/hexo/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="hexo" scheme="https://iosbb.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo文章分类</title>
+    <link href="https://iosbb.com/2020/02/19/hexo-page-categories/"/>
+    <id>https://iosbb.com/2020/02/19/hexo-page-categories/</id>
+    <published>2020-02-19T13:09:54.000Z</published>
+    <updated>2020-07-26T13:11:47.868Z</updated>
+    
+    <content type="html"><![CDATA[<p>1，进入博客目录，创建页面。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure><p>完成后有提示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INFO Created: &#x2F;opt&#x2F;blog&#x2F;source&#x2F;categories&#x2F;index.md</span><br></pre></td></tr></table></figure><p>2，修改上一步生成的md文件，添加type: “categories”到文件中，改好后是这样的：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章分类</span><br><span class="line">date: 2020-02-18 05:07:50</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure><p>至此，文章分类已经创建完成，下面需要给博文指定分类。<br>3，打开博文md文件，添加分类属性：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">categories:</span><br><span class="line">- server</span><br></pre></td></tr></table></figure><p>4，重新发布即可看到。<br>注意，一篇博文只能属于一个分类，设置多个分类时将会成为分类嵌套。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;1，进入博客目录，创建页面。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="hexo" scheme="https://iosbb.com/categories/Server/hexo/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="hexo" scheme="https://iosbb.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo文章插入本地图片的方法</title>
+    <link href="https://iosbb.com/2020/02/19/how-to-insert-images-hexo/"/>
+    <id>https://iosbb.com/2020/02/19/how-to-insert-images-hexo/</id>
+    <published>2020-02-19T13:03:03.000Z</published>
+    <updated>2020-07-26T13:09:07.161Z</updated>
+    
+    <content type="html"><![CDATA[<p>hexo装好后，发现它只能引用站外图片，这让有本地化需求的我不能接受，搜到hexo-asset-image插件可以实现文章插入本地图片的目的。具体操作如下：<br>1，进入博客目录，安装该插件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https:&#x2F;&#x2F;github.com&#x2F;CodeFalling&#x2F;hexo-asset-image --save</span><br></pre></td></tr></table></figure><p><img src="/2020/02/19/how-to-insert-images-hexo/1582078775833.png" alt="1582078775833.png"><br>注意不要用下面的命令，这个版本有bug</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure><p><img src="/2020/02/19/how-to-insert-images-hexo/1582078775844.png" alt="1582078775844.png"><br>此版本bug是生成的图片格式为_config.yml中url: 配置中最后一个.到/为图片目录，具体表现如下：<br><img src="/2020/02/19/how-to-insert-images-hexo/1582078775851.png" alt="1582078775851.png"><br><img src="/2020/02/19/how-to-insert-images-hexo/1582078775855.png" alt="1582078775855.png"><br><img src="/2020/02/19/how-to-insert-images-hexo/1582078775858.png" alt="1582078775858.png"><br>2，修改_config.yml文件，post_asset_folder:改为true。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure><p>3，完成后即可在md文件中引用，格式如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">![123](123.jpg)</span><br><span class="line">![标题](图片文件名)</span><br></pre></td></tr></table></figure><p>效果如下：<br><img src="/2020/02/19/how-to-insert-images-hexo/1582078775860.png" alt="1582078775860.png"><br><img src="/2020/02/19/how-to-insert-images-hexo/1582078775905.png" alt="1582078775905.png"><br>注意：如果md文档改名，对应的目录也要改名，否则会出现图片不显示的情况。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;hexo装好后，发现它只能引用站外图片，这让有本地化需求的我不能接受，搜到hexo-asset-image插件可以实现文章插入本地图片的目的。具体操作如下：&lt;br&gt;1，进入博客目录，安装该插件&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;tab
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="hexo" scheme="https://iosbb.com/categories/Server/hexo/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="hexo" scheme="https://iosbb.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo手动安装</title>
+    <link href="https://iosbb.com/2020/02/18/how-to-install-hexo-manually/"/>
+    <id>https://iosbb.com/2020/02/18/how-to-install-hexo-manually/</id>
+    <published>2020-02-18T12:59:49.000Z</published>
+    <updated>2020-07-26T13:02:23.840Z</updated>
+    
+    <content type="html"><![CDATA[<p>看网上的文档都是npm install方式安装，没有手动安装的文档，文档讲述手动安装配置hexo的过程。<br>1，安装前需确认node和git两个依赖是否已经安装。<br>2，从git上获取hexo程序。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone http:&#x2F;&#x2F;github.com&#x2F;hexojs&#x2F;hexo.git</span><br></pre></td></tr></table></figure><p>3，进入hexo目录，安装之。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd hexo</span><br><span class="line">npm install -g</span><br></pre></td></tr></table></figure><p>4，创建软连接</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s &#x2F;opt&#x2F;hexo&#x2F;bin&#x2F;hexo &#x2F;usr&#x2F;bin&#x2F;hexo</span><br></pre></td></tr></table></figure><p>5，创建博客目录</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir &#x2F;opt&#x2F;hexo</span><br></pre></td></tr></table></figure><p>6，进入博客目录并初始化博客</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;opt&#x2F;hexo</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>此时，博客安装完成，配置文件在<code>_config.yml</code>，修改完成后即可生成静态页面。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;看网上的文档都是npm install方式安装，没有手动安装的文档，文档讲述手动安装配置hexo的过程。&lt;br&gt;1，安装前需确认node和git两个依赖是否已经安装。&lt;br&gt;2，从git上获取hexo程序。&lt;/p&gt;
+&lt;figure class=&quot;highlight plai
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="hexo" scheme="https://iosbb.com/categories/Server/hexo/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="hexo" scheme="https://iosbb.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解决hexo deploy之后自定义域名失效问题</title>
+    <link href="https://iosbb.com/2020/02/18/hexo-deploy-custom-domain-reset-solve/"/>
+    <id>https://iosbb.com/2020/02/18/hexo-deploy-custom-domain-reset-solve/</id>
+    <published>2020-02-18T12:56:28.000Z</published>
+    <updated>2020-07-26T12:59:14.387Z</updated>
+    
+    <content type="html"><![CDATA[<p>git deploy之后发现个问题，访问自己的域名返回404，如下图：<br><img src="/2020/02/18/hexo-deploy-custom-domain-reset-solve/1582032677481.png" alt="1582032677481.png"><br>查看github的Custom domain发现已经被还原为空值。<br><img src="/2020/02/18/hexo-deploy-custom-domain-reset-solve/1582032677490.png" alt="1582032677490.png"></p><h2 id="解决方法如下："><a href="#解决方法如下：" class="headerlink" title="解决方法如下："></a>解决方法如下：</h2><p>1，配置正确的Custom domain。<br><img src="/2020/02/18/hexo-deploy-custom-domain-reset-solve/1582032677496.png" alt="1582032677496.png"><br>2，到source目录下，创建CNAME文件，并在里面写入自定义的域名。<br>3，重新发布。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;git deploy之后发现个问题，访问自己的域名返回404，如下图：&lt;br&gt;&lt;img src=&quot;/2020/02/18/hexo-deploy-custom-domain-reset-solve/1582032677481.png&quot; alt=&quot;1582032677481.
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="hexo" scheme="https://iosbb.com/categories/Server/hexo/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="hexo" scheme="https://iosbb.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo是什么</title>
+    <link href="https://iosbb.com/2020/02/18/what-is-hexo/"/>
+    <id>https://iosbb.com/2020/02/18/what-is-hexo/</id>
+    <published>2020-02-18T12:54:04.000Z</published>
+    <updated>2020-07-26T12:55:06.501Z</updated>
+    
+    <content type="html"><![CDATA[<p>2020年的一场肺炎，大伙纷纷隔离在家，百无聊赖之际发现一款静态博客Hexo。<br>经过几天研究，hexo应该说是静态博客生成器，用户通过写markdown文档的方式发布博文，hexo程序将markdown文档转换成静态页面。这听起来有点像CMS的套路，客户能看到的全是静态页面。<br>静态站的好处是速度快，系统资源消耗少，缺点是可能要放弃评论等需要动态更新的内容。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;2020年的一场肺炎，大伙纷纷隔离在家，百无聊赖之际发现一款静态博客Hexo。&lt;br&gt;经过几天研究，hexo应该说是静态博客生成器，用户通过写markdown文档的方式发布博文，hexo程序将markdown文档转换成静态页面。这听起来有点像CMS的套路，客户能看到的全是静
+      
+    
+    </summary>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/categories/Server/"/>
+    
+      <category term="hexo" scheme="https://iosbb.com/categories/Server/hexo/"/>
+    
+    
+      <category term="Server" scheme="https://iosbb.com/tags/Server/"/>
+    
+      <category term="hexo" scheme="https://iosbb.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS单线多拨后负载均衡配置</title>
+    <link href="https://iosbb.com/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/"/>
+    <id>https://iosbb.com/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/</id>
+    <published>2020-02-16T12:37:28.000Z</published>
+    <updated>2020-07-26T12:53:02.872Z</updated>
+    
+    <content type="html"><![CDATA[<p>单线多拨配置完成后还不能上网和负载均衡，下面进行负载均衡配置。</p><h2 id="需要关闭fasttrack功能，此功能与Queue，PCC等功能互斥，如开启会导致带宽不能叠加。"><a href="#需要关闭fasttrack功能，此功能与Queue，PCC等功能互斥，如开启会导致带宽不能叠加。" class="headerlink" title="需要关闭fasttrack功能，此功能与Queue，PCC等功能互斥，如开启会导致带宽不能叠加。"></a>需要关闭fasttrack功能，此功能与Queue，PCC等功能互斥，如开启会导致带宽不能叠加。</h2><p>1，IP-&gt;Firewall-&gt;Mangle进行连接标记。<br>Chain选择prerouting，In. Interface选择内网接口。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005945.png" alt="1581474005945.png"><br>Advanced标签中，Per Connection Classifier选择both address，后面的两个选项中第一个选项填写多拨总数量，第二个选项是当前标记是第几条多拨线路（从0开始）。如第二条线路就是4和1。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005954.png" alt="1581474005954.png"><br>Extra标签中Dst. Address Type中Address Type选则local，并勾选Invert。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005960.png" alt="1581474005960.png"><br>Action标签中Action选择mark connection，并设置New Connection Mark为PCC1。这个PCC1是自定义的名称，不能重复。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005965.png" alt="1581474005965.png"><br>2，完成四条连接的标记后，下面进行四条线路的路由标记。<br>IP–Firewall–Mangle进行路由标记。Chain选择prerouting，In. Interface选择内网口，Connection Mark选择第一步创建的连接标记。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005971.png" alt="1581474005971.png"><br>Acrion标签中选择mark routing，New Routing Mark中设置为PCC-ROUTING1，这个PCC-ROUTING1是自定义的名称，不能重复。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005976.png" alt="1581474005976.png"><br>3，四条路由标记完成后，下面进行默认路由配置。<br>创建一条默认路由，Gateway选择pppoe接口，Distance=1，Routing Mark选择第二步创建的对应路由标记。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005979.png" alt="1581474005979.png"><br>四条线路的默认路由配置完成后，再配置四条默认路由，线路依旧选择四条pppoe线路，Distance分别设为1-4。目的是为了某条线路故障后数据能走其它接口。配置好后如下图：<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005982.png" alt="1581474005982.png"><br>4，配置源进源出，入方向标记。<br>Chain选择input，In. Interface选择pppoe线路。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005986.png" alt="1581474005986.png"><br>Action标签中，Action选择mark connection，New Connection Mark选择第二步对应的连接标记。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005989.png" alt="1581474005989.png"><br>5，配置源进源出，出方向标记。<br>Chain选择output，Connection Mark选择第二步中创建的对应连接标记。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005993.png" alt="1581474005993.png"><br>Action标签中Action选mark routing，New Routing Mark选择第三步中创建的对应路由标记。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005996.png" alt="1581474005996.png"><br>测速可看到所有接口都有数据传输，配置完成。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005999.png" alt="1581474005999.png"><br>由于帝都联通使用账号限速，多播只能拿到多个IP，速度不叠加。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;单线多拨配置完成后还不能上网和负载均衡，下面进行负载均衡配置。&lt;/p&gt;
+&lt;h2 id=&quot;需要关闭fasttrack功能，此功能与Queue，PCC等功能互斥，如开启会导致带宽不能叠加。&quot;&gt;&lt;a href=&quot;#需要关闭fasttrack功能，此功能与Queue，PCC等功能互
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ros" scheme="https://iosbb.com/categories/Network/ros/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ros" scheme="https://iosbb.com/tags/ros/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS在sfp-pon模块下配置单线多拨配置</title>
+    <link href="https://iosbb.com/2020/02/13/ros-sfp-pon-stick-multi-pppoe/"/>
+    <id>https://iosbb.com/2020/02/13/ros-sfp-pon-stick-multi-pppoe/</id>
+    <published>2020-02-13T12:30:54.000Z</published>
+    <updated>2020-07-26T12:36:39.415Z</updated>
+    
+    <content type="html"><![CDATA[<p>以前用交换机做多播，现在改了架构，通过sfp-pon模块代替光猫，相应多播要改到模块下进行。具体操作如下：<br>1，修改原有pppoe连接，使其不在VLAN3961中或删除之，禁用无效。<br>2，在VLAN-3961接口下创建多个VRRP，每个VRRP组均要指定VLAN-3961接口，且所有VRRP组的Name和VRID不同。<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959492.png" alt="1581057959492.png"><br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959498.png" alt="1581057959498.png"><br>完成后如下图：<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959505.png" alt="1581057959505.png"><br>3，四个VRRP组已经建好，但现在都是红色，不能使用，需要给VLAN-3691和四个VRRP各配置一个IP地址，使其能互相通信，必须有。<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959510.png" alt="1581057959510.png"><br>完成后，四个VRRP组及对应IP已经变为黑色。<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959512.png" alt="1581057959512.png"><br>4，创建四个pppoe连接，账号密码保持不变，接口不再选择VLAN-3961接口，改用vrrp接口。并去除Use Peer DNS和Add Default Route选项。<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959515.png" alt="1581057959515.png"><br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959520.png" alt="1581057959520.png"><br>配置完成后即可启动pppoe连接，稍后状态变更为R。<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959527.png" alt="1581057959527.png"><br>在IP列表中可看到多出四个地址。<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959531.png" alt="1581057959531.png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;以前用交换机做多播，现在改了架构，通过sfp-pon模块代替光猫，相应多播要改到模块下进行。具体操作如下：&lt;br&gt;1，修改原有pppoe连接，使其不在VLAN3961中或删除之，禁用无效。&lt;br&gt;2，在VLAN-3961接口下创建多个VRRP，每个VRRP组均要指定VLAN
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ros" scheme="https://iosbb.com/categories/Network/ros/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ros" scheme="https://iosbb.com/tags/ros/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SANGFOR M6.6 SSL VPN资源及用户授权配置</title>
+    <link href="https://iosbb.com/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/"/>
+    <id>https://iosbb.com/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/</id>
+    <published>2020-02-10T12:19:01.000Z</published>
+    <updated>2020-07-26T12:29:19.083Z</updated>
+    
+    <content type="html"><![CDATA[<p>文档中包含资源配置，用户配置，授权配制三部分，完整描述了VPN配置及授权过程。</p><h2 id="资源配置："><a href="#资源配置：" class="headerlink" title="资源配置："></a>资源配置：</h2><p>1，登录SSL VPN，如果是HA需要使用虚拟IP登录，登录分发器或业务服务器将不能修改配置。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945474.png" alt="1581229945474.png"><br>登陆后可在系统设置-&gt;SSL VPN选项-&gt;集群部署中看到当前HA状态。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945485.png" alt="1581229945485.png"><br>2，SSL VPN设置-&gt;资源管理中新建资源组，并在资源组中创建所需资源。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945496.png" alt="1581229945496.png"><br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945503.png" alt="1581229945503.png"><br>添加资源时需根据业务选择类型，设置名称和地址，地址按需要填写起始端口和终止端口。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945507.png" alt="1581229945507.png"><br>创建后即可看到资源情况<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945510.png" alt="1581229945510.png"></p><h2 id="创建角色："><a href="#创建角色：" class="headerlink" title="创建角色："></a>创建角色：</h2><p>3，SSL VPN设置-&gt;角色授权中创建角色。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945513.png" alt="1581229945513.png"><br>创建角色后给角色添加资源。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945519.png" alt="1581229945519.png"></p><h2 id="创建用户："><a href="#创建用户：" class="headerlink" title="创建用户："></a>创建用户：</h2><p>4，SSL VPN设置-&gt;用户管理中创建用户组，并在组中创建用户，如果使用LDAP等外部认证方式，则不在此创建用户。默认情况下，分组下成员会自动集成分组的角色，策略和权限。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945526.png" alt="1581229945526.png"><br>如果有特殊权限，需取消勾选继承上级用户的认证或关联角色。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945534.png" alt="1581229945534.png"><br>5，所有配置完成后，还未生效，点击右上角立即生效。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945542.png" alt="1581229945542.png"><br>热备环境下可看到配置同步日志。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945552.png" alt="1581229945552.png"><br>至此，配置完成。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;文档中包含资源配置，用户配置，授权配制三部分，完整描述了VPN配置及授权过程。&lt;/p&gt;
+&lt;h2 id=&quot;资源配置：&quot;&gt;&lt;a href=&quot;#资源配置：&quot; class=&quot;headerlink&quot; title=&quot;资源配置：&quot;&gt;&lt;/a&gt;资源配置：&lt;/h2&gt;&lt;p&gt;1，登录SSL VPN
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="sangfor" scheme="https://iosbb.com/categories/Network/sangfor/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="sangfor" scheme="https://iosbb.com/tags/sangfor/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ROS配置L2TP</title>
+    <link href="https://iosbb.com/2020/02/07/ros-l2tp-vpn-configure/"/>
+    <id>https://iosbb.com/2020/02/07/ros-l2tp-vpn-configure/</id>
+    <published>2020-02-07T12:12:41.000Z</published>
+    <updated>2020-07-26T12:17:56.928Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="网络规划："><a href="#网络规划：" class="headerlink" title="网络规划："></a>网络规划：</h2><p>1，VPN网段是10.0.7.0/24。<br>2，ROS使用10.0.7.1。<br>3，使用L2TP/IPSec预共享密钥。</p><h2 id="配置过程如下："><a href="#配置过程如下：" class="headerlink" title="配置过程如下："></a>配置过程如下：</h2><p>1，创建地址池l2tp-pool，设置地址范围10.0.7.2-10.0.7.254。<br><img src="/2020/02/07/ros-l2tp-vpn-configure/1578542461879.png" alt="1578542461879.png"><br>2，PPP-&gt;Profiles创建L2TP配置文件l2tp-in。Local Address是ROS的地址，Remote Address是分配给拨入用户的地址，选择l2tp-pool地址池。<br><img src="/2020/02/07/ros-l2tp-vpn-configure/1578542461887.png" alt="1578542461887.png"><br>3，PPP–&gt;Secrets中创建用户，Service选择L2TP，Profile选择l2tp-in。<br><img src="/2020/02/07/ros-l2tp-vpn-configure/1578542461893.png" alt="1578542461893.png"><br>4，开启L2TP服务，Default Profile选择配置文件l2tp-in，Use IPSec选择yes，IPSec Secret设置预共享密钥。MTU和MRU保持1540不变。<br><img src="/2020/02/07/ros-l2tp-vpn-configure/1578542461899.png" alt="1578542461899.png"><br>到此L2TP配置完成，因没做NAT，只能访问内网。<br>5，添加NAT规则，使10.0.7.0/24网段可以上网。IP-&gt;firewall-&gt;NAT添加一条规则，Chain选srcnat，Src Address选择10.0.7.0/24网段，Action选masquerade。<br><img src="/2020/02/07/ros-l2tp-vpn-configure/1578542461902.png" alt="1578542461902.png"><br>至此全部配置完成。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;网络规划：&quot;&gt;&lt;a href=&quot;#网络规划：&quot; class=&quot;headerlink&quot; title=&quot;网络规划：&quot;&gt;&lt;/a&gt;网络规划：&lt;/h2&gt;&lt;p&gt;1，VPN网段是10.0.7.0/24。&lt;br&gt;2，ROS使用10.0.7.1。&lt;br&gt;3，使用L2TP/IPSec
+      
+    
+    </summary>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/categories/Network/"/>
+    
+      <category term="ros" scheme="https://iosbb.com/categories/Network/ros/"/>
+    
+    
+      <category term="Network" scheme="https://iosbb.com/tags/Network/"/>
+    
+      <category term="ros" scheme="https://iosbb.com/tags/ros/"/>
+    
+  </entry>
   
   <entry>
     <title>路由重分布-路由引入</title>
