@@ -64,6 +64,140 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-route-import-redistribute" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/07/route-import-redistribute/" class="article-date">
+  <time datetime="2020-02-07T11:17:09.000Z" itemprop="datePublished">2020-02-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/cisco/">cisco</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/07/route-import-redistribute/">路由重分布-路由引入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="cisco"><a href="#cisco" class="headerlink" title="cisco"></a>cisco</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">router ospf</span><br><span class="line">red static</span><br></pre></td></tr></table></figure>
+
+<h2 id="华为"><a href="#华为" class="headerlink" title="华为"></a>华为</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ospf</span><br><span class="line">import static</span><br></pre></td></tr></table></figure>
+
+<h2 id="H3C"><a href="#H3C" class="headerlink" title="H3C"></a>H3C</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ospf 1</span><br><span class="line">import-route</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/02/07/route-import-redistribute/1578559229435.png" alt="1578559229435.png"><br>路由引入，即路由重分布，多个运行不同路由协议的网络，通过asbr（自治系统边界路由器）互相交换路由信息。如果这些网是不同的路由协议，那么需要在多种协议中互相引入。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/02/07/route-import-redistribute/" data-id="ckd30wm2m007y86kucerccipo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/" class="article-date">
+  <time datetime="2020-02-03T11:09:06.000Z" itemprop="datePublished">2020-02-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/sangfor/">sangfor</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/">SANGFOR M6.6 SSL VPN外部认证配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1，登录SSL VPN，如果是HA需要使用虚拟IP登录，登录分发器或业务服务器将不能修改配置。<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765305.png" alt="1580700765305.png"><br>登陆后可在系统设置-&gt;SSL VPN选项-&gt;集群部署中看到当前HA状态。<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765316.png" alt="1580700765316.png"><br>2，SSL VPN设置-&gt;认证设置-&gt;LDAP认证中增加LDAP或AD域控。<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765324.png" alt="1580700765324.png"><br>点击新建<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765331.png" alt="1580700765331.png"><br>填写服务器名称，地址，管理员全路径，密码和设置搜索入口。<br>管理员全路径是有能访问域控权限的用户名全名，不需要管理权限。<br>搜索入口可点击&gt;&gt;按钮搜索自动填写。<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765341.png" alt="1580700765341.png"><br>3，配置认证优先级。<br>SSL VPN设置-&gt;认证设置-&gt;LDAP与Radius服务器认证优先级设置中查看认证顺序是否正确。如果第二步中只配置了一个外部认证服务器，则此步骤可忽略。<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765351.png" alt="1580700765351.png"><br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765353.png" alt="1580700765353.png"><br>4，SSL VPN设置-&gt;认证设置-&gt;LDAP认证中勾选新增的认证服务器，点击导入用户到本地<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765356.png" alt="1580700765356.png"><br>配置导入用户和本地目标组，点击保存并立即同步<br><img src="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/1580700765359.png" alt="1580700765359.png"><br>完成后即可使用LDAP认证登录。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/" data-id="ckd30wm32008486ku7taja16u" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-sangfor-ad-6-3-load-banlancer-service-configure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/" class="article-date">
+  <time datetime="2020-01-29T11:01:31.000Z" itemprop="datePublished">2020-01-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/sangfor/">sangfor</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/">SANGFOR-AD-6.3负载均衡机业务配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1，登录负载均衡机，如果是HA需登录主机，备机此时不工作。<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295673.png" alt="1579482295673.png"><br>2，创建虚拟IP，此IP将作为负载均衡的虚拟IP。<br>点击应用负载-&gt;IP组，在待选中选择未使用的IP地址。<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295701.png" alt="1579482295701.png"><br>添加好后如下图：<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295728.png" alt="1579482295728.png"><br>3，创建节点池，这里面将添加业务服务器节点。<br>应用负载-&gt;节点池，如需会话保持，可根据需要选择cookie或session。默认情况下，负载均衡机使用轮询方式进行调度。<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295746.png" alt="1579482295746.png"><br>添加完成后即可在查看节点中看到所有节点。<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295761.png" alt="1579482295761.png"><br>4，创建虚拟服务。此处是关联虚拟IP与业务，创建完成后即可提供服务。<br>应用负载-&gt;虚拟服务，创建时选择七层模式<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295764.png" alt="1579482295764.png"><br>服务选择http，IP组选择第二步中选择的虚拟IP，默认节点池选择第三步中创建的业务节点池，SNAT地址集选择自动SNAT。<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295780.png" alt="1579482295780.png"><br>5，添加完成后即可通过VIP访问，负载均衡机把请求转发给后面业务服务器提供服务。<br><img src="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/1579482295803.png" alt="1579482295803.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/" data-id="ckd30wm2q008186ku3r607rnx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-isp-vlan-type-collect" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/01/26/isp-vlan-type-collect/" class="article-date">
@@ -181,7 +315,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/26/isp-vlan-type-collect/" data-id="ckd2yzgit00181skua45c1m43" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/26/isp-vlan-type-collect/" data-id="ckd30wlog001686ku1s1u112i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/isp/" rel="tag">isp</a></li></ul>
@@ -200,7 +334,7 @@
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/ROS/">ROS</a>
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/ros/">ros</a>
   </div>
 
   </div>
@@ -224,10 +358,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/24/ros-mac-filter-2/" data-id="ckd2yzgoi003t1skub1gnbrd9" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/24/ros-mac-filter-2/" data-id="ckd30wm1s007j86ku227pabku" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/" rel="tag">ROS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ros/" rel="tag">ros</a></li></ul>
 
     </footer>
   </div>
@@ -278,7 +412,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/20/panabit-password-reset/" data-id="ckd2yzgmh002f1skufo2lhjgj" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/20/panabit-password-reset/" data-id="ckd30wlrd002e86ku5vktbxn0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/panabit/" rel="tag">panabit</a></li></ul>
@@ -323,7 +457,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/14/h3c-snmpv1-configure/" data-id="ckd2yzgig00131skuh7im18wd" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/14/h3c-snmpv1-configure/" data-id="ckd30wlo5001186ku3xppedrx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/h3c/" rel="tag">h3c</a></li></ul>
@@ -342,7 +476,7 @@
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/ChinaUnicom/">ChinaUnicom</a>
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/chinaunicom/">chinaunicom</a>
   </div>
 
   </div>
@@ -388,10 +522,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/12/peking-unicom-vlan-tag/" data-id="ckd2yzgmr002m1sku5xyz4cru" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/12/peking-unicom-vlan-tag/" data-id="ckd30wlrp002m86kucqhe1xmf" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ChinaUnicom/" rel="tag">ChinaUnicom</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chinaunicom/" rel="tag">chinaunicom</a></li></ul>
 
     </footer>
   </div>
@@ -407,7 +541,7 @@
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/Cisco/">Cisco</a>
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/cisco/">cisco</a>
   </div>
 
   </div>
@@ -441,10 +575,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/11/cisco-asa-5505-password-reset/" data-id="ckd2yzgi2000w1skudhbf04wl" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/11/cisco-asa-5505-password-reset/" data-id="ckd30wlnv000u86kufeufanzt" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cisco/" rel="tag">Cisco</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li></ul>
 
     </footer>
   </div>
@@ -460,7 +594,7 @@
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/ROS/">ROS</a>
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/ros/">ros</a>
   </div>
 
   </div>
@@ -484,143 +618,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/11/ros-dual-wan-configure/" data-id="ckd2yzgno00391skufrbu868a" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/11/ros-dual-wan-configure/" data-id="ckd30wm14007486kuhr3b6pfu" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/" rel="tag">ROS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-apache-virtual-host" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/10/apache-virtual-host/" class="article-date">
-  <time datetime="2020-01-09T16:15:25.000Z" itemprop="datePublished">2020-01-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/apache/">apache</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/10/apache-virtual-host/">apache虚拟主机</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NameVirtualHost *:80</span><br><span class="line">&lt;VirtualHost *:80&gt;</span><br><span class="line">ServerAdmin a@a.a #管理员邮箱</span><br><span class="line">DocumentRoot &#x2F;data&#x2F;web #路径</span><br><span class="line">ServerName domain.com #域名</span><br><span class="line">ServerAlias http:&#x2F;&#x2F;www.domain.com #别名</span><br><span class="line">ErrorLog &#x2F;data&#x2F;log&#x2F;error #错误日志路径</span><br><span class="line">CustomLog &#x2F;data&#x2F;log&#x2F;access common #访问日志路径</span><br><span class="line">&lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/10/apache-virtual-host/" data-id="ckd2yzgf100021sku7j8ud8t0" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/" rel="tag">apache</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-centos6-ipv6-disabled" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/09/centos6-ipv6-disabled/" class="article-date">
-  <time datetime="2020-01-09T15:49:27.000Z" itemprop="datePublished">2020-01-09</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/Linux/">Linux</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/09/centos6-ipv6-disabled/">CentOS6禁用ipv6</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1，修改网卡配置文件，末尾追加下列配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NETWORKING_IPV6&#x3D;no</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/01/09/centos6-ipv6-disabled/1578538171615.png" alt="1578538171615.png"><br>2，/etc/modprobe.d/目录中创建禁用ipv6的配置文件，名称随意，这里取名ipv6off.conf。写入下列配置`</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alias net-pf-10 off</span><br><span class="line">options ipv6 disable&#x3D;1</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/01/09/centos6-ipv6-disabled/1578538171621.png" alt="1578538171621.png"><br>3，重启系统，即可看到ipv6已被关闭，重启网络无效。<br><img src="/2020/01/09/centos6-ipv6-disabled/1578538171626.png" alt="1578538171626.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/09/centos6-ipv6-disabled/" data-id="ckd2yzgh1000l1sku3vwocoss" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ros-android-lte-switch" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/07/ros-android-lte-switch/" class="article-date">
-  <time datetime="2020-01-07T14:13:57.000Z" itemprop="datePublished">2020-01-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/ROS/">ROS</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/07/ros-android-lte-switch/">ROS通过安卓手机配置LTE第二链路实现故障自动切换</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>继上篇文章用牢厂5577移动路由器做LTE备用线路之后，有群友问能否用用手机做第二链路。<br>具体原理请参考 ROS配置LTE第二链路实现故障自动切换<br>这是配置和测试文档：<br>1，查看当前IP，是北京联通。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE1.png" alt="010320_1451_ROSLTE1.png"><br>2，安卓手机连接到RB962的USB接口，然后打开USB网络共享功能，手机型号是1+ 5（没有T）。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE2.jpg" alt="010320_1451_ROSLTE2.jpg"><br>3，查看接口状况，ROS中出lte1接口，状态是R。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE3.png" alt="010320_1451_ROSLTE3.png"><br>4，查看路由状况，出现一条distance=2的默认路由。此路由在pppoe接口正常时不起作用。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE4.png" alt="010320_1451_ROSLTE4.png"><br>5，禁用pppoe线路故障。此时看到路由表中pppoe的默认路由已经消失，只剩下此lte路由条目。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE5.png" alt="010320_1451_ROSLTE5.png"><br>6，查看ping值从个位数增加到30左右。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE6.png" alt="010320_1451_ROSLTE6.png"><br>7，查看IP，现在是北京移动。<br><img src="/2020/01/07/ros-android-lte-switch/010320_1451_ROSLTE7.png" alt="010320_1451_ROSLTE7.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/07/ros-android-lte-switch/" data-id="ckd2yzgn7002y1sku50e781pc" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROS/" rel="tag">ROS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ros/" rel="tag">ros</a></li></ul>
 
     </footer>
   </div>
@@ -644,7 +645,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Network/Asus/">Asus</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/ChinaUnicom/">ChinaUnicom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/Cisco/">Cisco</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/IPv6/">IPv6</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/ROS/">ROS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/h3c/">h3c</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/isp/">isp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/panabit/">panabit</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/">Server</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Apache/">Apache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/MQ/">MQ</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Nexus/">Nexus</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Oracle/">Oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/apache/">apache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/docker/">docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/firewalld/">firewalld</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/nginx/">nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/BTC/">BTC</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E7%BA%BF%E7%94%B5/">无线电</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%BD%92%E6%A1%A3/">未归档</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Network/">Network</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Network/asus/">asus</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/chinaunicom/">chinaunicom</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/cisco/">cisco</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/h3c/">h3c</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/ipv6/">ipv6</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/isp/">isp</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/panabit/">panabit</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/ros/">ros</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Network/sangfor/">sangfor</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/">Server</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Server/apache/">apache</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/docker/">docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/firewalld/">firewalld</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/mq/">mq</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/mysql/">mysql</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/nexus/">nexus</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/nginx/">nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/oracle/">oracle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/php/">php</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/btc/">btc</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E7%BA%BF%E7%94%B5/">无线电</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E7%BA%BF%E7%94%B5/yaesu/">yaesu</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%BD%92%E6%A1%A3/">未归档</a></li></ul>
     </div>
   </div>
 
@@ -654,7 +655,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/" rel="tag">Apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Asus/" rel="tag">Asus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BTC/" rel="tag">BTC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ChinaUnicom/" rel="tag">ChinaUnicom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cisco/" rel="tag">Cisco</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IPv6/" rel="tag">IPv6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/" rel="tag">MQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nexus/" rel="tag">Nexus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/" rel="tag">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/" rel="tag">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewalld/" rel="tag">firewalld</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h3c/" rel="tag">h3c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/isp/" rel="tag">isp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/panabit/" rel="tag">panabit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" rel="tag">无线电</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" rel="tag">未归档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/" rel="tag">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/asus/" rel="tag">asus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/" rel="tag">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinaunicom/" rel="tag">chinaunicom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewalld/" rel="tag">firewalld</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h3c/" rel="tag">h3c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ipv6/" rel="tag">ipv6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/isp/" rel="tag">isp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nexus/" rel="tag">nexus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/" rel="tag">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/panabit/" rel="tag">panabit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ros/" rel="tag">ros</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaesu/" rel="tag">yaesu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" rel="tag">无线电</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" rel="tag">未归档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
     </div>
   </div>
 
@@ -664,7 +665,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Apache/" style="font-size: 10px;">Apache</a> <a href="/tags/Asus/" style="font-size: 11.67px;">Asus</a> <a href="/tags/BTC/" style="font-size: 11.67px;">BTC</a> <a href="/tags/ChinaUnicom/" style="font-size: 13.33px;">ChinaUnicom</a> <a href="/tags/Cisco/" style="font-size: 11.67px;">Cisco</a> <a href="/tags/IPv6/" style="font-size: 10px;">IPv6</a> <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Nexus/" style="font-size: 11.67px;">Nexus</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/PHP/" style="font-size: 11.67px;">PHP</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/ROS/" style="font-size: 16.67px;">ROS</a> <a href="/tags/Server/" style="font-size: 18.33px;">Server</a> <a href="/tags/apache/" style="font-size: 10px;">apache</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewalld/" style="font-size: 10px;">firewalld</a> <a href="/tags/h3c/" style="font-size: 10px;">h3c</a> <a href="/tags/isp/" style="font-size: 10px;">isp</a> <a href="/tags/nginx/" style="font-size: 11.67px;">nginx</a> <a href="/tags/panabit/" style="font-size: 10px;">panabit</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 11.67px;">区块链</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" style="font-size: 10px;">无线电</a> <a href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" style="font-size: 10px;">未归档</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+      <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Server/" style="font-size: 18.33px;">Server</a> <a href="/tags/apache/" style="font-size: 11.67px;">apache</a> <a href="/tags/asus/" style="font-size: 11.67px;">asus</a> <a href="/tags/btc/" style="font-size: 11.67px;">btc</a> <a href="/tags/chinaunicom/" style="font-size: 13.33px;">chinaunicom</a> <a href="/tags/cisco/" style="font-size: 13.33px;">cisco</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewalld/" style="font-size: 10px;">firewalld</a> <a href="/tags/h3c/" style="font-size: 10px;">h3c</a> <a href="/tags/ipv6/" style="font-size: 10px;">ipv6</a> <a href="/tags/isp/" style="font-size: 10px;">isp</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nexus/" style="font-size: 11.67px;">nexus</a> <a href="/tags/nginx/" style="font-size: 11.67px;">nginx</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/panabit/" style="font-size: 10px;">panabit</a> <a href="/tags/php/" style="font-size: 11.67px;">php</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ros/" style="font-size: 16.67px;">ros</a> <a href="/tags/sangfor/" style="font-size: 11.67px;">sangfor</a> <a href="/tags/yaesu/" style="font-size: 10px;">yaesu</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 11.67px;">区块链</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" style="font-size: 10px;">无线电</a> <a href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" style="font-size: 10px;">未归档</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
     </div>
   </div>
 
@@ -673,7 +674,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/1900/01/">January 1900</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/1900/01/">January 1900</a></li></ul>
     </div>
   </div>
 
@@ -686,23 +687,23 @@
       <ul>
         
           <li>
+            <a href="/2020/02/07/route-import-redistribute/">路由重分布-路由引入</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/">SANGFOR M6.6 SSL VPN外部认证配置</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/">SANGFOR-AD-6.3负载均衡机业务配置</a>
+          </li>
+        
+          <li>
             <a href="/2020/01/26/isp-vlan-type-collect/">各地运营商VLAN及连接方式收集</a>
           </li>
         
           <li>
             <a href="/2020/01/24/ros-mac-filter-2/">ROS配置MAC地址过滤-2</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/20/panabit-password-reset/">panabit重置密码</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/14/h3c-snmpv1-configure/">H3C SNMPv1配置</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/12/peking-unicom-vlan-tag/">联通宽带VLAN学习</a>
           </li>
         
       </ul>
