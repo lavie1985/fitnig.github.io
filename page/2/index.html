@@ -64,6 +64,226 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-what-is-hexo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/18/what-is-hexo/" class="article-date">
+  <time datetime="2020-02-18T12:54:04.000Z" itemprop="datePublished">2020-02-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/hexo/">hexo</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/18/what-is-hexo/">Hexo是什么</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2020年的一场肺炎，大伙纷纷隔离在家，百无聊赖之际发现一款静态博客Hexo。<br>经过几天研究，hexo应该说是静态博客生成器，用户通过写markdown文档的方式发布博文，hexo程序将markdown文档转换成静态页面。这听起来有点像CMS的套路，客户能看到的全是静态页面。<br>静态站的好处是速度快，系统资源消耗少，缺点是可能要放弃评论等需要动态更新的内容。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/02/18/what-is-hexo/" data-id="ckd4km1jd00cnj7ku5hv47c57" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ros-sfp-pon-stick-multi-pppoe-load-balance" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/" class="article-date">
+  <time datetime="2020-02-16T12:37:28.000Z" itemprop="datePublished">2020-02-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/ros/">ros</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/">ROS单线多拨后负载均衡配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>单线多拨配置完成后还不能上网和负载均衡，下面进行负载均衡配置。</p>
+<h2 id="需要关闭fasttrack功能，此功能与Queue，PCC等功能互斥，如开启会导致带宽不能叠加。"><a href="#需要关闭fasttrack功能，此功能与Queue，PCC等功能互斥，如开启会导致带宽不能叠加。" class="headerlink" title="需要关闭fasttrack功能，此功能与Queue，PCC等功能互斥，如开启会导致带宽不能叠加。"></a>需要关闭fasttrack功能，此功能与Queue，PCC等功能互斥，如开启会导致带宽不能叠加。</h2><p>1，IP-&gt;Firewall-&gt;Mangle进行连接标记。<br>Chain选择prerouting，In. Interface选择内网接口。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005945.png" alt="1581474005945.png"><br>Advanced标签中，Per Connection Classifier选择both address，后面的两个选项中第一个选项填写多拨总数量，第二个选项是当前标记是第几条多拨线路（从0开始）。如第二条线路就是4和1。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005954.png" alt="1581474005954.png"><br>Extra标签中Dst. Address Type中Address Type选则local，并勾选Invert。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005960.png" alt="1581474005960.png"><br>Action标签中Action选择mark connection，并设置New Connection Mark为PCC1。这个PCC1是自定义的名称，不能重复。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005965.png" alt="1581474005965.png"><br>2，完成四条连接的标记后，下面进行四条线路的路由标记。<br>IP–Firewall–Mangle进行路由标记。Chain选择prerouting，In. Interface选择内网口，Connection Mark选择第一步创建的连接标记。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005971.png" alt="1581474005971.png"><br>Acrion标签中选择mark routing，New Routing Mark中设置为PCC-ROUTING1，这个PCC-ROUTING1是自定义的名称，不能重复。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005976.png" alt="1581474005976.png"><br>3，四条路由标记完成后，下面进行默认路由配置。<br>创建一条默认路由，Gateway选择pppoe接口，Distance=1，Routing Mark选择第二步创建的对应路由标记。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005979.png" alt="1581474005979.png"><br>四条线路的默认路由配置完成后，再配置四条默认路由，线路依旧选择四条pppoe线路，Distance分别设为1-4。目的是为了某条线路故障后数据能走其它接口。配置好后如下图：<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005982.png" alt="1581474005982.png"><br>4，配置源进源出，入方向标记。<br>Chain选择input，In. Interface选择pppoe线路。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005986.png" alt="1581474005986.png"><br>Action标签中，Action选择mark connection，New Connection Mark选择第二步对应的连接标记。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005989.png" alt="1581474005989.png"><br>5，配置源进源出，出方向标记。<br>Chain选择output，Connection Mark选择第二步中创建的对应连接标记。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005993.png" alt="1581474005993.png"><br>Action标签中Action选mark routing，New Routing Mark选择第三步中创建的对应路由标记。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005996.png" alt="1581474005996.png"><br>测速可看到所有接口都有数据传输，配置完成。<br><img src="/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/1581474005999.png" alt="1581474005999.png"><br>由于帝都联通使用账号限速，多播只能拿到多个IP，速度不叠加。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/02/16/ros-sfp-pon-stick-multi-pppoe-load-balance/" data-id="ckd4km17z004wj7ku2rhc6q69" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ros/" rel="tag">ros</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ros-sfp-pon-stick-multi-pppoe" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/" class="article-date">
+  <time datetime="2020-02-13T12:30:54.000Z" itemprop="datePublished">2020-02-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/ros/">ros</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/">ROS在sfp-pon模块下配置单线多拨配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以前用交换机做多播，现在改了架构，通过sfp-pon模块代替光猫，相应多播要改到模块下进行。具体操作如下：<br>1，修改原有pppoe连接，使其不在VLAN3961中或删除之，禁用无效。<br>2，在VLAN-3961接口下创建多个VRRP，每个VRRP组均要指定VLAN-3961接口，且所有VRRP组的Name和VRID不同。<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959492.png" alt="1581057959492.png"><br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959498.png" alt="1581057959498.png"><br>完成后如下图：<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959505.png" alt="1581057959505.png"><br>3，四个VRRP组已经建好，但现在都是红色，不能使用，需要给VLAN-3691和四个VRRP各配置一个IP地址，使其能互相通信，必须有。<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959510.png" alt="1581057959510.png"><br>完成后，四个VRRP组及对应IP已经变为黑色。<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959512.png" alt="1581057959512.png"><br>4，创建四个pppoe连接，账号密码保持不变，接口不再选择VLAN-3961接口，改用vrrp接口。并去除Use Peer DNS和Add Default Route选项。<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959515.png" alt="1581057959515.png"><br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959520.png" alt="1581057959520.png"><br>配置完成后即可启动pppoe连接，稍后状态变更为R。<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959527.png" alt="1581057959527.png"><br>在IP列表中可看到多出四个地址。<br><img src="/2020/02/13/ros-sfp-pon-stick-multi-pppoe/1581057959531.png" alt="1581057959531.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/02/13/ros-sfp-pon-stick-multi-pppoe/" data-id="ckd4km19s005hj7ku0eohe5nu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ros/" rel="tag">ros</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-sangfor-m6-6-ssl-vpn-resource-privileges-configure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/" class="article-date">
+  <time datetime="2020-02-10T12:19:01.000Z" itemprop="datePublished">2020-02-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/sangfor/">sangfor</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/">SANGFOR M6.6 SSL VPN资源及用户授权配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>文档中包含资源配置，用户配置，授权配制三部分，完整描述了VPN配置及授权过程。</p>
+<h2 id="资源配置："><a href="#资源配置：" class="headerlink" title="资源配置："></a>资源配置：</h2><p>1，登录SSL VPN，如果是HA需要使用虚拟IP登录，登录分发器或业务服务器将不能修改配置。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945474.png" alt="1581229945474.png"><br>登陆后可在系统设置-&gt;SSL VPN选项-&gt;集群部署中看到当前HA状态。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945485.png" alt="1581229945485.png"><br>2，SSL VPN设置-&gt;资源管理中新建资源组，并在资源组中创建所需资源。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945496.png" alt="1581229945496.png"><br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945503.png" alt="1581229945503.png"><br>添加资源时需根据业务选择类型，设置名称和地址，地址按需要填写起始端口和终止端口。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945507.png" alt="1581229945507.png"><br>创建后即可看到资源情况<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945510.png" alt="1581229945510.png"></p>
+<h2 id="创建角色："><a href="#创建角色：" class="headerlink" title="创建角色："></a>创建角色：</h2><p>3，SSL VPN设置-&gt;角色授权中创建角色。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945513.png" alt="1581229945513.png"><br>创建角色后给角色添加资源。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945519.png" alt="1581229945519.png"></p>
+<h2 id="创建用户："><a href="#创建用户：" class="headerlink" title="创建用户："></a>创建用户：</h2><p>4，SSL VPN设置-&gt;用户管理中创建用户组，并在组中创建用户，如果使用LDAP等外部认证方式，则不在此创建用户。默认情况下，分组下成员会自动集成分组的角色，策略和权限。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945526.png" alt="1581229945526.png"><br>如果有特殊权限，需取消勾选继承上级用户的认证或关联角色。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945534.png" alt="1581229945534.png"><br>5，所有配置完成后，还未生效，点击右上角立即生效。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945542.png" alt="1581229945542.png"><br>热备环境下可看到配置同步日志。<br><img src="/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/1581229945552.png" alt="1581229945552.png"><br>至此，配置完成。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/02/10/sangfor-m6-6-ssl-vpn-resource-privileges-configure/" data-id="ckd4km1iq00cbj7kuachs28a2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ros-l2tp-vpn-configure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/07/ros-l2tp-vpn-configure/" class="article-date">
+  <time datetime="2020-02-07T12:12:41.000Z" itemprop="datePublished">2020-02-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/ros/">ros</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/07/ros-l2tp-vpn-configure/">ROS配置L2TP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="网络规划："><a href="#网络规划：" class="headerlink" title="网络规划："></a>网络规划：</h2><p>1，VPN网段是10.0.7.0/24。<br>2，ROS使用10.0.7.1。<br>3，使用L2TP/IPSec预共享密钥。</p>
+<h2 id="配置过程如下："><a href="#配置过程如下：" class="headerlink" title="配置过程如下："></a>配置过程如下：</h2><p>1，创建地址池l2tp-pool，设置地址范围10.0.7.2-10.0.7.254。<br><img src="/2020/02/07/ros-l2tp-vpn-configure/1578542461879.png" alt="1578542461879.png"><br>2，PPP-&gt;Profiles创建L2TP配置文件l2tp-in。Local Address是ROS的地址，Remote Address是分配给拨入用户的地址，选择l2tp-pool地址池。<br><img src="/2020/02/07/ros-l2tp-vpn-configure/1578542461887.png" alt="1578542461887.png"><br>3，PPP–&gt;Secrets中创建用户，Service选择L2TP，Profile选择l2tp-in。<br><img src="/2020/02/07/ros-l2tp-vpn-configure/1578542461893.png" alt="1578542461893.png"><br>4，开启L2TP服务，Default Profile选择配置文件l2tp-in，Use IPSec选择yes，IPSec Secret设置预共享密钥。MTU和MRU保持1540不变。<br><img src="/2020/02/07/ros-l2tp-vpn-configure/1578542461899.png" alt="1578542461899.png"><br>到此L2TP配置完成，因没做NAT，只能访问内网。<br>5，添加NAT规则，使10.0.7.0/24网段可以上网。IP-&gt;firewall-&gt;NAT添加一条规则，Chain选srcnat，Src Address选择10.0.7.0/24网段，Action选masquerade。<br><img src="/2020/02/07/ros-l2tp-vpn-configure/1578542461902.png" alt="1578542461902.png"><br>至此全部配置完成。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2020/02/07/ros-l2tp-vpn-configure/" data-id="ckd4km17n004oj7ku4gem6kfm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ros/" rel="tag">ros</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-route-import-redistribute" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/07/route-import-redistribute/" class="article-date">
@@ -100,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/02/07/route-import-redistribute/" data-id="ckd33w50e009mg5ku74n9ar3i" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/02/07/route-import-redistribute/" data-id="ckd4km1ix00cej7ku8vv9595g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li></ul>
@@ -143,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/" data-id="ckd33w50o009sg5kug6gw1jaz" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/02/03/sangfor-m6-6-ssl-vpn-outdise-ldap-aaa-configure/" data-id="ckd4km1ij00c9j7kuad7xdsmd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li></ul>
@@ -186,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/" data-id="ckd33w50j009pg5kuekro1wzh" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/29/sangfor-ad-6-3-load-banlancer-service-configure/" data-id="ckd4km19y005kj7ku4cjz6boj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li></ul>
@@ -315,7 +535,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/26/isp-vlan-type-collect/" data-id="ckd33w4lh001jg5kuhwcr4me1" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/26/isp-vlan-type-collect/" data-id="ckd4km100001vj7ku5q9z7u6x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/isp/" rel="tag">isp</a></li></ul>
@@ -358,267 +578,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/24/ros-mac-filter-2/" data-id="ckd33w4yx0091g5ku5dlna9w4" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ros/" rel="tag">ros</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-panabit-password-reset" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/20/panabit-password-reset/" class="article-date">
-  <time datetime="2020-01-20T10:44:12.000Z" itemprop="datePublished">2020-01-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/panabit/">panabit</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/20/panabit-password-reset/">panabit重置密码</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>SSH查看Web管理密码   控制台登录　用户名root，密码panaos<br>root用户SSH进入到控制台界面或者设备直接接上显示器和键盘，输入命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;usr&#x2F;panabit&#x2F;admin&#x2F;.htpasswd （BSD8.0）</span><br><span class="line">cat &#x2F;ust&#x2F;system&#x2F;admin&#x2F;.htpasswd   （BSD9.2）</span><br></pre></td></tr></table></figure>
-<p>能查看密码<br>或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;usr&#x2F;ramdisk&#x2F;admin&#x2F;.htpasswd</span><br></pre></td></tr></table></figure>
-<p>查看到的结果一般是admin:xxxx，冒号后面的就是密码</p>
-<p>如果是root密码忘记了<br>设备接上显示器和键盘<br>重启设备，并不停的接Tab键<br>在boot:里输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;boot&#x2F;loader -s</span><br></pre></td></tr></table></figure>
-<p>进入单用户模式<br>在/bin/sh回车一下<br>进到#里<br>键入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;sbin&#x2F;mount -a 回车</span><br><span class="line">passwd   回车</span><br><span class="line">修改新的密码</span><br><span class="line">&#x2F;sbin&#x2F;reboot，重启后就能用新的密码登入root用户了。</span><br></pre></td></tr></table></figure>
-
-<p>如果某些情况下，Web管理用户名密码丢失,<code>cat /usr/panabit/admin/.htpasswd</code><br>显示是空白的，可以这么处理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;admin:panabit&#39; &gt; &#x2F;usr&#x2F;panabit&#x2F;admin&#x2F;.htpasswd（admin:panabit，就是用户名和密码）</span><br><span class="line">cp &#x2F;usr&#x2F;panabit&#x2F;admin&#x2F;.htpasswd &#x2F;usr&#x2F;ramdisk&#x2F;admin&#x2F;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/20/panabit-password-reset/" data-id="ckd33w4o8002tg5ku9ddr7xdf" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/panabit/" rel="tag">panabit</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-h3c-snmpv1-configure" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/14/h3c-snmpv1-configure/" class="article-date">
-  <time datetime="2020-01-14T10:42:39.000Z" itemprop="datePublished">2020-01-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/h3c/">h3c</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/14/h3c-snmpv1-configure/">H3C SNMPv1配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>内网，用snmp v1，public就可以了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">snmp-agent sys-info version v1 #开启SNMP</span><br><span class="line">snmp-agent community read public #设置团体名为public</span><br><span class="line">snmp-agent trap enable  #开启trap</span><br><span class="line">snmp-agent target-host trap address udp-domain 172.16.1.1 params securityname public v1  #指定报文目的172.16.1.1，团体名public，协议版本v1</span><br></pre></td></tr></table></figure>
-<p>由于只需要监控，不需要管理，所以只给read即可，无需write。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/14/h3c-snmpv1-configure/" data-id="ckd33w4kc0011g5kuajugdg5g" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/h3c/" rel="tag">h3c</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-peking-unicom-vlan-tag" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/12/peking-unicom-vlan-tag/" class="article-date">
-  <time datetime="2020-01-12T10:33:37.000Z" itemprop="datePublished">2020-01-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/chinaunicom/">chinaunicom</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/12/peking-unicom-vlan-tag/">联通宽带VLAN学习</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>搞了几天IGMP，VLAN 3964上没有数据，经海鲜大佬提示，可能在别的VLAN里，进模块学习一下。<br>1，打开模块的telnet功能。<br><img src="/2020/01/12/peking-unicom-vlan-tag/1578824630034.png" alt="1578824630034.png"><br>2，登录后diag，再用l2-table get entry address valid命令学习VLAN信息。从命令看好像是读取读取二层数据中的vlan tag。<br><img src="/2020/01/12/peking-unicom-vlan-tag/1578824630040.png" alt="1578824630040.png"><br>即可看到当前线路上的VLAN Tag。<br><img src="/2020/01/12/peking-unicom-vlan-tag/1578824630049.png" alt="1578824630049.png"><br><img src="/2020/01/12/peking-unicom-vlan-tag/1578824630058.png" alt="1578824630058.png"><br>从上图可看到北京联通有下列VLAN：</p>
-<table>
-<thead>
-<tr>
-<th>VLAN-ID</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>3961</td>
-<td>上网用</td>
-</tr>
-<tr>
-<td>4000</td>
-<td>组播用</td>
-</tr>
-<tr>
-<td>3969</td>
-<td>TR069管理用</td>
-</tr>
-</tbody></table>
-<p>奇怪的是，这里面没有IPTV的VLAN 3964，而这个VLAN配置在了光猫里。<br><img src="/2020/01/12/peking-unicom-vlan-tag/1578824630067.png" alt="1578824630067.png"></p>
-<p>2020.01.16补充：<br>今天再次学习VLAN信息时，出现VLAN-3964，猜测有数据时才会出现，没有数据时二层地址信息过期会导致自动删除。<br>但IGMP数据依旧没有。<br><img src="/2020/01/12/peking-unicom-vlan-tag/QQ20200116-091325.png" alt="QQ20200116-091325.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/12/peking-unicom-vlan-tag/" data-id="ckd33w4oj0031g5ku70mb4ebo" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chinaunicom/" rel="tag">chinaunicom</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-cisco-asa-5505-password-reset" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/11/cisco-asa-5505-password-reset/" class="article-date">
-  <time datetime="2020-01-11T10:24:37.000Z" itemprop="datePublished">2020-01-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/cisco/">cisco</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/11/cisco-asa-5505-password-reset/">Cisco ASA 5505 密码重置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>仓库中翻出一台ASA 5505，不知密码，需要破解。<br><img src="/2020/01/11/cisco-asa-5505-password-reset/1578543119956.png" alt="1578543119956.png"><br>操作方法如下：<br>1，先连接console线，再通电启动。<br>2，启动时按ESC或ctrl+break中断启动，进入ROM Monitor模式。<br><img src="/2020/01/11/cisco-asa-5505-password-reset/1578543119962.png" alt="1578543119962.png"><br>3，通过confreg命令查看寄存器的值，并输入no不修改。寄存器默认值0x00000001。<br><img src="/2020/01/11/cisco-asa-5505-password-reset/1578543119967.png" alt="1578543119967.png"><br>4，修改寄存器的值为0x41。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">confreg 0x41</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/01/11/cisco-asa-5505-password-reset/1578543119972.png" alt="1578543119972.png"><br>5，输入boot启动防火墙。<br><img src="/2020/01/11/cisco-asa-5505-password-reset/1578543119977.png" alt="1578543119977.png"><br>此时启动ASA会跳过加载startup配置，直接进入用户模式。此时即可使用空enable密码登陆。<br>6，将startup配置保存至running配置中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy startup-config running-config</span><br></pre></td></tr></table></figure>
-<p>7，全局配置模式下重置enable和远程管理密码为123456。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">enable password 123456</span><br><span class="line">password 123456</span><br></pre></td></tr></table></figure>
-<p>8，改回寄存器值，并用show version查看寄存器值是否已改为0x00000001</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config-register 0x11</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/01/11/cisco-asa-5505-password-reset/1578543119981.png" alt="1578543119981.png"><br>9，保存配置并重启</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">copy running-config startup-config</span><br><span class="line">reload</span><br></pre></td></tr></table></figure>
-<p>至此密码已重置为123456，并且配置不会丢失。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/11/cisco-asa-5505-password-reset/" data-id="ckd33w4j9000ug5kuec0zdiju" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ros-dual-wan-configure" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/11/ros-dual-wan-configure/" class="article-date">
-  <time datetime="2020-01-10T16:17:49.000Z" itemprop="datePublished">2020-01-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/ros/">ros</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/11/ros-dual-wan-configure/">ROS多网段多出口实现</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>环境介绍：<br>RB2011，ether1为内网口10.0.0.1，ether2/3是两个外网口。<br>内网网段：172.16.1.0/172.16.2.0/172.16.3.0/172.16.4.0/10.7.7.0/10.0.0.0，前五个网段通过S5700三层交换到核心网。<br>计划实现172.16.1.0/172.16.2.0两个网段走ether3的固定IP，172.16.3.0/172.16.4.0/10.7.7.0三个网段走ether2上的pppoe-out1出口。<br>本文中除有标注外所有IP的掩码均是24位。<br>1，建立不同网段的NAT Rule，其中必须指定出口。<br><img src="/2020/01/11/ros-dual-wan-configure/1578542700075.png" alt="1578542700075.png"><br>2，设置Mangle Rule，标记不同走向的数据包，prerouting链表，Action=mark routing。<br><img src="/2020/01/11/ros-dual-wan-configure/1578542700081.png" alt="1578542700081.png"><br><img src="/2020/01/11/ros-dual-wan-configure/1578542700085.png" alt="1578542700085.png"><br>4，设置路由表，Routing Mark中选择要走特定线路的标记，Gateway中指定其出口，Dst. Address中填0.0.0.0/0按照默认路由处理。<br><img src="/2020/01/11/ros-dual-wan-configure/1578542700089.png" alt="1578542700089.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2020/01/11/ros-dual-wan-configure/" data-id="ckd33w4pe003pg5ku5pjkak0h" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2020/01/24/ros-mac-filter-2/" data-id="ckd4km17h004lj7kue5xy7e8b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ros/" rel="tag">ros</a></li></ul>
@@ -655,7 +615,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/" rel="tag">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/asus/" rel="tag">asus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/" rel="tag">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinaunicom/" rel="tag">chinaunicom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewalld/" rel="tag">firewalld</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h3c/" rel="tag">h3c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ipv6/" rel="tag">ipv6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/isp/" rel="tag">isp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nexus/" rel="tag">nexus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/" rel="tag">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/panabit/" rel="tag">panabit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ros/" rel="tag">ros</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaesu/" rel="tag">yaesu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" rel="tag">无线电</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" rel="tag">未归档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/" rel="tag">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/asus/" rel="tag">asus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/" rel="tag">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinaunicom/" rel="tag">chinaunicom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewalld/" rel="tag">firewalld</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h3c/" rel="tag">h3c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ipv6/" rel="tag">ipv6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/isp/" rel="tag">isp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nexus/" rel="tag">nexus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/" rel="tag">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/panabit/" rel="tag">panabit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ros/" rel="tag">ros</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaesu/" rel="tag">yaesu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%B1%B3/" rel="tag">小米</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" rel="tag">无线电</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" rel="tag">未归档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
     </div>
   </div>
 
@@ -665,7 +625,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Server/" style="font-size: 18.57px;">Server</a> <a href="/tags/apache/" style="font-size: 11.43px;">apache</a> <a href="/tags/asus/" style="font-size: 11.43px;">asus</a> <a href="/tags/btc/" style="font-size: 11.43px;">btc</a> <a href="/tags/chinaunicom/" style="font-size: 12.86px;">chinaunicom</a> <a href="/tags/cisco/" style="font-size: 12.86px;">cisco</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewalld/" style="font-size: 10px;">firewalld</a> <a href="/tags/h3c/" style="font-size: 10px;">h3c</a> <a href="/tags/hexo/" style="font-size: 14.29px;">hexo</a> <a href="/tags/ipv6/" style="font-size: 10px;">ipv6</a> <a href="/tags/isp/" style="font-size: 10px;">isp</a> <a href="/tags/linux/" style="font-size: 12.86px;">linux</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 15.71px;">mysql</a> <a href="/tags/nexus/" style="font-size: 11.43px;">nexus</a> <a href="/tags/nginx/" style="font-size: 11.43px;">nginx</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/panabit/" style="font-size: 10px;">panabit</a> <a href="/tags/php/" style="font-size: 11.43px;">php</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ros/" style="font-size: 17.14px;">ros</a> <a href="/tags/sangfor/" style="font-size: 12.86px;">sangfor</a> <a href="/tags/yaesu/" style="font-size: 10px;">yaesu</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 11.43px;">区块链</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" style="font-size: 10px;">无线电</a> <a href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" style="font-size: 10px;">未归档</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+      <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Server/" style="font-size: 18.75px;">Server</a> <a href="/tags/apache/" style="font-size: 11.25px;">apache</a> <a href="/tags/asus/" style="font-size: 11.25px;">asus</a> <a href="/tags/btc/" style="font-size: 11.25px;">btc</a> <a href="/tags/chinaunicom/" style="font-size: 12.5px;">chinaunicom</a> <a href="/tags/cisco/" style="font-size: 12.5px;">cisco</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewalld/" style="font-size: 10px;">firewalld</a> <a href="/tags/h3c/" style="font-size: 10px;">h3c</a> <a href="/tags/hexo/" style="font-size: 16.25px;">hexo</a> <a href="/tags/ipv6/" style="font-size: 10px;">ipv6</a> <a href="/tags/isp/" style="font-size: 10px;">isp</a> <a href="/tags/linux/" style="font-size: 12.5px;">linux</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nexus/" style="font-size: 11.25px;">nexus</a> <a href="/tags/nginx/" style="font-size: 11.25px;">nginx</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/panabit/" style="font-size: 10px;">panabit</a> <a href="/tags/php/" style="font-size: 11.25px;">php</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ros/" style="font-size: 17.5px;">ros</a> <a href="/tags/sangfor/" style="font-size: 13.75px;">sangfor</a> <a href="/tags/yaesu/" style="font-size: 10px;">yaesu</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 11.25px;">区块链</a> <a href="/tags/%E5%B0%8F%E7%B1%B3/" style="font-size: 10px;">小米</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" style="font-size: 10px;">无线电</a> <a href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" style="font-size: 10px;">未归档</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
     </div>
   </div>
 
@@ -687,23 +647,23 @@
       <ul>
         
           <li>
-            <a href="/2020/02/20/hexo-page-tags/">hexo文章标签</a>
+            <a href="/2020/02/24/hexo-how-to-deploy-statistic-code/">hexo放置统计代码</a>
           </li>
         
           <li>
-            <a href="/2020/02/19/hexo-page-categories/">hexo文章分类</a>
+            <a href="/2020/02/24/sangfor-m6-6-ssl-snmp-configure/">SANGFOR M6.6 SSL配置snmp</a>
           </li>
         
           <li>
-            <a href="/2020/02/19/how-to-insert-images-hexo/">hexo文章插入本地图片的方法</a>
+            <a href="/2020/02/22/hexo-auto-deploy-github/">hexo配置自动发布到github</a>
           </li>
         
           <li>
-            <a href="/2020/02/18/how-to-install-hexo-manually/">hexo手动安装</a>
+            <a href="/2020/02/21/hexo-floder-commands/">hexo文件目录及常用命令</a>
           </li>
         
           <li>
-            <a href="/2020/02/18/hexo-deploy-custom-domain-reset-solve/">解决hexo deploy之后自定义域名失效问题</a>
+            <a href="/2020/02/20/mi-l2tp-ros/">小米路由器L2TP对接配置</a>
           </li>
         
       </ul>

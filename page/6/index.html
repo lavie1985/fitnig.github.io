@@ -64,6 +64,256 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mysql-ssl" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/10/mysql-ssl/" class="article-date">
+  <time datetime="2019-10-10T13:11:39.000Z" itemprop="datePublished">2019-10-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/mysql/">mysql</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/10/mysql-ssl/">MySQL配置SSL连接</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1，服务器上安装了MySQL但并未初始化，需切换到安装目录下执行下面的程序来生成ssl-key，数据目录中的pem文件即各种证书。如下图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;mysql_ssl_rsa_setup</span><br></pre></td></tr></table></figure>
+<p>2，服务器上的MySQL服务器已经初始化并在运行中，需先关闭mysql服务，再执行mysql_ssl_rsa_setup来生成证书。不能在运行时生成证书，配置完成后再重启服务，那样会导致ssl配置不生效。<br><img src="/2019/10/10/mysql-ssl/101019_0833_MySQLSSL1.png" alt="101019_0833_MySQLSSL1.png"><br>3，修改MySQL配置文件my.cnf，在[mysqld]段增加下列内容来指定服务器端证书。这里被文献误导，如不在此配置，只生成证书的话，MySQL并不会使用这些证书。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssl-ca&#x3D;&#x2F;data&#x2F;mysql&#x2F;ca.pem</span><br><span class="line">ssl-cert&#x3D;&#x2F;data&#x2F;mysql&#x2F;server-cert.pem</span><br><span class="line">ssl-key&#x3D;&#x2F;data&#x2F;mysql&#x2F;server-key.pem</span><br></pre></td></tr></table></figure>
+<p>4，启动MySQL。并查看SSL连接状态。<code>show variables like ‘%ssl%’;</code><br><img src="/2019/10/10/mysql-ssl/101019_0833_MySQLSSL2.png" alt="101019_0833_MySQLSSL2.png"><br>5，客户端连接时使用<code>ca.pem/client-cert.pem/client-key.pem</code>作为自己的客户端证书。<br>6，配置某用户必须使用ssl连接，修改后如不使用ssl则连接失败。<br>6.1，新用户<code>grant select on *.* to ‘root’@’%’ identified by ‘password’ REQUIRE SSL;</code><br>6.2，修改已有用户<code>ALTER USER ‘root’@’%’ REQUIRE SSL;</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2019/10/10/mysql-ssl/" data-id="ckd4km11r002ij7ku3m5i88ro" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ros-ospf-static-redistribute" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/14/ros-ospf-static-redistribute/" class="article-date">
+  <time datetime="2019-07-14T12:55:05.000Z" itemprop="datePublished">2019-07-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/ros/">ros</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/14/ros-ospf-static-redistribute/">ROS配置OSPF及静态路由重分布实验</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>实验目的：<br>1，两台ROS之间启用OSPF协议，宣告自身网段。<br>2，重分布静态路由到OSPF中。<br>下面是拓扑图：<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF1.jpg" alt="071419_0526_ROSOSPF1.jpg"><br>如图所见，有ROS1和ROS2两台路由器，均使用ether1接口互联，ROS1的IP地址是10.0.0.1，ROS2的地址是10.0.0.2。<br>均使用ether2连接PC，ROS1的地址是10.1.1.1，ROS2的地址是10.2.2.1。<br>连接ROS1的PC的IP是10.1.1.2，连接ROS2的PC的IP是10.2.2.2。<br>出口在ROS1的ether3接口，该接口IP是172.16.1.100，下一跳是172.16.1.1。<br>上述各网段均使用24位掩码。<br>两台路由器均使用vif1作为loopback，ROS1的loopback地址是192.168.1.1，ROS2的loopback地址是192.168.1.2。<br>上述loopback地址作为管理地址和router-id使用，掩码都是32位。<br>1，给ROS接口配置地址。当前只给物理接口配置了IP，虚接口还未创建。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF2.png" alt="071419_0526_ROSOSPF2.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF3.png" alt="071419_0526_ROSOSPF3.png"><br>2，在ROS1上创建vif1接口。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF4.png" alt="071419_0526_ROSOSPF4.png"><br>选择interface-&gt;virtual ethernet选项。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF5.png" alt="071419_0526_ROSOSPF5.png"><br>设置name为vif1，点击OK。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF6.png" alt="071419_0526_ROSOSPF6.png"><br>虚接口配置完成。<br>3，给ROS1的vif1接口配置IP192.168.1.1/32<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF7.png" alt="071419_0526_ROSOSPF7.png"><br>选择ip–&gt;addresses选项<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF8.png" alt="071419_0526_ROSOSPF8.png"><br>点击+，在Address中设置ip，interface选择虚接口vif1，点击OK。<br>4，ROS2照此配置。<br>5，在ROS1上配置OSPF实例。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF9.png" alt="071419_0526_ROSOSPF9.png"><br>选择routing-&gt;ospf<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF10.png" alt="071419_0526_ROSOSPF10.png"></p>
+<p><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF11.png" alt="071419_0526_ROSOSPF11.png"><br>instances标签中，配置默认存在的default实例，router-id设为192.168.1.1。默认area-id是0，不做配置。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF12.png" alt="071419_0526_ROSOSPF12.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF13.png" alt="071419_0526_ROSOSPF13.png"><br>networks标签中，点击加号增加路由器上有所拥有的网段进行宣告。注意这里不要增加172.16.1.0/24，这个网段是静态路由重分布网段，不参与OSPF路由。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF14.png" alt="071419_0526_ROSOSPF14.png"><br>回到interfaces标签，即可看到已进行OSPF宣告的网段所在的接口。如果没有，请检查接口IP和OSPF宣告是否正确。<br>6，在ROS2上配置OSPF实例。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF15.png" alt="071419_0526_ROSOSPF15.png"><br>选择routing-&gt;ospf<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF16.png" alt="071419_0526_ROSOSPF16.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF17.png" alt="071419_0526_ROSOSPF17.png"><br>instances标签中，配置默认存在的default实例，router-id设为192.168.1.2。默认area-id是0，不做配置。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF18.png" alt="071419_0526_ROSOSPF18.png"><br>networks标签中，点击加号增加路由器上有所拥有的网段进行宣告。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF19.png" alt="071419_0526_ROSOSPF19.png"><br>回到interfaces标签，即可看到已进行OSPF宣告的网段所在的接口。如果没有，请检查接口IP和OSPF宣告是否正确。<br>7，宣告网段后即可在neighbors标签中看到邻居。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF20.png" alt="071419_0526_ROSOSPF20.png"><br>8，配置两台PC，并接入到对应ROS的ether2接口。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF21.png" alt="071419_0526_ROSOSPF21.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF22.png" alt="071419_0526_ROSOSPF22.png"><br>9，此时互ping是通的，但到公网不通。提示目标网络不可达，因为上面配置ospf时只进行了网络宣告，并未配置路由重分布。看路由表只有已宣告网段，没有默认路由或去往其它网段的信息。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF23.png" alt="071419_0526_ROSOSPF23.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF24.png" alt="071419_0526_ROSOSPF24.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF25.png" alt="071419_0526_ROSOSPF25.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF26.png" alt="071419_0526_ROSOSPF26.png"><br>10，在ROS1增加默认路由。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF27.png" alt="071419_0526_ROSOSPF27.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF28.png" alt="071419_0526_ROSOSPF28.png"><br>11，ROS1的OSPF实例配置，将重分布默认路由，重分布静态路由，重分布其它OSPF路由选项设置为as type1。再看ROS2的路由表，已经出现默认路由，下一跳是10.0.0.1。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF29.png" alt="071419_0526_ROSOSPF29.png"><br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF30.png" alt="071419_0526_ROSOSPF30.png"><br>12，PC2已经能访问公网，traceroute看到数据包经过了ROS1。<br><img src="/2019/07/14/ros-ospf-static-redistribute/071419_0526_ROSOSPF31.png" alt="071419_0526_ROSOSPF31.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2019/07/14/ros-ospf-static-redistribute/" data-id="ckd4km17v004tj7ku8dkhfiii" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ros/" rel="tag">ros</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-centos-rabbitmq-install-cluster" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/04/centos-rabbitmq-install-cluster/" class="article-date">
+  <time datetime="2019-06-04T06:47:28.000Z" itemprop="datePublished">2019-06-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/mq/">mq</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/04/centos-rabbitmq-install-cluster/">CentOS下rabbitmq安装及cluster集群配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>rabbitmq依赖erlang，本文rabbitmq3.7.15，依赖erlang20.3以上版本。由于这两个软件彼此对版本要求较高，提供这两个包的下载。<br>1，安装erlang和socat，这两个都是依赖。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh erlang-21.2.2-1.el6.x86_64.rpm</span><br><span class="line">yum install socat -y</span><br></pre></td></tr></table></figure>
+<p>2，安装rabbitmq。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh rabbitmq-server-3.7.15-1.el6.noarch.rpm</span><br></pre></td></tr></table></figure>
+<p>3，初始化rabbitmq。下面两条命令分别是启用web管理插件和stomp插件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line">rabbitmq-plugins enable rabbitmq_stomp</span><br></pre></td></tr></table></figure>
+<p>4，启动rabbitmq及创建用户。后面两条命令分别是创建用户root，并给与administrator权限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-server -detached</span><br><span class="line">rabbitmqctl add_user root 123456</span><br><span class="line">rabbitmqctl set_user_tags root administrator</span><br></pre></td></tr></table></figure>
+<p>至此，rabbitmq安装结束，当输入IP:15672并登录能看到下面页面说明安装配置没有问题。接下来即可配置cluster。集群中有AB两台服务器，A主B从。<br><img src="/2019/06/04/centos-rabbitmq-install-cluster/060419_1349_CentOSrabbi1.png" alt="060419_1349_CentOSrabbi1.png"><br>5，在A上查看cluster name。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl cluster_status</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/04/centos-rabbitmq-install-cluster/060419_1349_CentOSrabbi2.png" alt="060419_1349_CentOSrabbi2.png"><br>6，在B上加入cluster</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl stop_app</span><br><span class="line">rabbitmqctl join_cluster rabbit@app-18-101</span><br><span class="line">rabbitmqctl start_app</span><br></pre></td></tr></table></figure>
+<p>7，此时如果在A上看到nodes中看到B的机器名，则集群启动完毕。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl cluster_status</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/04/centos-rabbitmq-install-cluster/060419_1349_CentOSrabbi3.png" alt="060419_1349_CentOSrabbi3.png"><br>在web管理页面中也能看到节点信息。<br><img src="/2019/06/04/centos-rabbitmq-install-cluster/060419_1349_CentOSrabbi4.png" alt="060419_1349_CentOSrabbi4.png"></p>
+<p>附，下载地址：<br><a href="/downloads/erlang-21.2.2-1.el6_.x86_64.zip">erlang-21.2.2-1.el6_.x86_64.zip</a><br><a href="/downloads/erlang-21.2.2-1.el7_.centos.x86_64.zip">erlang-21.2.2-1.el7_.centos.x86_64.zip</a><br><a href="/downloads/rabbitmq-server-3.7.15-1.el6_.noarch.zip">rabbitmq-server-3.7.15-1.el6_.noarch.zip</a><br><a href="/downloads/rabbitmq-server-3.7.15-1.el7_.noarch.zip">rabbitmq-server-3.7.15-1.el7_.noarch.zip</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2019/06/04/centos-rabbitmq-install-cluster/" data-id="ckd4km0uk000fj7kubpj2fusr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mq/" rel="tag">mq</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-apache2-4-6-update-2-4-38" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/12/apache2-4-6-update-2-4-38/" class="article-date">
+  <time datetime="2019-04-12T06:23:44.000Z" itemprop="datePublished">2019-04-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/apache/">apache</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/12/apache2-4-6-update-2-4-38/">apache2.4.6升级到2.4.38</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>文档是全新安装的手册，目前已安装apache2.4.6，可从第5步开始。<br>操作准备：<br>1，查看编译参数：<br>查看build目录中的config.nice文件，这个文件中保存有最近一次的编译参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat build&#x2F;config.nice</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/12/apache2-4-6-update-2-4-38/041119_1633_apache24621.png" alt="041119_1633_apache24621.png"><br>安装依赖：<br>2，安装apr。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd apr-1.6.2</span><br><span class="line">.&#x2F;configure –prefix&#x3D;&#x2F;TRS&#x2F;apr</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>3，安装apr-util。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install expat-devel -y</span><br><span class="line">cd apr-util-1.6.0</span><br><span class="line">.&#x2F;configure –prefix&#x3D;&#x2F;TRS&#x2F;apr-util –with-apr&#x3D;&#x2F;TRS&#x2F;apr&#x2F;</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>4，安装pcre。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;configure –prefix&#x3D;&#x2F;TRS&#x2F;pcre</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>5，将解压后的apr和apr-util放入解压后的apache目录中的srclib目录。<br><img src="/2019/04/12/apache2-4-6-update-2-4-38/041119_1633_apache24622.png" alt="041119_1633_apache24622.png"><br>6，编译apache。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd httpd-2.4.38</span><br><span class="line">.&#x2F;configure –prefix&#x3D;&#x2F;TRS&#x2F;apache2.4.38 –with-pcre&#x3D;&#x2F;TRS&#x2F;pcre –with-included-apr</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>7，更换/etc/httpd和/TRS/apache2.4.38/conf配置文件，附件configurefiles.tar.gz<br>8，替换配置文件中的路径。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i ‘s&#x2F;2.4.6&#x2F;2.4.38&#x2F;g’ httpd.conf</span><br></pre></td></tr></table></figure>
+<p>9，启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;apache2.4.38&#x2F;bin&#x2F;httpd -k restart</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/12/apache2-4-6-update-2-4-38/041119_1633_apache24623.png" alt="041119_1633_apache24623.png"></p>
+<p>附：下载地址<br><a href="/downloads/apr-1.6.2.tar.gz">apr-1.6.2.tar.gz</a><br><a href="/downloads/apr-util-1.6.0.tar.gz">apr-util-1.6.0.tar.gz</a><br><a href="/downloads/pcre-8.42.tar.gz">pcre-8.42.tar.gz</a><br><a href="/downloads/httpd-2.4.38.tar.gz">httpd-2.4.38.tar.gz</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2019/04/12/apache2-4-6-update-2-4-38/" data-id="ckd4km0sa0001j7kud6mretv9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/" rel="tag">apache</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-asus-rt-ac55u-e160-dual-wan" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/asus-rt-ac55u-e160-dual-wan/" class="article-date">
+  <time datetime="2019-03-17T06:13:31.000Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/asus/">asus</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/17/asus-rt-ac55u-e160-dual-wan/">ASUS RT-AC55U多链路故障转移配置续华为E160E USB Modem</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这闹心的鹏博士又坏了，继续用手机做第二WAN接入，转念一想上次用手机做第二WAN的时候发热非常严重，Mates到了烫手的程度，这次还是用华为E160USB网卡吧。它的原理与上次用手机类似，网卡通过USB接口作为路由器的虚接口，在WCDMA网络承载数据流量，因没有Mobile Parenter接口，只能进行数据传输，不能使用网卡的电话短信功能，最终目的还是防止手机过热爆炸。<br>这款网卡已经停产多年，大概记的这些参数：O2订制，支持HSDPA/UMTS/GSM，最大下载速率3.6M，上传速率384K，频率范围850/900/1800/1900/2100MHz。支持外接天线和MicroSD，这两项功能今天用不到，便不再赘述。<br>写了这么多，下面开始写具体操作过程：<br>1，把手机卡放进网卡里，并把网卡连接到路由器的USB2.0接口上。USB3.0接口不知是不是兼容性问题，连接网卡后只能看到供电，路由器识别不到USB Modem。<br>三切卡真方便，nano SIM装上套件就变成了Mini SIM的尺寸。<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U1.jpg" alt="031719_1558_ASUSRTAC55U1.jpg"><br>2，登录到路由器，打开外部网络。<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U2.png" alt="031719_1558_ASUSRTAC55U2.png"><br>3，双线路中选择第二WAN为USB。<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U3.png" alt="031719_1558_ASUSRTAC55U3.png"><br>4，回到互联网连接中，将USB设备修改为USB Modem，APN设置用自动即可，如不能识别则需联系运营商取得这些参数。<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U4.png" alt="031719_1558_ASUSRTAC55U4.png"><br>5，应用，等路由器重启后，E160E会重新搜索网络，当蓝色指示灯常亮后，网络即接通。<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U5.jpg" alt="031719_1558_ASUSRTAC55U5.jpg"><br>到了这里发现个奇怪的问题，用E160E来接入网络，ping qq.com时延迟从200ms-700ms之间抖动，而MateS的延迟始终在20-45之间抖动，即是关闭MateS的4G开关，使其强制工作在WCDMA模式下，抖动也不过29-87之间。<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U6.png" alt="031719_1558_ASUSRTAC55U6.png"><br>MateS 4G下的延迟情况<br><img src="/2019/03/17/asus-rt-ac55u-e160-dual-wan/031719_1558_ASUSRTAC55U7.png" alt="031719_1558_ASUSRTAC55U7.png"><br>MateS 3G下的延迟情况<br>说来也奇怪，为什么故障总是在晚上或周末发生？</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iosbb.com/2019/03/17/asus-rt-ac55u-e160-dual-wan/" data-id="ckd4km0t10005j7kudb754qip" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/asus/" rel="tag">asus</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-bither-wallet-2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/02/21/bither-wallet-2/" class="article-date">
@@ -97,7 +347,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2019/02/21/bither-wallet-2/" data-id="ckd33w4gg000ag5ku3348a1n1" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2019/02/21/bither-wallet-2/" data-id="ckd4km0tz000aj7ku7r9xdzf2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/btc/" rel="tag">btc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li></ul>
@@ -146,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2018/12/26/bither-wallet-1/" data-id="ckd33w4g90009g5ku4up5bgeh" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2018/12/26/bither-wallet-1/" data-id="ckd4km0ts0009j7ku0yj16erf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/btc/" rel="tag">btc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li></ul>
@@ -191,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2018/12/21/nexus-oss-yum-hosted/" data-id="ckd33w4nj002ag5kufvj04776" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2018/12/21/nexus-oss-yum-hosted/" data-id="ckd4km11y002mj7ku5ty55bhv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nexus/" rel="tag">nexus</a></li></ul>
@@ -236,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2018/11/17/centos-install-config/" data-id="ckd33w4gx000dg5ku0bd43l7s" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2018/11/17/centos-install-config/" data-id="ckd4km0v9000kj7ku5h3bb30y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
@@ -286,240 +536,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iosbb.com/2018/11/06/nexus-oss-yum-proxy/" data-id="ckd33w4nn002dg5kucpo80wfx" class="article-share-link">Share</a>
+      <a data-url="https://iosbb.com/2018/11/06/nexus-oss-yum-proxy/" data-id="ckd4km129002qj7kualgaci2k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nexus/" rel="tag">nexus</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-cisco-871w-pppoe" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/28/cisco-871w-pppoe/" class="article-date">
-  <time datetime="2018-10-28T01:44:17.000Z" itemprop="datePublished">2018-10-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/cisco/">cisco</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/28/cisco-871w-pppoe/">Cisco 871W PPPoe配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>买到一台Cisco 871W，替换掉RB450G，本打算把它的无线功能用上，可惜只支持BG。这台路由器是企业更换更换设备，做网络的外包公司早已倒闭，密码只能自己破解了。面条线，开干。<br><img src="/2018/10/28/cisco-871w-pppoe/102818_1422_Cisco871WPP1.jpg" alt="102818_1422_Cisco871WPP1.jpg"><br>别的就不说了，直接贴配置档吧。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br></pre></td><td class="code"><pre><span class="line">Router(config)#do show run</span><br><span class="line"></span><br><span class="line">Building configuration…</span><br><span class="line"></span><br><span class="line">Current configuration : 3976 bytes</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">version 12.4</span><br><span class="line"></span><br><span class="line">no service pad</span><br><span class="line"></span><br><span class="line">service timestamps debug datetime msec</span><br><span class="line"></span><br><span class="line">service timestamps log datetime msec</span><br><span class="line"></span><br><span class="line">no service password-encryption</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">hostname Router</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">boot-start-marker</span><br><span class="line"></span><br><span class="line">boot-end-marker</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">aaa new-model</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">aaa group server radius rad_eap</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">aaa group server radius rad_mac</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">aaa group server radius rad_acct</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">aaa group server radius rad_admin</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">aaa group server tacacs+ tac_admin</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">aaa group server radius rad_pmip</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">aaa group server radius dummy</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">aaa authentication login eap_methods group rad_eap</span><br><span class="line"></span><br><span class="line">aaa authentication login mac_methods local</span><br><span class="line"></span><br><span class="line">aaa authorization ipmobile default group rad_pmip</span><br><span class="line"></span><br><span class="line">aaa accounting network acct_methods start-stop group rad_acct</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">aaa session-id common</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">resource policy</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">ip subnet-zero</span><br><span class="line"></span><br><span class="line">ip cef</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">no ip dhcp use vrf connected</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">ip dhcp pool home</span><br><span class="line"></span><br><span class="line">network 10.0.0.0 255.255.255.0</span><br><span class="line"></span><br><span class="line">default-router 10.0.0.1</span><br><span class="line"></span><br><span class="line">dns-server 10.0.0.1</span><br><span class="line"></span><br><span class="line">lease 0 23</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">crypto pki trustpoint TP-self-signed-2642604096</span><br><span class="line"></span><br><span class="line">enrollment selfsigned</span><br><span class="line"></span><br><span class="line">subject-name cn&#x3D;IOS-Self-Signed-Certificate-2642604096</span><br><span class="line"></span><br><span class="line">revocation-check none</span><br><span class="line"></span><br><span class="line">rsakeypair TP-self-signed-2642604096</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">crypto pki certificate chain TP-self-signed-2642604096</span><br><span class="line"></span><br><span class="line">certificate self-signed 01</span><br><span class="line"></span><br><span class="line">这一段是证书，不给看</span><br><span class="line"></span><br><span class="line">quit</span><br><span class="line"></span><br><span class="line">username root privilege 15 secret 5 密码</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">interface FastEthernet0</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">interface FastEthernet1</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">interface FastEthernet2</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">interface FastEthernet3</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">interface FastEthernet4</span><br><span class="line"></span><br><span class="line">no ip address</span><br><span class="line"></span><br><span class="line">duplex auto</span><br><span class="line"></span><br><span class="line">speed auto</span><br><span class="line"></span><br><span class="line">pppoe enable group global</span><br><span class="line"></span><br><span class="line">pppoe-client dial-pool-number 1</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">interface Dot11Radio0</span><br><span class="line"></span><br><span class="line">no ip address</span><br><span class="line"></span><br><span class="line">shutdown</span><br><span class="line"></span><br><span class="line">speed basic-1.0 basic-2.0 basic-5.5 6.0 9.0 basic-11.0 12.0 18.0 24.0 36.0 48.0 54.0</span><br><span class="line"></span><br><span class="line">station-role root</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">interface Vlan1</span><br><span class="line"></span><br><span class="line">ip address 10.0.0.1 255.255.255.0</span><br><span class="line"></span><br><span class="line">ip nat inside</span><br><span class="line"></span><br><span class="line">ip virtual-reassembly</span><br><span class="line"></span><br><span class="line">ip tcp adjust-mss 1452</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">interface Dialer0</span><br><span class="line"></span><br><span class="line">ip address negotiated</span><br><span class="line"></span><br><span class="line">no ip redirects</span><br><span class="line"></span><br><span class="line">no ip unreachables</span><br><span class="line"></span><br><span class="line">no ip proxy-arp</span><br><span class="line"></span><br><span class="line">ip mtu 1492</span><br><span class="line"></span><br><span class="line">ip nat outside</span><br><span class="line"></span><br><span class="line">ip virtual-reassembly</span><br><span class="line"></span><br><span class="line">encapsulation ppp</span><br><span class="line"></span><br><span class="line">dialer pool 1</span><br><span class="line"></span><br><span class="line">dialer-group 1</span><br><span class="line"></span><br><span class="line">no cdp enable</span><br><span class="line"></span><br><span class="line">ppp authentication chap pap callin</span><br><span class="line"></span><br><span class="line">ppp pap sent-username 用户名 password 0 密码</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">ip classless</span><br><span class="line"></span><br><span class="line">ip route 0.0.0.0 0.0.0.0 Dialer0</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">ip http server</span><br><span class="line"></span><br><span class="line">ip http access-class 23</span><br><span class="line"></span><br><span class="line">ip http authentication local</span><br><span class="line"></span><br><span class="line">ip http secure-server</span><br><span class="line"></span><br><span class="line">ip http timeout-policy idle 5 life 86400 requests 10000</span><br><span class="line"></span><br><span class="line">ip nat inside source list 1 interface Dialer0 overload</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">access-list 1 permit 10.0.0.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">no cdp run</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">radius-server attribute 32 include-in-access-req format %h</span><br><span class="line"></span><br><span class="line">radius-server vsa send accounting</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">control-plane</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">line con 0</span><br><span class="line"></span><br><span class="line">no modem enable</span><br><span class="line"></span><br><span class="line">line aux 0</span><br><span class="line"></span><br><span class="line">line vty 0 4</span><br><span class="line"></span><br><span class="line">!</span><br><span class="line"></span><br><span class="line">scheduler max-task-time 5000</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>这样配置好之后启动Dialer即可获得IP地址。<br><img src="/2018/10/28/cisco-871w-pppoe/102818_1422_Cisco871WPP2.png" alt="102818_1422_Cisco871WPP2.png"><br>记得当时学习的时候，配置<code>no ip domain-lookup</code>，禁止查询DNS来加快配置速度，这样会导致DNS指向路由器的时候会无法解析IP，由于当时配置是把DNS指向公网上的DNS反而没什么问题。<br>通过下面的命令指定DNS，即可使客户端将DNS指向路由器，进行迭代查询。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Router(config)#ip name-server 114.114.114.114</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/10/28/cisco-871w-pppoe/102818_1422_Cisco871WPP3.jpg" alt="102818_1422_Cisco871WPP3.jpg"><br>这台路由器支持SDM，需要JRE1.4-1.6的运行环境。这里发生过奇怪的事情，安装说明里写JRE版本高于1.4，我电脑里有JRE1.8，不能运行。改为1.6后正常。<br><img src="/2018/10/28/cisco-871w-pppoe/102818_1422_Cisco871WPP4.jpg" alt="102818_1422_Cisco871WPP4.jpg"><br>SDM加载信息<br><img src="/2018/10/28/cisco-871w-pppoe/102818_1422_Cisco871WPP5.png" alt="102818_1422_Cisco871WPP5.png"><br>跑个测试<br>本想去Cisco网站上找SDM，登陆之后需要提供合同号，没想到在老司机到处开车的互联网找不到SDM。。。我把SDM和JRE打包放上来。<br>总体来说，路由器配置不算高，稳定性好的很，顺带说企业设备我拿来家用是不是太奢侈了点？</p>
-<p>附：下载地址<br><a href="/downloads/jre6u4.zip">jre6u4.zip</a><br><a href="/downloads/Cisco-SDM.zip">Cisco-SDM.zip</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2018/10/28/cisco-871w-pppoe/" data-id="ckd33w4iv000tg5ku3iu4eyxk" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mysql-segmentation-fault" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/11/mysql-segmentation-fault/" class="article-date">
-  <time datetime="2018-10-11T01:34:40.000Z" itemprop="datePublished">2018-10-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/mysql/">mysql</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/11/mysql-segmentation-fault/">CentOS7下编译安装MySQL后客户端出现Segmentation fault的解决方案</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CentOS7系统下编译安装MySQL5.7.19，服务能运行，但mysql访问时出现下面提示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 8</span><br><span class="line">Server version: 5.7.19 Source distribution</span><br><span class="line">Copyright (c) 2000, 2015, Oracle and&#x2F;or its affiliates. All rights reserved.</span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and&#x2F;or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line">Segmentation fault</span><br></pre></td></tr></table></figure>
-<p>修改源码包中的<code>cmd-line-utils/libedit/terminal.c</code>文件<br>注释掉<code>char buf[TC_BUFSIZE];</code>行，并修改<code>area = buf</code>修改为<code>area = NULL</code>，修改后如下图<br><img src="/2018/10/11/mysql-segmentation-fault/012618_1324_CentOS7MyS1.png" alt="012618_1324_CentOS7MyS1.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2018/10/11/mysql-segmentation-fault/" data-id="ckd33w4n50022g5ku2tawevka" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-asus-rt-ac55u-usb-dual-wan" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/23/asus-rt-ac55u-usb-dual-wan/" class="article-date">
-  <time datetime="2018-06-23T01:21:11.000Z" itemprop="datePublished">2018-06-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Network/">Network</a>►<a class="article-category-link" href="/categories/Network/asus/">asus</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/23/asus-rt-ac55u-usb-dual-wan/">ASUS RT-AC55U多链路故障转移配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这是一篇老博客转移过来的文章。<br>首先吐槽一下鹏博士，突然间就坏了，一夜过去未能修好。今天需要用网又不想去网吧，想起这路由器有双链路功能，并支持安卓手机。手里有张闲置的联通5元卡，开流量日包。<br><img src="/2018/06/23/asus-rt-ac55u-usb-dual-wan/011318_0328_ASUSRTAC55U1.png" alt="011318_0328_ASUSRTAC55U1.png"><br>1，登录到路由器，并选择高级设置中的外部网络<br><img src="/2018/06/23/asus-rt-ac55u-usb-dual-wan/011318_0328_ASUSRTAC55U2.png" alt="011318_0328_ASUSRTAC55U2.png"><br>2，选择双线路选项卡，开启双线路，并将第二WAN设置为USB，应用。<br><img src="/2018/06/23/asus-rt-ac55u-usb-dual-wan/011318_0328_ASUSRTAC55U03.png" alt="011318_0328_ASUSRTAC55U03.png"><br>3，应用后回到互联网连接选项卡，WAN类型改为USB，基本设置中开启USB模式，USB设备中选择安卓手机，应用。此时路由器会重启。<br><img src="/2018/06/23/asus-rt-ac55u-usb-dual-wan/011318_0328_ASUSRTAC55U4.png" alt="011318_0328_ASUSRTAC55U4.png"><br>4，按说明中描述，将手机连接到路由器上，并打开USB共享网络功能。我的手机是华为MateS，选项在全部设置-更多-移动网络共享中。注意，这里必须先连接手机，否则选项无法打开。而且有个很奇怪的问题，手机必须连接路由器后面的USB2.0接口，连接前面的USB3.0接口则只能充电，手机和路由器均识别不到对方。<br><img src="/2018/06/23/asus-rt-ac55u-usb-dual-wan/011318_0328_ASUSRTAC55U5.png" alt="011318_0328_ASUSRTAC55U5.png"><br>5，回到一般设置-网络地图中，即可看到第二WAN已连接，这时候就能上网了。<br><img src="/2018/06/23/asus-rt-ac55u-usb-dual-wan/011318_0328_ASUSRTAC55U6.png" alt="011318_0328_ASUSRTAC55U6.png"><br>写在最后，一定要随时关注流量，关注流量，关注流量。重要的事情说三遍。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2018/06/23/asus-rt-ac55u-usb-dual-wan/" data-id="ckd33w4fv0006g5ku7gfvf3mk" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/asus/" rel="tag">asus</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-centos7-yum-install-php56" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/18/centos7-yum-install-php56/" class="article-date">
-  <time datetime="2018-06-18T01:17:41.000Z" itemprop="datePublished">2018-06-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/php/">php</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/18/centos7-yum-install-php56/">CentOS7下yum安装PHP5.6</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>更换了系统，再也不想在freebsd里编译php那样一次搞一天，这次准备用yum一次搞定。CentOS系统源里的php是5.3.3版本，有点低，所以这里要用remi源来实现安装。这个过程主要是记录，其它大同小异，就没有截图了。<br>1，安装remi依赖的epel源，并设置它。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-release -y</span><br><span class="line">rpm -ivh http:&#x2F;&#x2F;rpms.famillecollet.com&#x2F;enterprise&#x2F;remi-release-7.rpm</span><br><span class="line">yum list –enablerepo&#x3D;remi –enablerepo&#x3D;remi-php56 | grep php</span><br></pre></td></tr></table></figure>
-<p>2，设置完毕即可使用此源安装指定版本的php</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install –enablerepo&#x3D;remi –enablerepo&#x3D;remi-php56 php php-opcache php-devel php-mbstring php-mcrypt php-mysqlnd php-phpunit-PHPUnit php-pecl-xdebug php-gd* php-fpm -y</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2018/06/18/centos7-yum-install-php56/" data-id="ckd33w4ih000pg5ku9s6g3lzu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/" rel="tag">php</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-centos7-firewalld-rules" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/17/centos7-firewalld-rules/" class="article-date">
-  <time datetime="2018-06-17T01:11:52.000Z" itemprop="datePublished">2018-06-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Server/">Server</a>►<a class="article-category-link" href="/categories/Server/firewalld/">firewalld</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/17/centos7-firewalld-rules/">CentOS7下firewalld开放端口及相关研究</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>更换成CentOS7系统装好服务后reboot，后来发现页面打不开，ssh也登不上了，后来想到是防火墙的问题，ssh改了非标准端口导致被丢弃，控制台将其打开即可。<br>防火墙配置文件位于/etc/firewalld/zones/<br>通过下列命令增加端口，我这使用80和443提供服务。–permanent参数表示永久有效，不加此参数则重启后失效。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd –zone&#x3D;public –add-port&#x3D;80&#x2F;tcp –permanent</span><br><span class="line">firewall-cmd –zone&#x3D;public –add-port&#x3D;443&#x2F;tcp –permanent</span><br><span class="line">firewall-cmd –zone&#x3D;public –add-port&#x3D;72521&#x2F;tcp –permanent</span><br></pre></td></tr></table></figure>
-<p>添加完规则后可使用firewall-cmd –reload重载规则，也可以systemctl reboot firewalld.service重启防火墙。<br>如需删除规则，可使用下列命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd –zone&#x3D; public –remove-port&#x3D;80&#x2F;tcp –permanent</span><br></pre></td></tr></table></figure>
-<p>下面是一些常用命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">查看版本 firewall-cmd –version</span><br><span class="line">查看帮助 firewall-cmd –help</span><br><span class="line">显示状态 firewall-cmd –state</span><br><span class="line">查看所有打开的端口 firewall-cmd –zone&#x3D;public –list-ports</span><br><span class="line">更新防火墙规则 firewall-cmd –reload</span><br><span class="line">查看区域信息 firewall-cmd –get-active-zones</span><br><span class="line">查看指定接口所属区域 firewall-cmd –get-zone-of-interface&#x3D;eth0</span><br><span class="line">丢弃所有包 firewall-cmd –panic-on</span><br><span class="line">取消丢弃状态 firewall-cmd –panic-off</span><br><span class="line">查看是否丢弃 firewall-cmd –query-panic</span><br><span class="line">查看默认域 firewall-cmd –get-default-zone</span><br><span class="line">查看活动域 firewall-cmd –get-active-zones</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://iosbb.com/2018/06/17/centos7-firewalld-rules/" data-id="ckd33w4i8000ng5ku7wh094xw" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/firewalld/" rel="tag">firewalld</a></li></ul>
 
     </footer>
   </div>
@@ -553,7 +573,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/" rel="tag">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/asus/" rel="tag">asus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/" rel="tag">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinaunicom/" rel="tag">chinaunicom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewalld/" rel="tag">firewalld</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h3c/" rel="tag">h3c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ipv6/" rel="tag">ipv6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/isp/" rel="tag">isp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nexus/" rel="tag">nexus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/" rel="tag">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/panabit/" rel="tag">panabit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ros/" rel="tag">ros</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaesu/" rel="tag">yaesu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" rel="tag">无线电</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" rel="tag">未归档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/" rel="tag">Network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/" rel="tag">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/" rel="tag">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/asus/" rel="tag">asus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/btc/" rel="tag">btc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chinaunicom/" rel="tag">chinaunicom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cisco/" rel="tag">cisco</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/" rel="tag">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewalld/" rel="tag">firewalld</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h3c/" rel="tag">h3c</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ipv6/" rel="tag">ipv6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/isp/" rel="tag">isp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/" rel="tag">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nexus/" rel="tag">nexus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/" rel="tag">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/panabit/" rel="tag">panabit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ros/" rel="tag">ros</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sangfor/" rel="tag">sangfor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yaesu/" rel="tag">yaesu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%B1%B3/" rel="tag">小米</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" rel="tag">无线电</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" rel="tag">未归档</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" rel="tag">虚拟化</a></li></ul>
     </div>
   </div>
 
@@ -563,7 +583,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Server/" style="font-size: 18.57px;">Server</a> <a href="/tags/apache/" style="font-size: 11.43px;">apache</a> <a href="/tags/asus/" style="font-size: 11.43px;">asus</a> <a href="/tags/btc/" style="font-size: 11.43px;">btc</a> <a href="/tags/chinaunicom/" style="font-size: 12.86px;">chinaunicom</a> <a href="/tags/cisco/" style="font-size: 12.86px;">cisco</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewalld/" style="font-size: 10px;">firewalld</a> <a href="/tags/h3c/" style="font-size: 10px;">h3c</a> <a href="/tags/hexo/" style="font-size: 14.29px;">hexo</a> <a href="/tags/ipv6/" style="font-size: 10px;">ipv6</a> <a href="/tags/isp/" style="font-size: 10px;">isp</a> <a href="/tags/linux/" style="font-size: 12.86px;">linux</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 15.71px;">mysql</a> <a href="/tags/nexus/" style="font-size: 11.43px;">nexus</a> <a href="/tags/nginx/" style="font-size: 11.43px;">nginx</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/panabit/" style="font-size: 10px;">panabit</a> <a href="/tags/php/" style="font-size: 11.43px;">php</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ros/" style="font-size: 17.14px;">ros</a> <a href="/tags/sangfor/" style="font-size: 12.86px;">sangfor</a> <a href="/tags/yaesu/" style="font-size: 10px;">yaesu</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 11.43px;">区块链</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" style="font-size: 10px;">无线电</a> <a href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" style="font-size: 10px;">未归档</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
+      <a href="/tags/Network/" style="font-size: 20px;">Network</a> <a href="/tags/Server/" style="font-size: 18.75px;">Server</a> <a href="/tags/apache/" style="font-size: 11.25px;">apache</a> <a href="/tags/asus/" style="font-size: 11.25px;">asus</a> <a href="/tags/btc/" style="font-size: 11.25px;">btc</a> <a href="/tags/chinaunicom/" style="font-size: 12.5px;">chinaunicom</a> <a href="/tags/cisco/" style="font-size: 12.5px;">cisco</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/firewalld/" style="font-size: 10px;">firewalld</a> <a href="/tags/h3c/" style="font-size: 10px;">h3c</a> <a href="/tags/hexo/" style="font-size: 16.25px;">hexo</a> <a href="/tags/ipv6/" style="font-size: 10px;">ipv6</a> <a href="/tags/isp/" style="font-size: 10px;">isp</a> <a href="/tags/linux/" style="font-size: 12.5px;">linux</a> <a href="/tags/mq/" style="font-size: 10px;">mq</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/nexus/" style="font-size: 11.25px;">nexus</a> <a href="/tags/nginx/" style="font-size: 11.25px;">nginx</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/panabit/" style="font-size: 10px;">panabit</a> <a href="/tags/php/" style="font-size: 11.25px;">php</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ros/" style="font-size: 17.5px;">ros</a> <a href="/tags/sangfor/" style="font-size: 13.75px;">sangfor</a> <a href="/tags/yaesu/" style="font-size: 10px;">yaesu</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 11.25px;">区块链</a> <a href="/tags/%E5%B0%8F%E7%B1%B3/" style="font-size: 10px;">小米</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%94%B5/" style="font-size: 10px;">无线电</a> <a href="/tags/%E6%9C%AA%E5%BD%92%E6%A1%A3/" style="font-size: 10px;">未归档</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/" style="font-size: 10px;">虚拟化</a>
     </div>
   </div>
 
@@ -585,23 +605,23 @@
       <ul>
         
           <li>
-            <a href="/2020/02/20/hexo-page-tags/">hexo文章标签</a>
+            <a href="/2020/02/24/hexo-how-to-deploy-statistic-code/">hexo放置统计代码</a>
           </li>
         
           <li>
-            <a href="/2020/02/19/hexo-page-categories/">hexo文章分类</a>
+            <a href="/2020/02/24/sangfor-m6-6-ssl-snmp-configure/">SANGFOR M6.6 SSL配置snmp</a>
           </li>
         
           <li>
-            <a href="/2020/02/19/how-to-insert-images-hexo/">hexo文章插入本地图片的方法</a>
+            <a href="/2020/02/22/hexo-auto-deploy-github/">hexo配置自动发布到github</a>
           </li>
         
           <li>
-            <a href="/2020/02/18/how-to-install-hexo-manually/">hexo手动安装</a>
+            <a href="/2020/02/21/hexo-floder-commands/">hexo文件目录及常用命令</a>
           </li>
         
           <li>
-            <a href="/2020/02/18/hexo-deploy-custom-domain-reset-solve/">解决hexo deploy之后自定义域名失效问题</a>
+            <a href="/2020/02/20/mi-l2tp-ros/">小米路由器L2TP对接配置</a>
           </li>
         
       </ul>
